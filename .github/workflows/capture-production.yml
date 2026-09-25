@@ -1,4 +1,4 @@
-name: Capture production JARVIS
+name: Capture production JRVX
 
 on:
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
           python - <<'PY'
           import os, re, urllib.parse, urllib.request
 
-          base = "https://planhelper-alemura.gleb-v-markevich.chatgpt.site/"
+          primary_base = "https://jrvx.ru/"
+          fallback_base = "https://planhelper-alemura.gleb-v-markevich.chatgpt.site/"
           out = "production-capture"
 
           def get(url):
@@ -29,7 +30,15 @@ jobs:
               with urllib.request.urlopen(req, timeout=30) as r:
                   return r.read(), r.headers.get("Content-Type","")
 
-          body, ctype = get(base)
+          try:
+              body, ctype = get(primary_base)
+              base = primary_base
+              print("using primary JRVX domain", base)
+          except Exception as e:
+              print("primary JRVX domain unavailable; using fallback:", e)
+              body, ctype = get(fallback_base)
+              base = fallback_base
+
           open(os.path.join(out, "index.html"), "wb").write(body)
           text = body.decode("utf-8", "ignore")
 
@@ -60,10 +69,11 @@ jobs:
                   print("skip", url, e)
 
           open(os.path.join(out, "SOURCE_URL.txt"), "w", encoding="utf-8").write(base+"\n")
+          open(os.path.join(out, "PRIMARY_URL.txt"), "w", encoding="utf-8").write(primary_base+"\n")
           PY
 
-      - name: Upload production bundle
+      - name: Upload JRVX production bundle
         uses: actions/upload-artifact@v4
         with:
-          name: jarvis-production-capture
+          name: jrvx-production-capture
           path: production-capture
