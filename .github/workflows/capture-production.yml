@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - ".github/workflows/capture-production.yml"
+      - "scripts/rebrand_capture.py"
 
 jobs:
   capture:
@@ -72,8 +73,32 @@ jobs:
           open(os.path.join(out, "PRIMARY_URL.txt"), "w", encoding="utf-8").write(primary_base+"\n")
           PY
 
+      - name: Preserve exact source capture
+        shell: bash
+        run: |
+          cp -a production-capture production-capture-raw
+
+      - name: Apply JRVX public branding
+        shell: bash
+        run: |
+          python scripts/rebrand_capture.py production-capture
+
+      - name: Verify public legacy branding is gone
+        shell: bash
+        run: |
+          if grep -RIl --binary-files=without-match "JARVIS" production-capture; then
+            echo "Found legacy public branding after rebrand."
+            exit 1
+          fi
+
       - name: Upload JRVX production bundle
         uses: actions/upload-artifact@v4
         with:
           name: jrvx-production-capture
           path: production-capture
+
+      - name: Upload exact source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-source-capture
+          path: production-capture-raw
