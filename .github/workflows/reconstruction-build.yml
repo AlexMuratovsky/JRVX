@@ -1,0 +1,32 @@
+name: Build reconstructed JRVX
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "reconstructed/**"
+      - ".github/workflows/reconstruction-build.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: reconstructed
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install
+        run: npm install
+
+      - name: Verify JRVX branding
+        run: npm run check:brand
+
+      - name: Build
+        run: npm run build
