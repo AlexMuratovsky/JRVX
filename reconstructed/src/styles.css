@@ -128,6 +128,50 @@ h1, h2, p { margin-top: 0; }
 }
 .empty-state strong { color: #334360; }
 .empty-state.large { margin-top: 22px; min-height: 180px; }
+.status-banner {
+  margin: 0 0 22px;
+  padding: 13px 15px;
+  border: 1px solid #f2d7b0;
+  border-radius: 12px;
+  background: #fff8ec;
+  color: #7a541d;
+  font-size: 14px;
+}
+.recovered-list { display: grid; gap: 10px; }
+.recovered-row {
+  display: grid;
+  grid-template-columns: minmax(54px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 11px 12px;
+  border: 1px solid #edf0f6;
+  border-radius: 12px;
+  background: #fbfcfe;
+}
+.recovered-row > strong { color: #4e5f7a; font-variant-numeric: tabular-nums; }
+.recovered-row > span { min-width: 0; overflow-wrap: anywhere; }
+.recovered-row > small { color: #8a94a6; text-align: right; }
+.recovered-row.completed > span { color: #939baa; text-decoration: line-through; }
+.plan-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.plan-card {
+  min-height: 180px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+.plan-card h2 { margin-bottom: 10px; font-size: 20px; }
+.plan-card p:not(.eyebrow) { color: #61708a; line-height: 1.55; }
+.plan-card small { margin-top: auto; color: #8a94a6; }
+button:disabled { cursor: not-allowed; opacity: .55; }
 .game-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
 .game-card { min-height: 280px; padding: 28px; border: 1px solid var(--border); border-radius: 20px; background: white; display: flex; flex-direction: column; align-items: flex-start; }
 .game-card h2 { font-size: 28px; margin-bottom: 10px; }
@@ -162,7 +206,7 @@ h1, h2, p { margin-top: 0; }
 @media (max-width: 940px) {
   .main-nav { overflow-x: auto; max-width: 54vw; }
   .nav-item { white-space: nowrap; }
-  .overview-grid, .content-grid, .game-grid { grid-template-columns: 1fr; }
+  .overview-grid, .content-grid, .game-grid, .plan-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
   .app-header { height: auto; }
