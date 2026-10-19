@@ -1,0 +1,127 @@
+{
+  "jrvx-id-next": {
+    "placement": {},
+    "compatibility_date": "2026-10-18",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "usage_model": "standard",
+    "tags": [],
+    "tail_consumers": [],
+    "logpush": false,
+    "observability": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "redact_query_string": true,
+      "logs": {
+        "enabled": true,
+        "head_sampling_rate": 1,
+        "persist": true,
+        "invocation_logs": true
+      },
+      "traces": {
+        "enabled": false,
+        "persist": true,
+        "head_sampling_rate": 1
+      }
+    },
+    "annotations": {
+      "workers/message": "Verified staging update: client-specific REG HMAC rate limits, bounded CAPTCHA loader, runtime icons and hub compatibility.",
+      "workers/triggered_by": "upload"
+    },
+    "bindings": [
+      {
+        "name": "BUILD_ID",
+        "text": "20d696dc14a06e64",
+        "type": "plain_text"
+      },
+      {
+        "name": "CAPTURE_TEST_MAIL",
+        "text": "true",
+        "type": "plain_text"
+      },
+      {
+        "database_id": "c4da6cd3-6bc5-4313-9569-ffe5f0166465",
+        "id": "c4da6cd3-6bc5-4313-9569-ffe5f0166465",
+        "name": "DB",
+        "type": "d1"
+      },
+      {
+        "name": "ENVIRONMENT",
+        "text": "staging",
+        "type": "plain_text"
+      },
+      {
+        "name": "IDENTITY_ORIGIN",
+        "text": "https://jrvx-id-next.gleb-v-markevich.workers.dev",
+        "type": "plain_text"
+      },
+      {
+        "name": "OIDC_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "OWNER_USER_ID",
+        "text": "33740794-58cb-4152-93db-1c36049fa84a",
+        "type": "plain_text"
+      },
+      {
+        "name": "SECURITY_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "TURNSTILE_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "TURNSTILE_SITE_KEY",
+        "text": "0x4AAAAAAFaT_n1stkwsQhkH",
+        "type": "plain_text"
+      }
+    ]
+  },
+  "jrvx-id-next_git_triggers": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": [],
+    "status": 200
+  },
+  "jrvx-identity": {
+    "placement": {},
+    "compatibility_date": "2026-09-26",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "usage_model": "standard",
+    "tags": [],
+    "tail_consumers": [],
+    "logpush": false,
+    "annotations": {
+      "workers/triggered_by": "upload"
+    },
+    "bindings": [
+      {
+        "database_id": "92aebdc8-e969-43c6-bdef-b847c2282205",
+        "id": "92aebdc8-e969-43c6-bdef-b847c2282205",
+        "name": "DB",
+        "type": "d1"
+      },
+      {
+        "name": "OIDC_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "RESEND_API_KEY",
+        "type": "secret_text"
+      }
+    ]
+  },
+  "jrvx-identity_git_triggers": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": [],
+    "status": 200
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "jrvx-id",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "check": "node scripts/verify-recovery.mjs && node --check recovered/worker.js",
+    "test": "node --test test/*.test.mjs",
+    "build": "wrangler deploy --dry-run --outdir .build",
+    "types": "wrangler types",
+    "dev": "wrangler dev --local",
+    "deploy:staging": "node scripts/deploy-staging.mjs",
+    "smoke:staging": "node scripts/smoke.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261018.1",
+    "miniflare": "5.20261012.1-beta",
+    "wrangler": "4.151.1"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules/
+.wrangler/
+.build/
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.log
+worker-configuration.d.ts
+backups/
+recovered/worker.js
