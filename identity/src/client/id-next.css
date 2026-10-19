@@ -1426,6 +1426,9 @@ dialog .section-heading {
   color: var(--muted);
   font-size: 12px;
 }
+.auth-copy h1 br {
+  display: initial;
+}
 .auth-main,
 .main {
   padding-bottom: max(40px, env(safe-area-inset-bottom));
