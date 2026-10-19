@@ -1,0 +1,18 @@
+{
+  "capturedOn": "2026-10-19",
+  "workerName": "jrvx-id-next",
+  "versionId": "002cb76b-6e0e-4c49-8dd9-6d48085ca35e",
+  "deployedOn": "2026-10-18T17:02:29.670771Z",
+  "file": "worker.js",
+  "bytes": 2117280,
+  "sha256": "20d696dc14a06e64581edb9f457c3dd8daf1448aa0c76362414acb75c053e82a",
+  "buildId": "20d696dc14a06e64",
+  "kind": "deployed JavaScript bundle; original source modules and source map not recovered",
+  "schemaFiles": ["schema/next-20261019.sql", "schema/production-20261019.sql"],
+  "schemaSha256": {
+    "schema/next-20261019.sql": "967571fdcd5b274659447295fea7d7099d55ddcff27e0475abb77b057477453b",
+    "schema/production-20261019.sql": "2ae18909d9e5f4505f4680fa55f0941b10d0ce0fbe4b8c6f21df881d538c37e5"
+  },
+  "containsDatabaseRows": false,
+  "containsRuntimeSecretValues": false
+}

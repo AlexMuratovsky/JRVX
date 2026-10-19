@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jrvx-id-next",
+  "main": "recovered/worker.js",
+  "no_bundle": true,
+  "compatibility_date": "2026-10-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "keep_vars": true,
+  "vars": {
+    "BUILD_ID": "20d696dc14a06e64",
+    "ENVIRONMENT": "staging",
+    "CAPTURE_TEST_MAIL": "true",
+    "IDENTITY_ORIGIN": "https://jrvx-id-next.gleb-v-markevich.workers.dev",
+    "OWNER_USER_ID": "33740794-58cb-4152-93db-1c36049fa84a",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFaT_n1stkwsQhkH"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "jrvx-id-next-20261018",
+    "database_id": "c4da6cd3-6bc5-4313-9569-ffe5f0166465"
+  }],
+  "triggers": { "crons": ["0 * * * *"] },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "redact_query_string": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": { "enabled": false }
+  }
+}
