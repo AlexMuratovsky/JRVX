@@ -11,4 +11,4 @@ pnpm check
 pnpm extract:client
 ```
 
-The extractor uses a disposable local runtime with outbound networking disabled. It never reads a logged-in user's page or the production database. Server module reconstruction and a source-based application build remain outstanding.
+The extractor uses the original archive in a disposable local runtime with outbound networking disabled. It never reads a logged-in user's page or the production database. Active client source now lives in `../src/client/`; the source adapter builds those assets while retaining the verified authentication module. Original server module reconstruction remains outstanding.

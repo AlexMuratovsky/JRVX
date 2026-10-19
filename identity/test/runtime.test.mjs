@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import { before, after, test } from 'node:test';
 import { createRuntime, origin } from './helpers/runtime.mjs';
 
@@ -10,16 +11,24 @@ before(async () => {
 });
 after(async () => { await runtime?.dispose(); });
 
-test('recovered Worker serves the complete account page and its assets', async () => {
+test('built Worker serves editable client assets with matching build IDs and security headers', async () => {
   const page = await mf.dispatchFetch(origin + '/');
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /JRVX ID/);
+  const html = await page.text(), build = page.headers.get('x-jrvx-source-build');
+  assert.match(html, /JRVX ID/);
+  assert.match(build, /^[a-f0-9]{20}$/);
+  assert(html.includes('/assets/id-next.js?v=' + build));
+  assert(html.includes('/assets/id-next.css?v=' + build));
   assert.equal(page.headers.get('cache-control'), 'no-store');
+  assert.equal(page.headers.get('x-frame-options'), 'DENY');
+  assert.match(page.headers.get('content-security-policy'), /frame-ancestors 'none'/);
   for (const [path, type] of [['/assets/id-next.js', 'javascript'], ['/assets/id-next.css', 'text/css']]) {
     const response = await mf.dispatchFetch(origin + path);
     assert.equal(response.status, 200);
     assert.match(response.headers.get('content-type'), new RegExp(type));
-    assert((await response.text()).length > 1000);
+    assert.equal(await response.text(), (await readFile(new URL('../src/client/' + path.split('/').pop(), import.meta.url), 'utf8')).replaceAll('\r\n', '\n'));
+    assert.equal(response.headers.get('x-jrvx-source-build'), build);
+    assert.equal((await mf.dispatchFetch('https://attacker.invalid' + path)).status, 421);
   }
 });
 
