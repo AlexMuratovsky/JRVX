@@ -38,6 +38,6 @@ Local tests cover preservation, credential compatibility, product isolation, ali
 1. Review the forced-relogin policy and rollback procedure, retain a protected backup, and rehearse against an authorized consistent snapshot.
 2. Seed and verify the product registry, redirect URIs, trusted status, consent and scopes. Check the configured owner, issuer, gateway HMAC, canonical host and runtime secret continuity.
 3. Verify actual browser and iPhone/Safari behavior, email provider delivery and CAPTCHA on the supported domains. Virtual Passkey tests validate the server protocol and signatures; they do not exercise device prompts or key synchronization.
-4. Restore maintainable server modules, then run the complete checks against the source-built Worker. Current tests execute the archived deployed bundle.
+4. Restore maintainable server modules, then rerun the complete checks. Current tests execute the source-built client adapter with the archived authentication module; the original server implementation has not been reconstructed.
 
 This candidate is not an automatic migration or a release approval. DNS, the REG.RU gateway, production databases and the current login service remain separate controlled steps.

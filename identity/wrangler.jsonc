@@ -1,8 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "jrvx-id-next",
-  "main": "recovered/worker.js",
+  "main": ".build/app/worker.js",
   "no_bundle": true,
+  "build": { "command": "node scripts/build.mjs" },
+  "find_additional_modules": true,
+  "base_dir": ".build/app",
+  "rules": [{ "type": "ESModule", "globs": ["**/*.js"] }],
   "compatibility_date": "2026-10-18",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRuntime, root, origin } from '../test/helpers/runtime.mjs';
 
-const runtime = await createRuntime();
+const runtime = await createRuntime({}, { recovered: true });
 try {
   const directory = new URL('reference/client/', root);
   await mkdir(directory, { recursive: true });

@@ -9,11 +9,12 @@ Recovery and reproducible staging package for JRVX ID, captured on 2026-10-19.
 - `schema/next-20261019.sql`: staging database schema, including indexes and triggers, without rows.
 - `schema/production-20261019.sql`: current shared production database schema, without rows, for migration comparison.
 - `wrangler.jsonc`: configuration restricted to the existing staging Worker and its isolated D1.
-- `test/`: 22 runtime, authentication and migration checks with disposable local databases and synthetic identities. External networking is disabled in the Worker tests.
+- `test/`: 23 runtime, authentication and migration checks with disposable local databases and synthetic identities. External networking is disabled in the Worker tests.
 - `reference/client/`: readable browser JavaScript and CSS extracted from the archived Worker for source recovery.
 - `src/migration.mjs`: offline legacy-to-isolated-identity migration candidate, with a read-only source and a new destination.
+- `src/worker.mjs` and `src/client/`: editable browser assets and a build adapter that preserves the verified authentication module.
 
-The downloaded bundle is a recovery artifact, not the original maintainable source. Original server modules, package manifests for the bundled application dependencies, and its source map have not been recovered. The development dependencies here reproduce local execution and upload of the exact bundle. They do not rebuild it from original application source. Local tests exercise email confirmation/recovery, sessions, TOTP backup codes, virtual Passkeys and a product OIDC flow. Real browser/device prompts, actual email delivery and production product integration still need acceptance testing.
+The downloaded bundle is a recovery artifact. Original server modules, package manifests for its dependencies, and its source map have not been recovered. The client and adapter now build from editable source; the authentication module is restored exactly from the verified archive. Local tests exercise email confirmation/recovery, sessions, admin MFA, TOTP backup codes, virtual Passkeys and product OIDC. One real email delivery through the existing production sender has been verified in the owner's Gmail; physical device prompts and new-version product integration remain acceptance work.
 
 ## Local verification
 
@@ -57,4 +58,4 @@ See [the current architecture and rollout plan](docs/ROLLOUT.md). Keep the REG.R
 
 The offline candidate is documented in [MIGRATION.md](docs/MIGRATION.md). It preserves identity and password records while isolating product data, and deliberately starts with empty sessions. It cannot deploy or modify remote D1. Rehearsal tests use synthetic data only.
 
-This package does not switch users or change DNS, TLS, login, mail delivery or remote D1 data. The next release requires maintainable server source, migration rehearsal on a protected snapshot, actual product/browser/email acceptance tests, and an explicit cutover and rollback plan.
+Identity routing, production schemas and the production authentication deployment remain unchanged. See [release and rollback](docs/RELEASE.md) for the editable-client build, real-mail verification, mail-domain DMARC addition and remaining release dependencies. Production migration requires a protected snapshot rehearsal, product/browser acceptance and a gateway cutover plan.

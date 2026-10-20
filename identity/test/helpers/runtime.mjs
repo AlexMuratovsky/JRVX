@@ -7,11 +7,12 @@ import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 export const root = new URL('../../', import.meta.url);
 export const origin = 'https://jrvx-id-next.gleb-v-markevich.workers.dev';
 
-export async function createRuntime(overrides = {}) {
+export async function createRuntime(overrides = {}, { recovered = false } = {}) {
   const secret = overrides.SECURITY_SECRET ?? randomBytes(48).toString('hex');
   const mf = new Miniflare(convertV4MiniflareOptions({
-    modules: true,
-    scriptPath: fileURLToPath(new URL('recovered/worker.js', root)),
+    modules: (recovered ? ['recovered/worker.js'] : ['.build/app/worker.js', '.build/app/legacy.js'])
+      .map(path => ({ type: 'ESModule', path: fileURLToPath(new URL(path, root)) })),
+    modulesRoot: fileURLToPath(root),
     compatibilityDate: '2026-10-18', compatibilityFlags: ['nodejs_compat'],
     d1Databases: ['DB'],
     bindings: {

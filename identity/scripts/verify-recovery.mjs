@@ -14,6 +14,9 @@ assert.equal(createHash('sha256').update(bundle).digest('hex'), manifest.sha256,
 await writeFile(new URL('recovered/worker.js', root), bundle);
 const config = JSON.parse(await readFile(new URL('wrangler.jsonc', root), 'utf8'));
 assert.equal(config.name, 'jrvx-id-next');
+assert.equal(config.main, '.build/app/worker.js');
+assert.equal(config.no_bundle, true);
+assert.equal(config.base_dir, '.build/app');
 assert.equal(config.vars.ENVIRONMENT, 'staging');
 assert.equal(config.vars.CAPTURE_TEST_MAIL, 'true');
 assert.equal(config.vars.IDENTITY_ORIGIN, 'https://jrvx-id-next.gleb-v-markevich.workers.dev');

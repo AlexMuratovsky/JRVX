@@ -159,6 +159,25 @@ test('deletion requires reauthentication and preserves data pending operator rev
   assert.equal((await browser.request('/api/v2/me')).response.status, 200);
 });
 
+test('administrator access requires MFA even after password reauthentication', async t => {
+  const runtime = await createRuntime(); t.after(() => runtime.dispose());
+  const browser = runtime.browser(), user = account('journey_admin_mfa');
+  await register(runtime, browser, user);
+  const owner = await runtime.db.prepare('SELECT id FROM users WHERE username=?').bind(user.username).first();
+  await runtime.db.prepare("INSERT INTO identity_user_roles(user_id,role) VALUES(?,'admin') ON CONFLICT(user_id) DO UPDATE SET role='admin'").bind(owner.id).run();
+  const denied = await browser.request('/api/v2/admin/users');
+  assert.equal(denied.response.status, 403);
+  assert.equal(denied.data.error, 'admin_mfa_required');
+  assert.equal((await browser.request('/api/v2/security/stepup', { method: 'POST', body: { password: user.password } })).response.status, 200);
+  assert.equal((await browser.request('/api/v2/admin/users')).response.status, 403);
+  const setup = await browser.request('/api/v2/security/totp/setup', { method: 'POST', body: { password: user.password } });
+  assert.equal(setup.response.status, 200);
+  assert.equal((await browser.request('/api/v2/security/totp/confirm', { method: 'POST', body: { challenge_id: setup.data.challenge_id, code: totp(setup.data.secret) } })).response.status, 200);
+  // Enrollment establishes a verified factor for the current session.
+  const allowed = await browser.request('/api/v2/admin/users');
+  assert.equal(allowed.response.status, 200);
+});
+
 test('Passkey enrollment and login verify signatures, origin and single-use challenges', async t => {
   const runtime = await createRuntime(); t.after(() => runtime.dispose());
   const browser = runtime.browser(), user = account('journey_passkey'), key = virtualPasskey(origin);
