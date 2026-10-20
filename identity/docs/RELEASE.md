@@ -36,3 +36,23 @@ A DMARC TXT policy was added only at `_dmarc.mail.jrvx.ru`: `v=DMARC1; p=none; a
 - A physical iPhone/Safari test is still required for system Passkey prompts and network availability. Desktop/narrow-viewport checks do not establish physical-device support.
 - Production migration requires a protected snapshot rehearsal, product registry/redirect/issuer/secret continuity and access to the REG.RU gateway configuration. `id-test.jrvx.ru` shares production data and is not an isolated test target.
 - Original server modules remain unavailable. The verified recovery is retained as a compatibility module rather than replacing authentication with a new implementation during client changes.
+
+## Rehearsal completed on 2026-10-20
+
+The final client source is Git commit `ce7db61f39f3ec03198f8799b560fcb66ba5e8c2`. Push and pull-request CI both passed all 23 checks, recovery verification and Wrangler dry-run. The updated client is deployed only at `https://jrvx-id-next.gleb-v-markevich.workers.dev`.
+
+| Item | Verified value |
+| --- | --- |
+| Source build | `d78cbf6b8a1da0517556` |
+| Worker version | `dba69433-06ed-4185-ae97-91a72255d09f` |
+| Client adapter SHA-256 | `84e68fdb4946824d9a9a388320741e4bf66bd635bb37366a366bdc1c276a762d` |
+| Authentication module SHA-256 | `20d696dc14a06e64581edb9f457c3dd8daf1448aa0c76362414acb75c053e82a` |
+| Rollback target | `002cb76b-6e0e-4c49-8dd9-6d48085ca35e` |
+| Successful rollback deployment | `6a571319-1932-40d6-ba3e-59891bd8e30a` |
+| Restored final deployment | `0e0f96ff-37f8-40fa-bde5-afa9f7754304` |
+
+Cloudflare version contents independently match both local module checksums. Existing bindings, including all three runtime secret names, were inherited from the exact recovery version without reading or replacing secret values.
+
+The rollback was exercised against isolated staging, not only documented: the old version served health without the adapter build marker and passed all eight HTTP probes, then the final version was restored and passed all eight probes with `JRVX_EXPECTED_BUILD=d78cbf6b8a1da0517556`. An immediate probe briefly saw the preceding build during deployment propagation; the expected-build assertion detected it. Probes use fresh HTTP connections to avoid the local Node pooled-socket stalls observed during the earlier check.
+
+Desktop browser checks verified login, registration/recovery navigation and the password visibility control. Browser viewport overrides at 390 and 320 pixels confirmed 16px form text, touch buttons of at least 44px and no horizontal overflow on registration/recovery views. The mobile heading line break was corrected after inspection. These were anonymous UI checks; no browser registration, physical device Passkey ceremony or real-user password change was performed. Automated authentication journeys use disposable synthetic local data.
