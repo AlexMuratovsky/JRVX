@@ -62,3 +62,20 @@ redirects old routes there. It does not duplicate or move planner user data.
 
 Local preview: serve `static/` with an ordinary static HTTP server. Repackage
 only that directory for hosting; do not upload this repository or credentials.
+
+## Production rollout verified
+
+The public `jrvx.ru` and `www.jrvx.ru` A/AAAA records now point directly to the
+existing REG.RU host. The temporary root-domain attachment in Sites was removed.
+`www` redirects to the canonical HTTPS root. Main, project pages and assets
+returned 200; an unknown page returned 404. ID, Planner and CAS stayed available.
+The root certificate chain was checked without disabling certificate validation.
+
+The complete production presentation is `ecosystem/static/`. The separate Sites
+source retains the complete prior planner application. Native Sites publishing
+alone no longer updates the REG.RU website.
+
+Build the deployment ZIP with `python ecosystem/package-static.py`. It stores
+Unix modes 0644 for files and 0755 for directories, including hidden hosting
+configuration. Preserve those modes when extracting on REG.RU. Verify them in
+the file manager afterward. Upload only this package to `/www/jrvx.ru`.

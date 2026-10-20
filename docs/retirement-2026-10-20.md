@@ -32,3 +32,7 @@ for its former exact project ID. A locally prepared retirement version was not
 pushed or deployed after that removal. No claim is made that it was deployed.
 
 The new public ecosystem site contains neither MineCore nor CORE.
+
+All three unused REG.RU MineCore SSL certificate objects were also removed after
+the owner confirmed their exact names at action time. The current root-site,
+identity, planner and CAS certificates were retained.
