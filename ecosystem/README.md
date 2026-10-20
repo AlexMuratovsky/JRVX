@@ -43,3 +43,22 @@ Deploy updates through the existing Sites project with its current audience and
 bindings. Open its source with the official source helper, edit, validate, push
 that source, save its matching archive and deploy the saved version. GitHub is a
 source mirror; commits here alone do not publish production.
+
+## REG.RU static edition
+
+`static/` is the complete buildless public presentation website. `reg-site.zip`
+is its deployment package, with files placed directly in the website root.
+It has no external scripts, fonts, images, API calls or runtime dependencies.
+Its menu and filters use `ecosystem.js`; project pages are ordinary HTML.
+
+This edition was prepared because the Sites/Cloudflare route returned 403 or
+closed connections from the owner's network. REG.RU already hosts the other
+public JRVX entry points. The root and www certificates were issued by Let's
+Encrypt on 20 October 2026, valid through 18 January 2027.
+
+The previous complete Sites application is retained separately. The static
+edition links its previous planner at the Sites fallback URL; `.htaccess` also
+redirects old routes there. It does not duplicate or move planner user data.
+
+Local preview: serve `static/` with an ordinary static HTTP server. Repackage
+only that directory for hosting; do not upload this repository or credentials.

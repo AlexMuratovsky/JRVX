@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jrvx.ru/sitemap.xml
