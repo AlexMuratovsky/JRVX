@@ -1,56 +1,35 @@
 # JRVX
 
-Recovery/migration repository for the existing **JRVX — личный планировщик**.
+JRVX is an ecosystem of account, planning and game projects. The public entry
+point is [jrvx.ru](https://jrvx.ru/), rebuilt as an ecosystem overview on
+20 October 2026 at the owner's request.
 
-## Production
+## Public projects
 
-Primary public domain:
-- https://jrvx.ru
+- [JRVX ID](https://id.jrvx.ru/): account and connected services.
+- [JRVX Planner](https://planner.jrvx.ru/): tasks and the embedded Arcade module.
+- [JRVX CAS](https://cas.jrvx.ru/): virtual-unit table games, 18+.
+- JRVX AI and RIFT are experimental directions, not separate public launches.
 
-Fallback ChatGPT Sites URL:
-- https://planhelper-alemura.gleb-v-markevich.chatgpt.site
+MineCore and CORE have been retired. See [the retirement record](docs/retirement-2026-10-20.md).
 
-ChatGPT Site project:
-- slug: `planhelper-alemura`
-- project id: `appgprj_6aafd5f13ddc819197f9aeb91c609a6b`
-- source version observed: `3`
+## Source and deployment
 
-## Migration rule
+- `ecosystem/`: a reviewable mirror of the new public homepage, project pages and assets.
+- `identity/`: the JRVX ID migration and gateway work.
+- `reconstructed/`: the earlier planner reconstruction, retained as a reference.
+- `production-snapshot/`: historical recovery evidence.
 
-This repository is for migrating and evolving the **existing JRVX**, not replacing it with a different app.
+The authoritative complete main-site source and production publishing remain in
+Sites project `appgprj_6aafd5f13ddc819197f9aeb91c609a6b`. This GitHub repository
+is not automatically deployed to that project. See [ecosystem deployment notes](ecosystem/README.md).
 
-Preserve:
-- frontend and mobile UX;
-- existing users/authentication;
-- existing backend/API behavior;
-- existing database and user isolation;
-- schedules, events, tasks, notes and plans;
-- Plans;
-- Mini-games;
-- JRVX AI / OpenAI integration;
-- future ChatGPT custom-app / MCP integration.
+Existing planner routes and stored data remain available through `/workspace`
+on the main site. New main-site work must preserve authentication, backend/API
+behavior, storage isolation and existing user data.
 
-## Branding
+## Branding and secrets
 
-Canonical product brand: **JRVX**.
-
-Use these public names consistently:
-- JRVX
-- JRVX AI
-- JRVX Arcade
-- JRVX Poker
-- JRVX Racing
-
-Do not reintroduce the previous product name in user-facing UI, documentation, artifact names, workflow names, or new public API aliases.
-
-Legacy internal identifiers may remain only when changing them would break stored data, compatibility, deployed integrations, or migrations. New identifiers should use `jrvx`.
-
-## Secrets
-
-Secrets such as `OPENAI_API_KEY` must never be committed.
-
-## Recovery status
-
-The original ChatGPT Site remains preserved as a fallback. A GitHub Actions workflow captures the publicly delivered production bundle so the real client can be inspected and archived before reconstruction or migration work.
-
-The workflow prefers `https://jrvx.ru/` and automatically falls back to the ChatGPT Sites URL if the custom domain is temporarily unavailable.
+Canonical brand: **JRVX**. Account service: **JRVX ID**.
+Use `jrvx` for new internal identifiers. Preserve legacy identifiers only when
+needed for compatibility. Never commit runtime secrets or user data.
