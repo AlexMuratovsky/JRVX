@@ -1,0 +1,6 @@
+# JRVX ID next candidate. Preserve ACME renewal; route assets through PHP too.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]{1,256}$ - [END]
+RewriteRule ^index\.php$ - [END]
+RewriteRule ^ index.php [END]

@@ -9,16 +9,17 @@ Recovery and reproducible staging package for JRVX ID, captured on 2026-10-19.
 - `schema/next-20261019.sql`: staging database schema, including indexes and triggers, without rows.
 - `schema/production-20261019.sql`: current shared production database schema, without rows, for migration comparison.
 - `wrangler.jsonc`: configuration restricted to the existing staging Worker and its isolated D1.
-- `test/`: 23 runtime, authentication and migration checks with disposable local databases and synthetic identities. External networking is disabled in the Worker tests.
+- `test/`: 31 runtime, authentication, migration and gateway checks with disposable local databases and synthetic identities. External networking is disabled in the Worker tests.
 - `reference/client/`: readable browser JavaScript and CSS extracted from the archived Worker for source recovery.
 - `src/migration.mjs`: offline legacy-to-isolated-identity migration candidate, with a read-only source and a new destination.
 - `src/worker.mjs` and `src/client/`: editable browser assets and a build adapter that preserves the verified authentication module.
+- `gateway/`: recovered REG.RU routing source and a disabled next-version candidate; see [gateway recovery and verification](docs/GATEWAY.md).
 
 The downloaded bundle is a recovery artifact. Original server modules, package manifests for its dependencies, and its source map have not been recovered. The client and adapter now build from editable source; the authentication module is restored exactly from the verified archive. Local tests exercise email confirmation/recovery, sessions, admin MFA, TOTP backup codes, virtual Passkeys and product OIDC. One real email delivery through the existing production sender has been verified in the owner's Gmail; physical device prompts and new-version product integration remain acceptance work.
 
 ## Local verification
 
-Use Node.js 24.19 or later and pnpm 11.25.0:
+Use Node.js 24.19 or later, pnpm 11.25.0 and PHP 8.3 or later. Set `PHP_BIN` to the PHP executable when it is absent from PATH:
 
 ```sh
 cd identity
@@ -54,7 +55,7 @@ Manual local staging deployment: commit a reviewed change, authenticate Wrangler
 
 ## Current topology and release work
 
-See [the current architecture and rollout plan](docs/ROLLOUT.md). Keep the REG.RU gateway arrangement until its availability purpose, forwarded identity/HMAC handling, cookies and certificate renewals have been verified. Cloudflare settings for proxied hosts do not describe the TLS protection of a DNS-only REG.RU host.
+See [the current architecture and rollout plan](docs/ROLLOUT.md) and [the inspected REG.RU gateway](docs/GATEWAY.md). Its current routes are incompatible with the new client; the tested replacement remains a candidate requiring coordinated Worker configuration and transport acceptance. Cloudflare settings for proxied hosts do not describe the TLS protection of a DNS-only REG.RU host.
 
 The offline candidate is documented in [MIGRATION.md](docs/MIGRATION.md). It preserves identity and password records while isolating product data, and deliberately starts with empty sessions. It cannot deploy or modify remote D1. Rehearsal tests use synthetic data only.
 

@@ -1,0 +1,9 @@
+{
+  "capturedAt": "2026-10-20",
+  "source": "REG.RU ispmanager file editor for id.jrvx.ru",
+  "format": "Complete editor text copied as UTF-8 with LF newlines, not a filesystem image or user-data backup",
+  "sha256": {
+    "index.php": "95fc4dbc429c32eed3b051e9f918f2fdf53871c992f78782cc0a929bf2b66b4a",
+    ".htaccess": "3e3194fefe4ee7185800b2cab6291abeacfe782c63f7570304634f6fb549eeac"
+  }
+}

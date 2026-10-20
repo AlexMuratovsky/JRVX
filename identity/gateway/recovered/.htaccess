@@ -1,0 +1,8 @@
+# Candidate: install only into the two dedicated PHP sites, never MineCore or jrvx.ru.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]{1,256}$ - [END]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(?:email-ui|admin-search)\.js$ - [END]
+RewriteRule ^index\.php$ - [END]
+RewriteRule ^ index.php [END]
