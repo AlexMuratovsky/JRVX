@@ -34,7 +34,7 @@ A DMARC TXT policy was added only at `_dmarc.mail.jrvx.ru`: `v=DMARC1; p=none; a
 
 - GitHub environment `jrvx-id-staging` needs its dedicated deployment token before Actions can deploy or roll back.
 - A physical iPhone/Safari test is still required for system Passkey prompts and network availability. Desktop/narrow-viewport checks do not establish physical-device support.
-- Production migration requires a protected snapshot rehearsal, product registry/redirect/issuer/secret continuity and access to the REG.RU gateway configuration. `id-test.jrvx.ru` shares production data and is not an isolated test target.
+- Production migration requires a protected snapshot rehearsal and product registry/redirect/issuer/secret continuity. REG.RU gateway access was obtained and its routing files recovered; the [tested candidate](GATEWAY.md) still needs a real hosting canary and coordinated cutover. `id-test.jrvx.ru` shares production data and is not an isolated test target.
 - Original server modules remain unavailable. The verified recovery is retained as a compatibility module rather than replacing authentication with a new implementation during client changes.
 
 ## Rehearsal completed on 2026-10-20

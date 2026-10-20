@@ -5,7 +5,7 @@ Topology observed 2026-10-19 through the connected Cloudflare and GitHub APIs an
 | Component | Current role |
 | --- | --- |
 | `jrvx.ru` | Existing main application; the GitHub default branch documents its ChatGPT Sites recovery. |
-| `id.jrvx.ru` | DNS-only A record to REG.RU. Public HTTP returns nginx. DNS comments describe a gateway to the existing Worker; REG.RU server configuration itself was not inspected. |
+| `id.jrvx.ru` | DNS-only A record to REG.RU. Inspected PHP gateway in `~/www/id.jrvx.ru` forwards to `id-test.jrvx.ru`; the old allowlist cannot serve the new assets/API. [Recovery and candidate](GATEWAY.md). |
 | `id-test.jrvx.ru` | Cloudflare custom domain attached to the legacy `jrvx-identity` Worker. The name does not imply isolated data: it shares the production D1 binding. |
 | `jrvx-identity` | Legacy ID Worker, bound to `jrvx-production`. No native Git build triggers or cron were configured when inspected. |
 | `jrvx-production` | Shared database with identity, OIDC, planner and CAS/game tables. |
@@ -33,6 +33,7 @@ Topology observed 2026-10-19 through the connected Cloudflare and GitHub APIs an
 - Aggregate read-only production schema and migration checks; no live user rows were downloaded or modified.
 - Wrangler dry-run upload and generated environment types.
 - Editable client/adapter build, versioned asset URLs and retained authentication module; see [release and rollback](RELEASE.md).
+- REG.RU gateway source recovery, explicit new-route candidate and PHP-to-Worker contract checks, including forged identity headers, cookies and avatar/export flows. Candidate is not installed on hosting.
 - Admin APIs require MFA even after password reauthentication. One real production-sender email reached the approved Gmail inbox with passing SPF/DKIM.
 
-There are 23 automated checks. They execute the source-built adapter and archived authentication module with synthetic local data; virtual authenticator and encrypted test mail are protocol fixtures. Physical mobile/Passkey experience, new-version sender integration, deletion operator workflow, original server-source recovery, REG.RU server configuration, production data migration, identity DNS/TLS routing, GitHub deployment credential setup and production cutover remain release work. The package does not establish production readiness on its own.
+There are 31 automated checks. They execute the source-built adapter and archived authentication module with synthetic local data, including the candidate PHP gateway contract; virtual authenticator and encrypted test mail are protocol fixtures. Physical mobile/Passkey experience, new-version sender integration, deletion operator workflow, original server-source recovery, actual REG.RU canary transport, production data migration, identity DNS/TLS routing, GitHub deployment credential setup and production cutover remain release work. The package does not establish production readiness on its own.
