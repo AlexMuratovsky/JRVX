@@ -1,0 +1,45 @@
+# JRVX ecosystem website
+
+This directory mirrors the public presentation layer deployed on 20 October 2026.
+It is an overlay for review and recovery, not an independent runnable application.
+The complete application, including the retained planner backend, is in the
+existing Sites source repository.
+
+## Deployed state
+
+- Public domain: https://jrvx.ru/
+- Sites fallback: https://planhelper-alemura.nezhnnno.chatgpt.site/
+- Sites project: `appgprj_6aafd5f13ddc819197f9aeb91c609a6b`
+- Source commit: `3875c65dc5ce7db110bc7fb3522656b440d3fd3c`
+- Saved version: 5
+- Saved version ID: `appgprj_6aafd5f13ddc819197f9aeb91c609a6b~appgver_e66e526360688191b8c071fe5ab8875a`
+- Deployment: `appgdep_6ad753a018188191a605c5d044721e8a` (succeeded)
+- Archive SHA-256: `4bfb7b436951c6941be06e02279b1be30d2a0295bd9f90f8bbd6545953d2c516`
+
+## Behavior
+
+The homepage introduces JRVX and groups six verified projects/directions into
+apps, games and laboratory work. Each has a detail page. Only the public ID,
+Planner and CAS services have external launch links; Arcade opens Planner.
+AI and RIFT carry development/prototype statuses. MineCore and CORE are absent.
+
+The Sites implementation also preserves the previous planner at `/workspace`,
+redirects known old `/?view=` links, updates legacy return links and the ChatGPT
+sign-in destination, and keeps the existing D1/R2/MCP bindings. No database
+migration or planner-data deletion was performed for this redesign.
+
+## Validation
+
+- Full production Vinext build passed.
+- Existing integration suite: 61 checks passed.
+- TypeScript validation passed.
+- Home and all six project pages returned 200; an unknown slug returned 404.
+- Robots and sitemap endpoints returned 200.
+- Mobile menu and project filtering checked in a real browser.
+- Layout checked at widths 320 and 390, with no horizontal overflow.
+- Old planner links and authentication return destinations checked.
+
+Deploy updates through the existing Sites project with its current audience and
+bindings. Open its source with the official source helper, edit, validate, push
+that source, save its matching archive and deploy the saved version. GitHub is a
+source mirror; commits here alone do not publish production.
