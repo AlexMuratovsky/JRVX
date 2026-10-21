@@ -1,0 +1,5 @@
+import { ApiError,hash } from "./planner-service";
+export async function rateLimit(db:D1Database,owner:string,scope:string,max:number,windowMs:number){const now=Date.now(),key=await hash(`${scope}:${owner}:${Math.floor(now/windowMs)}`);const r=await db.prepare("INSERT INTO planner_auth_attempts (key,attempts,expires_at) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET attempts = attempts + 1 RETURNING attempts").bind(key,new Date(now+windowMs).toISOString()).first<{attempts:number}>();if(!r||r.attempts>max)throw new ApiError(429,"rate_limited","Слишком много запросов. Повторите позже.");}
+// Dry-run requests must not write even rate counters to D1.
+const reads=new Map<string,{at:number,count:number}>();
+export function dryReadLimit(owner:string){const now=Date.now();for(const [key,v] of reads)if(now-v.at>60000)reads.delete(key);const slot=reads.get(owner)??{at:now,count:0};if(++slot.count>60)throw new ApiError(429,"rate_limited","Слишком много запросов предпросмотра. Повторите через минуту.");reads.set(owner,slot);}

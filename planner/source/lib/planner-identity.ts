@@ -1,0 +1,8 @@
+import { ApiError } from "./planner-service";
+export async function resolveNativeOwner(db:D1Database,nativeId:string){const link=await db.prepare("SELECT owner_id FROM planner_identity_links WHERE native_id = ?").bind(nativeId).first<{owner_id:string}>();return link?.owner_id??nativeId;}
+export async function linkIdentity(db:D1Database,nativeId:string,owner:string){
+  const current=await resolveNativeOwner(db,nativeId);if(current===owner)return;
+  // Link only an unused native identity. Never merge, move or orphan existing data.
+  const result=await db.prepare("INSERT OR IGNORE INTO planner_identity_links (native_id,owner_id,created_at) SELECT ?,?,? WHERE NOT EXISTS (SELECT 1 FROM planner_identity_links WHERE native_id = ? OR owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_entries WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_credentials WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM chat_threads WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_preferences WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_reminders WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_history WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_ai_permissions WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_plans WHERE owner_id = ?) AND NOT EXISTS (SELECT 1 FROM planner_plan_categories WHERE owner_id = ?)").bind(nativeId,owner,new Date().toISOString(),nativeId,owner,nativeId,nativeId,nativeId,nativeId,nativeId,nativeId,nativeId,nativeId,nativeId).run();
+  if(!result.meta.changes)throw new ApiError(409,"identity_in_use","Этот аккаунт уже связан с другим пространством JRVX. Данные не объединены. Войдите в нужный аккаунт или добавьте пароль к исходному пространству.");
+}

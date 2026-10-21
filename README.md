@@ -1,32 +1,55 @@
 # JRVX
 
-JRVX is an ecosystem of account, planning and game projects. The public entry
-point is [jrvx.ru](https://jrvx.ru/), rebuilt as an ecosystem overview on
-20 October 2026 at the owner's request.
+JRVX is an ecosystem of account, planning and game projects.
+[jrvx.ru](https://jrvx.ru/) is its marketing website: an introduction to the
+ecosystem and a catalogue of projects. Applications run on their own subdomains.
 
 ## Public projects
 
 - [JRVX ID](https://id.jrvx.ru/): account and connected services.
 - [JRVX Planner](https://planner.jrvx.ru/): tasks and the embedded Arcade module.
 - [JRVX CAS](https://cas.jrvx.ru/): virtual-unit table games, 18+.
-- JRVX AI and RIFT are experimental directions, not separate public launches.
+- JRVX AI remains an experimental direction, not a separate public launch.
 
 MineCore and CORE have been retired. See [the retirement record](docs/retirement-2026-10-20.md).
 
 ## Source and deployment
 
-- `ecosystem/`: a reviewable mirror of the new public homepage, project pages and assets.
-- `identity/`: the JRVX ID migration and gateway work.
+- `ecosystem/static/`: the complete buildless marketing website for REG.RU.
+- `ecosystem/app/` and `ecosystem/components/`: its React presentation mirror.
+- `planner/source/`: the complete migrated Planner application and Arcade.
+- `planner/gateway/`: the REG.RU transport for the standalone Planner Worker.
+- `identity/gateway/runtime/ecosystem-ui.*`: JRVX ID presentation and verified
+  connected-application launchers for CAS and Planner.
+- `identity/gateway/ecosystem-legacy-index.php`: the production legacy-gateway
+  adapter that serves those presentation assets; the next identity candidate
+  remains a separate implementation.
 - `reconstructed/`: the earlier planner reconstruction, retained as a reference.
 - `production-snapshot/`: historical recovery evidence.
 
-The authoritative complete main-site source and production publishing remain in
-Sites project `appgprj_6aafd5f13ddc819197f9aeb91c609a6b`. This GitHub repository
-is not automatically deployed to that project. See [ecosystem deployment notes](ecosystem/README.md).
+The main marketing package removes the former-planner FAQ and footer link from
+all pages. Legacy application routes redirect to `planner.jrvx.ru`.
 
-Existing planner routes and stored data remain available through `/workspace`
-on the main site. New main-site work must preserve authentication, backend/API
-behavior, storage isolation and existing user data.
+The complete Planner copy runs in the separately deployed Cloudflare Worker
+`jrvx-planner-full`, with REG.RU serving assets and forwarding dynamic requests to
+`planner-full-backend.jrvx.ru`. The original Sites project
+`appgprj_6aafd5f13ddc819197f9aeb91c609a6b` is retained for recovery. It no longer
+publishes the marketing website. GitHub commits do not automatically publish
+these hosting targets.
+
+Planner is published on its public domain, with HTTP requests redirected to
+HTTPS. Authenticated canary checks passed for creating, reading, updating and
+deleting tasks and plans. The release passed 66 tests, TypeScript, the production
+build and a Wrangler deployment dry run. AI chat is deliberately disabled at the
+owner's request; external Sites/ChatGPT MCP authentication and Arcade cloud
+synchronization are not part of this migration.
+
+The CAS interface update is published, including search and ecosystem links;
+gameplay has not been tested in this release. Marketing cleanup and RIFT removal
+are complete: the public catalogue and sitemap omit RIFT, its former project
+page returns 410, and its separate Worker and test database have been removed.
+Recovery backups remain outside Git. See [marketing deployment notes](ecosystem/README.md) and
+[Planner deployment and data notes](planner/README.md).
 
 ## Branding and secrets
 

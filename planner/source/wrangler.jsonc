@@ -1,0 +1,39 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "jrvx-planner-full",
+  "main": "dist/standalone/standalone-worker.mjs",
+  "base_dir": "dist/standalone",
+  "no_bundle": true,
+  "find_additional_modules": true,
+  "compatibility_date": "2026-10-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "JRVX_STANDALONE": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jrvx-production",
+      "database_id": "92aebdc8-e969-43c6-bdef-b847c2282205"
+    }
+  ],
+  "services": [
+    { "binding": "IDENTITY", "service": "jrvx-identity" },
+    { "binding": "LEGACY_PLANNER", "service": "jrvx-planner" }
+  ],
+  "assets": {
+    "directory": "dist/client",
+    "binding": "ASSETS"
+  },
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": ["**/*.js", "**/*.mjs"],
+      "fallthrough": false
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

@@ -1,0 +1,29 @@
+export type Project = {
+  slug: string; name: string; short: string; category: 'apps' | 'games' | 'lab';
+  label: string; status: string; description: string; intro: string; url?: string;
+  action?: string; features: string[]; note?: string; icon: 'id' | 'planner' | 'cas' | 'arcade' | 'ai';
+};
+export const projects: Project[] = [
+  { slug: 'id', name: 'JRVX ID', short: 'Твоя точка входа', category: 'apps', label: 'Аккаунт', status: 'Доступен', icon: 'id',
+    description: 'Один аккаунт для сервисов JRVX. Профиль и подключённые проекты — в одном месте.',
+    intro: 'JRVX ID связывает проекты экосистемы через общий аккаунт. Здесь можно зарегистрироваться, войти и посмотреть подключённые сервисы.',
+    url: 'https://id.jrvx.ru/', action: 'Открыть JRVX ID', features: ['Вход и регистрация', 'Личный профиль', 'Подключённые сервисы'],
+    note: 'Доступные настройки зависят от текущей версии сервиса. Новые функции проходят отдельное тестирование перед запуском.' },
+  { slug: 'planner', name: 'JRVX Planner', short: 'Освободи место для важного', category: 'apps', label: 'Планирование', status: 'Доступен', icon: 'planner',
+    description: 'Собирай задачи, расставляй приоритеты и отмечай сделанное. Фокус на том, что нужно сегодня.',
+    intro: 'Planner помогает держать задачи перед глазами. Переключайся между сегодняшними делами и полным списком, задавай приоритет и отмечай результат.',
+    url: 'https://planner.jrvx.ru/', action: 'Открыть Planner', features: ['Список задач и представление «Сегодня»', 'Приоритеты и завершение задач', 'Вход через JRVX ID', 'Встроенная JRVX Arcade'] },
+  { slug: 'cas', name: 'JRVX CAS', short: 'Игровая сторона JRVX', category: 'games', label: 'Игры · 18+', status: 'Доступен', icon: 'cas',
+    description: 'Покер, блэкджек и рулетка с виртуальными игровыми единицами. Отдельное пространство для игры.',
+    intro: 'CAS объединяет настольные игры в отдельном сервисе экосистемы. В каталоге доступны Poker / Texas Hold’em, Blackjack и Roulette.',
+    url: 'https://cas.jrvx.ru/', action: 'Открыть CAS · 18+', features: ['Poker / Texas Hold’em', 'Blackjack и Roulette', 'Виртуальные MS и MG', 'Вход через JRVX ID'],
+    note: 'Только для пользователей 18+. В сервисе нет ставок реальными деньгами и вывода средств. Турниры находятся в разработке.' },
+  { slug: 'arcade', name: 'JRVX Arcade', short: 'Небольшая пауза для внимания', category: 'games', label: 'Мини-игры', status: 'В составе Planner', icon: 'arcade',
+    description: 'Короткие игровые сессии прямо в Planner. Сейчас — Focus Grid на реакцию и внимание.',
+    intro: 'Arcade — игровой модуль внутри JRVX Planner. В Focus Grid можно сделать короткую паузу, пройти раунды и посмотреть результат.',
+    url: 'https://planner.jrvx.ru/', action: 'Перейти в Planner', features: ['Focus Grid', 'Короткие раунды', 'Результат игровой сессии'], note: 'Отдельного сайта у Arcade сейчас нет: открыть модуль можно внутри Planner.' },
+  { slug: 'ai', name: 'JRVX AI', short: 'Лаборатория возможностей', category: 'lab', label: 'ИИ · исследование', status: 'В развитии', icon: 'ai',
+    description: 'Направление экспериментов с ИИ для личных задач и планирования.',
+    intro: 'JRVX AI — направление работы с ИИ внутри экосистемы. В прежнем планировщике есть экспериментальный чат; отдельный публичный сервис пока не представлен.',
+    features: ['Эксперименты с ИИ в планировании', 'Проверка сценариев работы с личными задачами'], note: 'Здесь нет отдельной кнопки запуска: направление ещё не опубликовано как самостоятельный сервис.' },
+];

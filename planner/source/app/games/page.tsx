@@ -1,0 +1,3 @@
+import SectionShell from "../section-shell";
+export const metadata={title:"JRVX Arcade"};
+export default function Arcade(){return <SectionShell active="games"><div className="arcade-header"><div><p className="eyebrow">ПАУЗА ДЛЯ СЕБЯ · JRVX</p><h1>JRVX Arcade<span className="heading-dot">.</span></h1><p className="date-subtitle">Немного игры. И снова к важному.</p></div><a className="button soft small" href="/arcade/index.html" target="_blank" rel="noopener noreferrer">На весь экран ↗</a></div><iframe className="arcade-frame" src="/arcade/index.html" title="JRVX Arcade" allow="fullscreen; gamepad"/></SectionShell>;}

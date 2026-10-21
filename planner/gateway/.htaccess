@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]{1,256}$ - [END]
+# Preserve methods and request bodies when enforcing the public HTTPS origin.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^ https://planner.jrvx.ru%{REQUEST_URI} [R=308,END,NE]
+RewriteRule ^index\.php$ - [END]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(?:_next/static/[A-Za-z0-9_./-]+|arcade/[A-Za-z0-9_./-]+|favicon\.svg|manifest\.webmanifest|apple-touch-icon\.png|icon-[A-Za-z0-9_-]+\.png)$ - [END]
+RewriteRule ^ index.php [END]
