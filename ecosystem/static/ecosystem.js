@@ -18,7 +18,7 @@
   });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();menuButton?.focus();}});
   const buttons=[...document.querySelectorAll('.eco-filters button')];
-  const groups=[null,['id','planner'],['cas','arcade'],['ai','rift']];
+  const groups=[null,['id','planner'],['cas','arcade'],['ai']];
   buttons.forEach((button,index)=>button.addEventListener('click',()=>{
     buttons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
     for(const card of document.querySelectorAll('.eco-project-grid>article')) {

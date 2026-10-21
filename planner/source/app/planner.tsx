@@ -76,7 +76,19 @@ export default function Planner() {
 
   const load=useCallback(async()=>{
     setLoading(true);setError("");
-    try { const result=await request();setEntries(result.entries??[]);setAuth(false);const response=await fetch("/api/v1/actions/planner_context",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"});if(response.ok){const context=await response.json() as {timeZone:string|null};setTimeZone(context.timeZone);} }
+    try {
+      const result=await request();setEntries(result.entries??[]);setAuth(false);
+      const response=await fetch("/api/v1/actions/planner_context",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"});
+      if(!response.ok)throw new Error("Не удалось загрузить часовой пояс. Повторите попытку.");
+      let context=await response.json() as {timeZone:string|null};
+      if(!context.timeZone){
+        const detectedZone=Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const initialized=await fetch("/api/v1/actions/set_time_zone",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({timeZone:detectedZone,initializeOnly:true})});
+        if(!initialized.ok)throw new Error("Не удалось настроить часовой пояс. Повторите попытку.");
+        context=await initialized.json() as {timeZone:string|null};
+      }
+      setTimeZone(context.timeZone);
+    }
     catch(e){if(message(e)==="AUTH_REQUIRED"){setAuth(true);setEntries([]);}else setError(message(e));}
     finally {setLoading(false);}
   },[]);

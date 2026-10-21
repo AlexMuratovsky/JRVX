@@ -43,8 +43,9 @@ export class PlannerService {
     return {timeZone,timeZoneRequired:!timeZone,now:now.toString(),today:local?.toPlainDate().toString()??null,localNow:local?iso(local):null};
   }
   async zone() { const c=await this.context(); if(!c.timeZone) throw new ApiError(409,"time_zone_required","Откройте настройки планировщика и сохраните свой часовой пояс."); return c.timeZone; }
-  async setZone(timeZone:string) {
-    await this.db.prepare("INSERT INTO planner_preferences (owner_id, time_zone) VALUES (?, ?) ON CONFLICT(owner_id) DO UPDATE SET time_zone = excluded.time_zone").bind(this.owner,timeZone).run();
+  async setZone(timeZone:string,initializeOnly=false) {
+    const conflict=initializeOnly?"DO NOTHING":"DO UPDATE SET time_zone = excluded.time_zone";
+    await this.db.prepare(`INSERT INTO planner_preferences (owner_id, time_zone) VALUES (?, ?) ON CONFLICT(owner_id) ${conflict}`).bind(this.owner,timeZone).run();
     return this.context();
   }
   async row(id:string,target:"entry"|"reminder"="entry") {

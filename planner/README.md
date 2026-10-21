@@ -13,6 +13,8 @@ for JRVX branding, the ecosystem visual style and standalone authentication.
 - REG.RU serves the generated static assets and `gateway/index.php` forwards
   dynamic requests to https://planner-full-backend.jrvx.ru/.
 - Cloudflare Worker: `jrvx-planner-full`.
+- Deployed version: `15e1de84-371b-431a-81c8-9f06d73cab2a`, including generated
+  assets.
 - The `DB` binding uses the existing `jrvx-production` database.
 - `IDENTITY` verifies the existing JRVX ID session through `jrvx-identity`.
 - `LEGACY_PLANNER` retains access to the previous `/api/tasks` and `/api/me`
@@ -38,6 +40,7 @@ pnpm install --frozen-lockfile
 pnpm test
 pnpm exec tsc --noEmit
 pnpm build
+node scripts/prepare-standalone.mjs
 pnpm exec wrangler deploy --config wrangler.jsonc --dry-run
 ```
 
@@ -78,14 +81,19 @@ repository. The previous Sites/ChatGPT MCP connection is not authenticated
 against this standalone database; portable OAuth code is retained but is not
 wired into the production `/mcp` route.
 
+Arcade retains its local-save behavior. Its existing cloud synchronization
+service is unavailable; the visual update does not add a replacement backend.
+
 All visible product branding is JRVX. Historical `jarvis-*` event names, local
 save keys and compatibility aliases remain stable so existing integrations and
 Arcade saves are not renamed accidentally. Copied implementation reports and
 deployment notes inside `source/` are historical material; this document
 describes the current deployment target.
 
-Before the latest presentation-only changes, TypeScript passed and all 65
-integration checks passed, including ID-only logout and rejection of forged
-Sites credentials. Final build, public-domain cutover, browser verification and
-the direct Wrangler dry run remain the publishing agent's responsibility; this
-source-preparation step does not claim those checks are complete.
+The release passed all 66 tests, TypeScript, the production build and a direct
+Wrangler deployment dry run. The checks include ID-only logout, rejection of
+forged Sites credentials and the fresh-account time-zone fix. The public REG.RU
+gateway is switched, HTTP redirects to HTTPS with status 308, and authenticated
+canary checks passed for task and plan create/read/update/delete operations.
+These checks do not cover Arcade cloud synchronization or the retained external
+Sites/ChatGPT MCP integration.

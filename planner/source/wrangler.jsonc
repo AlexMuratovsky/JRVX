@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "jrvx-planner-full",
-  "main": "standalone-worker.mjs",
+  "main": "dist/standalone/standalone-worker.mjs",
+  "base_dir": "dist/standalone",
   "no_bundle": true,
   "find_additional_modules": true,
   "compatibility_date": "2026-10-20",
@@ -27,12 +28,9 @@
   "rules": [
     {
       "type": "ESModule",
-      "globs": ["standalone-worker.mjs", "dist/server/**/*.js", "dist/server/**/*.mjs"],
+      "globs": ["**/*.js", "**/*.mjs"],
       "fallthrough": false
-    },
-    { "type": "Text", "globs": [], "fallthrough": false },
-    { "type": "Data", "globs": [], "fallthrough": false },
-    { "type": "CompiledWasm", "globs": [], "fallthrough": false }
+    }
   ],
   "observability": {
     "enabled": true,

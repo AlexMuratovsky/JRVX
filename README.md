@@ -9,7 +9,7 @@ ecosystem and a catalogue of projects. Applications run on their own subdomains.
 - [JRVX ID](https://id.jrvx.ru/): account and connected services.
 - [JRVX Planner](https://planner.jrvx.ru/): tasks and the embedded Arcade module.
 - [JRVX CAS](https://cas.jrvx.ru/): virtual-unit table games, 18+.
-- JRVX AI and RIFT are experimental directions, not separate public launches.
+- JRVX AI remains an experimental direction, not a separate public launch.
 
 MineCore and CORE have been retired. See [the retirement record](docs/retirement-2026-10-20.md).
 
@@ -37,9 +37,16 @@ The complete Planner copy runs in the separately deployed Cloudflare Worker
 publishes the marketing website. GitHub commits do not automatically publish
 these hosting targets.
 
-The new Planner Worker is built and deployed; its REG.RU public-domain switch
-and final browser verification are pending. AI chat is deliberately disabled at
-the owner's request. See [marketing deployment notes](ecosystem/README.md) and
+Planner is published on its public domain, with HTTP requests redirected to
+HTTPS. Authenticated canary checks passed for creating, reading, updating and
+deleting tasks and plans. The release passed 66 tests, TypeScript, the production
+build and a Wrangler deployment dry run. AI chat is deliberately disabled at the
+owner's request; external Sites/ChatGPT MCP authentication and Arcade cloud
+synchronization are not part of this migration.
+
+The CAS interface update is published, including search and ecosystem links;
+gameplay has not been tested in this release. Marketing cleanup and RIFT removal
+are being finalized. See [marketing deployment notes](ecosystem/README.md) and
 [Planner deployment and data notes](planner/README.md).
 
 ## Branding and secrets

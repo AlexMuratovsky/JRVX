@@ -1,7 +1,7 @@
 export type Project = {
   slug: string; name: string; short: string; category: 'apps' | 'games' | 'lab';
   label: string; status: string; description: string; intro: string; url?: string;
-  action?: string; features: string[]; note?: string; icon: 'id' | 'planner' | 'cas' | 'arcade' | 'ai' | 'rift';
+  action?: string; features: string[]; note?: string; icon: 'id' | 'planner' | 'cas' | 'arcade' | 'ai';
 };
 export const projects: Project[] = [
   { slug: 'id', name: 'JRVX ID', short: 'Твоя точка входа', category: 'apps', label: 'Аккаунт', status: 'Доступен', icon: 'id',
@@ -26,8 +26,4 @@ export const projects: Project[] = [
     description: 'Направление экспериментов с ИИ для личных задач и планирования.',
     intro: 'JRVX AI — направление работы с ИИ внутри экосистемы. В прежнем планировщике есть экспериментальный чат; отдельный публичный сервис пока не представлен.',
     features: ['Эксперименты с ИИ в планировании', 'Проверка сценариев работы с личными задачами'], note: 'Здесь нет отдельной кнопки запуска: направление ещё не опубликовано как самостоятельный сервис.' },
-  { slug: 'rift', name: 'JRVX RIFT', short: 'Следующий эксперимент', category: 'lab', label: 'Лаборатория', status: 'Прототип', icon: 'rift',
-    description: 'Экспериментальный проект JRVX. Пока вне публичного набора сервисов.',
-    intro: 'RIFT существует как отдельный экспериментальный проект. Публичная версия ещё не представлена, поэтому мы не предлагаем её как готовый сервис.',
-    features: ['Изолированный прототип', 'Публичный запуск пока не объявлен'], note: 'Информация о возможностях появится здесь, когда проект будет готов к публичному представлению.' },
 ];

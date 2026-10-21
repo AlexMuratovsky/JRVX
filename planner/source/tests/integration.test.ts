@@ -31,6 +31,17 @@ test("context requires an explicit zone and keeps users separate",async()=>{
   assert.equal((await a.context()).timeZone,"Europe/Moscow");assert.equal((await b.context()).timeZone,"America/New_York");
   await assert.rejects(()=>invoke(a,"set_time_zone",{timeZone:"Made/Up"}));
 });
+test("fresh browser account initializes its zone once and can edit tasks",async()=>{
+  const fresh=new PlannerService(db,"fresh-browser-zone",origin);
+  assert.equal((await fresh.context()).timeZoneRequired,true);
+  await assert.rejects(()=>invoke(fresh,"set_time_zone",{timeZone:"Made/Up",initializeOnly:true}));
+  assert.equal((await invoke(fresh,"set_time_zone",{timeZone:"Europe/Moscow",initializeOnly:true})).timeZone,"Europe/Moscow");
+  assert.equal((await invoke(fresh,"set_time_zone",{timeZone:"America/New_York",initializeOnly:true})).timeZone,"Europe/Moscow");
+  const created=(await invoke(fresh,"create_task",payload("Fresh account task"))).entry;
+  const updated=await invoke(fresh,"update_entry",{id:created.id,version:created.version,kind:"task",changes:{title:"Edited on first visit"}});
+  assert.equal(updated.entry.title,"Edited on first visit");
+  assert.equal((await b.context()).timeZone,"America/New_York");
+});
 test("task CRUD with date-only deadline, idempotency and status",async()=>{
   const input=payload();const created=await invoke(a,"create_task",input);task=created.entry;assert.equal(task.dueDate,input.dueDate);assert.equal(task.dueAt,null);
   assert.equal((await invoke(a,"create_task",input)).entry.id,task.id);

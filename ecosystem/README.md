@@ -13,10 +13,10 @@ The complete Planner application is now in [`../planner/source/`](../planner/sou
 - `planner.jrvx.ru`: tasks, schedule, plans, notes and JRVX Arcade.
 - `cas.jrvx.ru`: virtual-unit games, 18+.
 
-The marketing pages distinguish available applications from the AI and RIFT
-experimental directions. MineCore and CORE are absent. The former-planner FAQ
-and footer link have been removed from every marketing page. `.htaccess`
-redirects legacy application routes to `planner.jrvx.ru` rather than a Sites URL.
+MineCore and CORE are absent. The former-planner FAQ and footer link have been
+removed from every marketing page. `.htaccess` redirects legacy application
+routes to `planner.jrvx.ru` rather than a Sites URL. Further marketing cleanup
+and RIFT removal are being finalized; their final public checks are pending.
 
 Planner and Arcade use the same paper, green and lime visual palette as this
 website. JRVX ID receives its matching presentation through
@@ -45,10 +45,11 @@ local preview, serve `static/` with an ordinary static HTTP server. There are no
 external scripts, fonts, images or runtime API dependencies.
 
 The migrated application uses the `jrvx-planner-full` Cloudflare Worker behind
-the REG.RU Planner gateway and `planner-full-backend.jrvx.ru`. Its latest deployed
-Worker etag is
-`453980c71b150cf44601b379c286c1b1a4ac890f12d533028cc149740c7cd337`.
-The REG.RU public-domain switch and final browser verification remain pending.
+the REG.RU Planner gateway and `planner-full-backend.jrvx.ru`. The current
+deployed Worker version is `15e1de84-371b-431a-81c8-9f06d73cab2a`, with generated
+assets. The public domain is switched and HTTP requests receive an HTTPS 308
+redirect. Authenticated canary task and plan CRUD checks passed. The source
+passed 66 tests, TypeScript, the production build and the Wrangler dry run.
 AI-chat entry points are deliberately hidden by `ai-disabled` at the owner's
 request; no new API key is required for this release. See
 [`../planner/README.md`](../planner/README.md) for the application, data migration
@@ -62,7 +63,8 @@ The original complete Sites application remains in project
 marketing site's publishing target. Private database snapshots and credentials
 are kept outside this repository.
 
-The previous marketing rollout verified HTTPS, homepage, all six project pages,
-assets, robots, sitemap and an unknown-page 404. The latest link-removal package,
-Planner cutover and ID styling still require the publishing agent's final public
-checks; this source documentation does not claim that those checks are complete.
+Public checks verified the old-planner link removal and successful JRVX ID page,
+stylesheet and script responses. Planner and ID styling are published. CAS search
+and ecosystem links are also published; gameplay was not tested. Arcade retains
+local saves, and its existing cloud synchronization is unavailable. Final checks
+for the ongoing marketing cleanup and RIFT removal remain pending.
