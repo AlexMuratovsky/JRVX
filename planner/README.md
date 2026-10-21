@@ -97,3 +97,8 @@ gateway is switched, HTTP redirects to HTTPS with status 308, and authenticated
 canary checks passed for task and plan create/read/update/delete operations.
 These checks do not cover Arcade cloud synchronization or the retained external
 Sites/ChatGPT MCP integration.
+
+The combined REG.RU release is deployed and the Planner health endpoint returns
+200. Marketing cleanup and retirement of the separate RIFT Worker and test
+database are complete; those recovery backups remain outside Git and are
+separate from the retained Planner recovery copy.

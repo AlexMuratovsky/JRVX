@@ -46,7 +46,9 @@ synchronization are not part of this migration.
 
 The CAS interface update is published, including search and ecosystem links;
 gameplay has not been tested in this release. Marketing cleanup and RIFT removal
-are being finalized. See [marketing deployment notes](ecosystem/README.md) and
+are complete: the public catalogue and sitemap omit RIFT, its former project
+page returns 410, and its separate Worker and test database have been removed.
+Recovery backups remain outside Git. See [marketing deployment notes](ecosystem/README.md) and
 [Planner deployment and data notes](planner/README.md).
 
 ## Branding and secrets
