@@ -1,49 +1,59 @@
 /* Lobby enhancement only: game tables, currency, identity and age gate keep their existing behavior. */
-#v69Home{--jrvx-paper:#f3f5ef;--jrvx-ink:#172f27;--jrvx-muted:#617067;--jrvx-line:#dbe2d6;background:var(--jrvx-paper)!important;color:var(--jrvx-ink)!important}
-#v69Age{background:#f3f5ef!important;color:#172f27!important}
-#v69Age .v69Noise{display:none!important}
-#v69Age .v69AgeCard{background:#fbfcf8!important;border-color:#dbe2d6!important;box-shadow:0 22px 70px #172f2712!important}
-#v69Age h2,#v69Age strong{color:#172f27!important}
-#v69Age p,#v69Age .v69Warn span{color:#526357!important}
-#v69Age .v69Warn{background:#e7ecdf!important;border-color:#dbe2d6!important}
-#v69Age .v69AgeBadge{background:#d5ed87!important;color:#172f27!important}
-#v69Age .v69Btn.primary{background:#172f27!important;color:#f3f5ef!important;border-color:#172f27!important}
-#v69Age .v69Btn.danger{background:#e7ecdf!important;color:#172f27!important;border-color:#ccd6c5!important}
-.jrvxCasGateLinks{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #dbe2d6;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.jrvxCasGateLinks a{color:#172f27!important;text-decoration:none;padding:6px 0}
-.jrvxCasGateLinks a:focus-visible,#v69Age button:focus-visible{outline:3px solid #718b32!important;outline-offset:4px!important}
-#v69Home .v69Topbar{background:#f3f5ef!important;border-color:#dbe2d6!important;box-shadow:none!important}
-#v69Home .v69LogoText strong,#v69Home .v103Nav button,#v69Home .v103Auth{color:#172f27!important}
-#v69Home .v103Nav button.active{background:#e5ebdf!important;color:#172f27!important}
-#v69Home .v103Auth.register{background:#172f27!important;color:#f3f5ef!important;border-color:#172f27!important}
-#jrvxCasEcosystem{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 24px;padding:20px 0;border-bottom:1px solid #dbe2d6;color:#172f27;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-#jrvxCasEcosystem a{color:#172f27;text-decoration:none!important;display:inline-flex;align-items:center;gap:10px;padding:8px 2px}
+#v69Home{--jrvx-paper:#070c16;--jrvx-ink:#edf2f8;--jrvx-muted:#a5b0c2;--jrvx-line:#29364a;background:var(--jrvx-paper)!important;color:var(--jrvx-ink)!important}
+.jrvxCasGateLinks{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #29364a;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.jrvxCasGateLinks a{color:#edf2f8!important;text-decoration:none;padding:6px 0}
+.jrvxCasGateLinks a:focus-visible,#v69Age button:focus-visible{outline:3px solid #e4c47d!important;outline-offset:4px!important}
+#jrvxCasEcosystem{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 24px;padding:20px 0;border-bottom:1px solid #29364a;color:#edf2f8;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#jrvxCasEcosystem a{color:#edf2f8;text-decoration:none!important;display:inline-flex;align-items:center;gap:10px;padding:8px 2px}
 #jrvxCasEcosystem .jrvxCasBrand{font-size:27px;font-weight:850;letter-spacing:-1px}
 #jrvxCasEcosystem .jrvxCasBrand>span{font-size:36px;line-height:1}
-#jrvxCasEcosystem small{font-size:12px;font-weight:500;letter-spacing:0;padding-left:12px;border-left:1px solid #dbe2d6}
+#jrvxCasEcosystem small{font-size:12px;font-weight:500;letter-spacing:0;padding-left:12px;border-left:1px solid #29364a}
 #jrvxCasEcosystem>div{display:flex;flex-wrap:wrap;gap:20px}
-#v69Home .v69SectionHead h2,#v69Home .v83Header h2,#v69Home .v83People h3,#v69Home .v69Dash h4{color:#172f27!important}
-#v69Home .v83Header p,#v69Home .v69SectionHead p{color:#617067!important}
-#v69Home .v69InfoCard,#v69Home .v69Dash,#v69Home .v69Mini,#v69Home .v83People{background:#e7ecdf!important;border-color:#dbe2d6!important;box-shadow:none!important;color:#172f27!important}
-#v69Home .v69InfoCard strong,#v69Home .v69Mini b,#v69Home .v69Dash strong{color:#172f27!important}
-#v69Home .v69InfoCard p,#v69Home .v69Mini p,#v69Home .v69DashLine,#v69Home .v83People p{color:#526357!important}
-#v69Home .v83Card,#v69Home .v83Card.active{background:#fbfcf8!important;border-color:#dbe2d6!important;box-shadow:0 14px 30px #172f2714!important}
-#v69Home .v83Card h4,#v69Home .v83Card .num{color:#172f27!important}
-#v69Home .v83Card p{color:#617067!important}
-#v69Home .v83Card .play,#v69Home .v83Btn.primary{background:#172f27!important;color:#f3f5ef!important;border-color:#172f27!important}
-#v69Home .v83Btn.secondary{background:#f3f5ef!important;color:#172f27!important;border-color:#dbe2d6!important}
-#jrvxCasSearch{margin-top:24px;color:#172f27;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#jrvxCasSearch{margin-top:24px;color:#edf2f8;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .jrvxCasSearchRow{display:flex;align-items:flex-end;gap:12px;max-width:660px}
 .jrvxCasSearchRow label{display:block;flex:1;min-width:0;font-weight:650}
-#jrvxCasQuery{box-sizing:border-box;display:block;width:100%;margin-top:8px;min-height:48px;border:1px solid #ccd6c5;border-radius:10px;background:#fbfcf8;color:#172f27;padding:12px 15px;font:inherit}
-#jrvxCasQuery::placeholder{color:#6c786f}
-#jrvxCasSearchStatus{color:#617067!important;margin:10px 0 16px;font-size:13px}
-#jrvxCasClear,#jrvxCasResults button{min-height:44px;border:1px solid #ccd6c5;border-radius:9px;background:#172f27;color:#f3f5ef;padding:10px 16px;font:inherit;font-weight:650;cursor:pointer}
+#jrvxCasQuery{box-sizing:border-box;display:block;width:100%;margin-top:8px;min-height:48px;border:1px solid #344258;border-radius:10px;background:#0e1727;color:#edf2f8;padding:12px 15px;font:inherit}
+#jrvxCasQuery::placeholder{color:#98a5ba}
+#jrvxCasSearchStatus{color:#a5b0c2!important;margin:10px 0 16px;font-size:13px}
+#jrvxCasClear,#jrvxCasResults button{min-height:44px;border:1px solid #344258;border-radius:9px;background:#edf2f8;color:#edf2f8;padding:10px 16px;font:inherit;font-weight:650;cursor:pointer}
 #jrvxCasResults{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;margin:20px 0}
-#jrvxCasResults article{display:flex;flex-direction:column;align-items:flex-start;padding:24px;border:1px solid #dbe2d6;border-radius:14px;background:#fbfcf8}
-#jrvxCasResults h3{color:#172f27!important;font-size:22px;margin:0 0 10px}
-#jrvxCasResults p{color:#617067!important;font-size:14px;margin:0 0 20px;flex:1}
+#jrvxCasResults article{display:flex;flex-direction:column;align-items:flex-start;padding:24px;border:1px solid #29364a;border-radius:14px;background:#0e1727}
+#jrvxCasResults h3{color:#edf2f8!important;font-size:22px;margin:0 0 10px}
+#jrvxCasResults p{color:#a5b0c2!important;font-size:14px;margin:0 0 20px;flex:1}
 #jrvxCasResults[hidden],#jrvxCasClear[hidden],#v83ModesHub[data-jrvx-search=on] .v83Modes,#v83ModesHub[data-jrvx-search=on] .v83Dots{display:none!important}
-#v69Home a:focus-visible,#v69Home button:focus-visible,#v69Home input:focus-visible,#v69Home [role=button]:focus-visible{outline:3px solid #718b32!important;outline-offset:4px!important}
+#v69Home a:focus-visible,#v69Home button:focus-visible,#v69Home input:focus-visible,#v69Home [role=button]:focus-visible{outline:3px solid #e4c47d!important;outline-offset:4px!important}
 @media(max-width:700px){#jrvxCasEcosystem{align-items:flex-start;flex-direction:column;gap:8px;padding:16px 0}#jrvxCasEcosystem>div{gap:8px 20px}#jrvxCasEcosystem a{min-height:32px}.jrvxCasSearchRow{align-items:stretch;flex-direction:column}#jrvxCasClear{align-self:flex-start}#jrvxCasResults article{padding:20px}}
 @media(prefers-reduced-motion:reduce){#v69Home,#v69Home *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+#v69Home .v103TopRight{flex-wrap:wrap!important;gap:8px!important;min-width:0!important}
+#v69Home #v280ExperienceBtn,#v69Home #v290InstallBtn{background:#19263a!important;color:#edf2f8!important;border:1px solid #344258!important;min-height:40px!important;border-radius:9px!important;padding:8px 12px!important;white-space:nowrap}
+#v280Settings .v280SettingsCard,#v290InstallSheet .v290InstallCard{box-sizing:border-box!important;background:#edf2f8!important;color:#edf2f8!important;border-color:#344258!important;max-height:85dvh;overflow:auto}
+#v280Settings h3,#v280Settings strong,#v290InstallSheet h3,#v290InstallSheet b{color:#edf2f8!important}
+#v280Settings small,#v290InstallSheet p,#v290InstallSheet .v290InstallStep{color:#a5b0c2!important}
+#v280Settings .v280SettingsHead span,#v280Settings output{color:#e4c47d!important}
+#v280Settings .v280Close,#v280Settings .v280Test,#v290InstallSheet button{background:#edf2f8!important;color:#edf2f8!important;border-color:#edf2f8!important;min-height:44px}
+#v280Settings input{accent-color:#e4c47d!important}
+#v280Settings :focus-visible,#v290InstallSheet :focus-visible{outline:3px solid #e4c47d!important;outline-offset:4px!important}
+
+/* Restore the original CAS dark shell, while retaining search and ecosystem navigation. */
+#v69Home{color-scheme:dark}
+#jrvxCasClear,#jrvxCasResults button{background:#e4c47d;color:#14120e;border-color:#e4c47d}
+#v280Settings .v280SettingsCard,#v290InstallSheet .v290InstallCard{background:#0e1727!important;color-scheme:dark}
+#v280Settings .v280Close,#v280Settings .v280Test,#v290InstallSheet button{background:#19263a!important;color:#edf2f8!important;border-color:#40506a!important}
+.jrvxCasGateLinks a,#jrvxCasEcosystem a{color:#e6cf95!important}
+body.jrvx-account-ready #v69Home .v120AuthSingle,body.jrvx-account-ready #v69Home [data-v103-auth]{display:none!important}
+#jrvxCasAccountButton{min-height:40px;padding:8px 14px;border:1px solid #d6b86f;border-radius:9px;background:#d6b86f;color:#17130b;font:750 13px/1.2 system-ui;cursor:pointer}
+.jrvxAccountOverlay{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:16px;background:#020711d9;backdrop-filter:blur(10px);box-sizing:border-box;color:#edf2f8}
+.jrvxAccountOverlay[hidden]{display:none!important}
+.jrvxAccountOverlay [hidden]{display:none!important}
+.jrvxAccountCard h2{color:#f5edda!important;font-size:23px!important}
+.jrvxAccountCard a{display:block;min-height:44px;padding:10px 2px;color:#e6cf95!important;text-decoration:none}
+.jrvxAccountCard{box-sizing:border-box;width:min(100%,460px);max-height:90dvh;overflow:auto;padding:24px;border:1px solid #3d4d66;border-radius:22px;background:linear-gradient(160deg,#142239,#09111f);box-shadow:0 30px 100px #0009;font:14px/1.6 system-ui}
+.jrvxAccountHead{display:flex;justify-content:space-between;gap:16px;align-items:center}
+.jrvxAccountHead h2{margin:0;color:#f5edda;font-size:23px}
+.jrvxAccountHead button,.jrvxAccountActions button{min-height:44px;padding:10px 16px;border:1px solid #44516a;border-radius:10px;background:#19263a;color:#edf2f8;font:700 14px/1.3 system-ui;cursor:pointer}
+.jrvxAccountActions{display:grid;gap:10px;margin-top:20px}
+.jrvxAccountActions button:first-child{background:#e4c47d;color:#17130b;border-color:#e4c47d}
+.jrvxAccountCard p{color:#bdc7d7}
+#jrvxCasAccountStatus{min-height:24px;color:#e6cf95}
+.jrvxAccountCard :focus-visible{outline:3px solid #e4c47d;outline-offset:3px}
+.jrvxAccountCard button:disabled{opacity:.55;cursor:wait}
