@@ -1,0 +1,9 @@
+DirectoryIndex index.php
+Options -Indexes
+RewriteEngine On
+RewriteRule ^index\.php$ - [END]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]{1,256}$ - [END]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(?:_next/static/[A-Za-z0-9_./-]+|arcade/[A-Za-z0-9_./-]+|favicon\.svg|manifest\.webmanifest|apple-touch-icon\.png|icon-[A-Za-z0-9_-]+\.png)$ - [END]
+RewriteRule ^ index.php [END]

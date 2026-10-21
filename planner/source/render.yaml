@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: jarvis-mcp
+    runtime: node
+    plan: starter
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build:mcp
+    startCommand: node dist-mcp/server.mjs
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: JARVIS_MCP_ORIGIN
+        sync: false
+      - key: JARVIS_SITE_ORIGIN
+        sync: false
+      - key: JARVIS_OAUTH_CLIENT_ID
+        sync: false
+      - key: JARVIS_OAUTH_CLIENT_SECRET
+        generateValue: true
+      - key: JARVIS_OAUTH_REDIRECT_URIS
+        sync: false
+      - key: CLOUDFLARE_ACCOUNT_ID
+        sync: false
+      - key: JARVIS_D1_DATABASE_ID
+        sync: false
+      - key: CLOUDFLARE_D1_API_TOKEN
+        sync: false

@@ -1,0 +1,4 @@
+"use client";
+import { use,useEffect,useState } from "react";
+import { ActionCard,type ActionPreviewData } from "../../action-preview";
+export default function Confirmation({params}:{params:Promise<{id:string}>}){const {id}=use(params),[action,setAction]=useState<ActionPreviewData|null>(null),[error,setError]=useState("");useEffect(()=>{fetch(`/api/confirmations/${id}`,{cache:"no-store"}).then(async r=>{const v=await r.json() as ActionPreviewData & {error?:{message?:string}};if(!r.ok)throw new Error(v.error?.message??"Запрос не найден.");setAction(v);}).catch(e=>setError(e.message));},[id]);return <main className="standalone-page"><a className="text-button" href="/">← В JRVX</a><h1>Подтверждение действия</h1><p className="muted">Проверьте изменения. Запрос действует 15 минут.</p>{error&&<p className="form-error" role="alert">{error}</p>}{action?<ActionCard initial={action}/>:!error&&<p>Загрузка…</p>}</main>;}

@@ -1,81 +1,68 @@
 # JRVX ecosystem website
 
-This directory mirrors the public presentation layer deployed on 20 October 2026.
-It is an overlay for review and recovery, not an independent runnable application.
-The complete application, including the retained planner backend, is in the
-existing Sites source repository.
+[jrvx.ru](https://jrvx.ru/) is the marketing website for the JRVX ecosystem.
+`static/` is its complete buildless implementation: homepage, six project-detail
+pages, local assets, navigation and project filters. `app/`, `components/` and
+`lib/` retain the corresponding React presentation for review and recovery.
+The complete Planner application is now in [`../planner/source/`](../planner/source/).
 
-## Deployed state
+## Public structure
 
-- Public domain: https://jrvx.ru/
-- Sites fallback: https://planhelper-alemura.nezhnnno.chatgpt.site/
-- Sites project: `appgprj_6aafd5f13ddc819197f9aeb91c609a6b`
-- Source commit: `3875c65dc5ce7db110bc7fb3522656b440d3fd3c`
-- Saved version: 5
-- Saved version ID: `appgprj_6aafd5f13ddc819197f9aeb91c609a6b~appgver_e66e526360688191b8c071fe5ab8875a`
-- Deployment: `appgdep_6ad753a018188191a605c5d044721e8a` (succeeded)
-- Archive SHA-256: `4bfb7b436951c6941be06e02279b1be30d2a0295bd9f90f8bbd6545953d2c516`
+- `jrvx.ru`: ecosystem information and project catalogue only.
+- `id.jrvx.ru`: account and connected applications.
+- `planner.jrvx.ru`: tasks, schedule, plans, notes and JRVX Arcade.
+- `cas.jrvx.ru`: virtual-unit games, 18+.
 
-## Behavior
+The marketing pages distinguish available applications from the AI and RIFT
+experimental directions. MineCore and CORE are absent. The former-planner FAQ
+and footer link have been removed from every marketing page. `.htaccess`
+redirects legacy application routes to `planner.jrvx.ru` rather than a Sites URL.
 
-The homepage introduces JRVX and groups six verified projects/directions into
-apps, games and laboratory work. Each has a detail page. Only the public ID,
-Planner and CAS services have external launch links; Arcade opens Planner.
-AI and RIFT carry development/prototype statuses. MineCore and CORE are absent.
+Planner and Arcade use the same paper, green and lime visual palette as this
+website. JRVX ID receives its matching presentation through
+`identity/gateway/runtime/ecosystem-ui.css` and `ecosystem-ui.js`; the production
+legacy-gateway adapter is `identity/gateway/ecosystem-legacy-index.php`.
+Connected CAS and Planner launchers use verified application state. These
+presentation changes do not replace the separate next identity candidate.
 
-The Sites implementation also preserves the previous planner at `/workspace`,
-redirects known old `/?view=` links, updates legacy return links and the ChatGPT
-sign-in destination, and keeps the existing D1/R2/MCP bindings. No database
-migration or planner-data deletion was performed for this redesign.
+## Deployment
 
-## Validation
+REG.RU serves the marketing files directly from `/www/jrvx.ru`. The public root
+and `www` DNS records point to that host; `www` redirects to the canonical HTTPS
+root. Native Sites publishing does not update this website, and GitHub commits
+alone do not publish it.
 
-- Full production Vinext build passed.
-- Existing integration suite: 61 checks passed.
-- TypeScript validation passed.
-- Home and all six project pages returned 200; an unknown slug returned 404.
-- Robots and sitemap endpoints returned 200.
-- Mobile menu and project filtering checked in a real browser.
-- Layout checked at widths 320 and 390, with no horizontal overflow.
-- Old planner links and authentication return destinations checked.
+Build the deployment ZIP from the repository root:
 
-Deploy updates through the existing Sites project with its current audience and
-bindings. Open its source with the official source helper, edit, validate, push
-that source, save its matching archive and deploy the saved version. GitHub is a
-source mirror; commits here alone do not publish production.
+```sh
+python ecosystem/package-static.py
+```
 
-## REG.RU static edition
+`reg-site.zip` contains only `static/` contents, with files 0644 and directories
+0755, including hidden hosting configuration. Upload and extract only this
+package into the marketing website root; preserve and verify those modes. For
+local preview, serve `static/` with an ordinary static HTTP server. There are no
+external scripts, fonts, images or runtime API dependencies.
 
-`static/` is the complete buildless public presentation website. `reg-site.zip`
-is its deployment package, with files placed directly in the website root.
-It has no external scripts, fonts, images, API calls or runtime dependencies.
-Its menu and filters use `ecosystem.js`; project pages are ordinary HTML.
+The migrated application uses the `jrvx-planner-full` Cloudflare Worker behind
+the REG.RU Planner gateway and `planner-full-backend.jrvx.ru`. Its latest deployed
+Worker etag is
+`453980c71b150cf44601b379c286c1b1a4ac890f12d533028cc149740c7cd337`.
+The REG.RU public-domain switch and final browser verification remain pending.
+AI-chat entry points are deliberately hidden by `ai-disabled` at the owner's
+request; no new API key is required for this release. See
+[`../planner/README.md`](../planner/README.md) for the application, data migration
+and external MCP limitations.
 
-This edition was prepared because the Sites/Cloudflare route returned 403 or
-closed connections from the owner's network. REG.RU already hosts the other
-public JRVX entry points. The root and www certificates were issued by Let's
-Encrypt on 20 October 2026, valid through 18 January 2027.
+## Retained recovery version
 
-The previous complete Sites application is retained separately. The static
-edition links its previous planner at the Sites fallback URL; `.htaccess` also
-redirects old routes there. It does not duplicate or move planner user data.
+The original complete Sites application remains in project
+`appgprj_6aafd5f13ddc819197f9aeb91c609a6b`, saved version 5, source commit
+`3875c65dc5ce7db110bc7fb3522656b440d3fd3c`. It is a recovery copy, not the main
+marketing site's publishing target. Private database snapshots and credentials
+are kept outside this repository.
 
-Local preview: serve `static/` with an ordinary static HTTP server. Repackage
-only that directory for hosting; do not upload this repository or credentials.
-
-## Production rollout verified
-
-The public `jrvx.ru` and `www.jrvx.ru` A/AAAA records now point directly to the
-existing REG.RU host. The temporary root-domain attachment in Sites was removed.
-`www` redirects to the canonical HTTPS root. Main, project pages and assets
-returned 200; an unknown page returned 404. ID, Planner and CAS stayed available.
-The root certificate chain was checked without disabling certificate validation.
-
-The complete production presentation is `ecosystem/static/`. The separate Sites
-source retains the complete prior planner application. Native Sites publishing
-alone no longer updates the REG.RU website.
-
-Build the deployment ZIP with `python ecosystem/package-static.py`. It stores
-Unix modes 0644 for files and 0755 for directories, including hidden hosting
-configuration. Preserve those modes when extracting on REG.RU. Verify them in
-the file manager afterward. Upload only this package to `/www/jrvx.ru`.
+The previous marketing rollout verified HTTPS, homepage, all six project pages,
+assets, robots, sitemap and an unknown-page 404. The latest link-removal package,
+Planner cutover and ID styling still require the publishing agent's final public
+checks; this source documentation does not claim that those checks are complete.

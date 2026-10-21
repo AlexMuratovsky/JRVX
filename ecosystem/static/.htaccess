@@ -5,8 +5,8 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.jrvx\.ru$ [NC]
 RewriteRule ^ https://jrvx.ru%{REQUEST_URI} [R=301,L,NE]
 RewriteCond %{QUERY_STRING} (^|&)view=(today|schedule|tasks)(&|$) [NC]
-RewriteRule ^$ https://planhelper-alemura.nezhnnno.chatgpt.site/workspace [R=302,L,QSD]
-RewriteRule ^(workspace|activity|ai-settings|chat|confirm|games|import|integration|notes|plans|reminders|search|auth|api|mcp|health)(/.*)?$ https://planhelper-alemura.nezhnnno.chatgpt.site/$1$2 [R=307,L,NE]
+RewriteRule ^$ https://planner.jrvx.ru/ [R=302,L,QSD]
+RewriteRule ^(workspace|activity|ai-settings|chat|confirm|games|import|integration|notes|plans|reminders|search|auth|api|mcp|health)(/.*)?$ https://planner.jrvx.ru/$1$2 [R=307,L,NE]
 </IfModule>
 <IfModule mod_headers.c>
 Header always set X-Content-Type-Options "nosniff"
