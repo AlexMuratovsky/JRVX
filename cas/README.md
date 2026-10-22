@@ -18,9 +18,20 @@ readouts are replaced by a compact result, history strip and motion indicator.
 Existing selection handlers remain in use; no odds, payouts or server game
 rules are changed.
 
-A new generated photographic wheel supplies the wood rim and brass spindle;
-the numbered pockets and moving ball remain deterministic canvas geometry.
-See `ROULETTE_ART.md` for provenance and the generation prompt.
+The complete approved roulette photograph now supplies the table and rotor.
+The static ball was removed from the image so the live ball follows the verified
+spin plan. Photographed pocket positions align with the unchanged 37-pocket
+geometry. See `ART_V323.md` for provenance and all generation prompts.
+
+The larger field picker mirrors all existing selection handlers and shows covered
+numbers, chip markers, straight/pair/street/corner modes, outside bets, dozens and
+columns. It performs no wager; the existing SPIN action remains separate.
+
+Blackjack's original reference photograph and red card backs are restored. All
+six live actions retain their responsive, uncovered grid. The lobby has one
+sticky header with a server-backed online status and one account entry; obsolete
+extra navigation and ghost artwork layers are removed. Profile, leaderboard,
+news, tutorial and mode cards use consistent dedicated photographic backgrounds.
 
 All six blackjack actions occupy separate grid cells. Disabled actions remain
 visible, insurance appears in its own cell, and status messages are readable.
@@ -48,7 +59,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-13 public files: `index.html`, its service worker, the versioned UI assets and
+26 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
@@ -58,9 +69,9 @@ To roll back, restore the previous root document and service worker; the old
 versioned assets remain installed. New assets then remain unused.
 
 The HTML snapshot was recovered from the public installation on 21 October 2026.
-Validation includes 32 Node checks, 185 wheel-pocket simulations, DOM
+Validation includes 45 Node checks, 185 wheel-pocket simulations, DOM
 checks and isolated browser layout checks at 320×568, 360×640, 390×844,
-844×390 and 1000×720. All roulette and blackjack controls are in bounds and
+844×390 and 1100×820. All roulette, large picker and blackjack controls are in bounds and
 uncovered at those sizes. The tests use simulated requests and display fixtures;
 they do not place live wagers, purchase currency or change live game records.
 This package does not change the server API.

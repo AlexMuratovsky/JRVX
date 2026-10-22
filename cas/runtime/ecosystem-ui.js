@@ -52,7 +52,7 @@
     });
     [['v83Prev','Предыдущий режим'],['v83Next','Следующий режим'],['v69ProfileTop','Открыть профиль'],['v69WalletOpen','Открыть кошелёк']].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)el.setAttribute('aria-label',pair[1]);});
   }
-  function refresh(){scheduled=false;ensureGateLinks();var home=document.getElementById('v69Home');if(!home)return;ensureNav(home);ensureSearch(home);keyboardCards(home);}
+  function refresh(){scheduled=false;ensureGateLinks();var home=document.getElementById('v69Home');if(!home)return;ensureSearch(home);keyboardCards(home);}
   function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(refresh);}}
   function boot(){refresh();var home=document.getElementById('v69Home');if(home)new MutationObserver(schedule).observe(home,{childList:true,subtree:true});document.documentElement.setAttribute('data-jrvx-cas-ecosystem','20261021');}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();

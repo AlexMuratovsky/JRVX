@@ -1,0 +1,73 @@
+/* Keep one useful CAS header and clear, individually illustrated lobby cards. */
+#v69Home#v69Home{overflow:clip!important}
+#v69Home#v69Home .v69Main::after{display:none!important;background:none!important;content:none!important}
+#v69Home#v69Home #jrvxCasEcosystem{display:none!important}
+body.jrvx-lobby-visible>.wrap>.topbar,body.jrvx-lobby-visible .wrap>.topbar{display:none!important}
+#v69Home#v69Home .v69Topbar{position:sticky!important;top:0!important;z-index:90!important;display:grid!important;grid-template-columns:auto minmax(0,1fr) auto auto!important;align-items:center!important;gap:16px!important;width:100%!important;max-width:none!important;height:64px!important;min-height:64px!important;margin:0!important;padding:0 max(18px,calc((100vw - 1460px)/2))!important;box-sizing:border-box!important;border-bottom:1px solid #34435b!important;background:#070d18f5!important;box-shadow:0 6px 22px #0003!important}
+#v69Home#v69Home .v69Topbar .v69Logo{grid-column:1!important;min-width:0!important;width:auto!important;gap:8px!important}
+#v69Home#v69Home .v69Topbar .v69LogoText strong{font-size:15px!important;letter-spacing:.08em!important;white-space:nowrap!important}
+#v69Home#v69Home .v103Nav{grid-column:2!important;display:flex!important;justify-content:center!important;gap:2px!important;min-width:0!important}
+#v69Home#v69Home .v103Nav button{padding:8px 9px!important;font-size:10px!important}
+#v69Home#v69Home .v103TopRight{grid-column:4!important;display:flex!important;flex-wrap:nowrap!important;justify-content:flex-end!important;align-items:center!important;gap:6px!important;min-width:0!important;width:auto!important;max-width:none!important;margin:0!important}
+#v69Home#v69Home .v103TopRight .v109TopWallet,#v69Home#v69Home .v103TopRight .v109ProfileButton,#v69Home#v69Home .v103TopRight .v120AuthSingle,#v69Home#v69Home .v103TopRight [data-v103-auth],#v69Home#v69Home .v103Divider,#v69Home#v69Home .v103LegacyTop{display:none!important}
+#v69Home#v69Home #jrvxCasAccountButton{min-width:0!important;max-width:150px!important;height:36px!important;min-height:36px!important;padding:7px 12px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:12px!important;border-radius:9px!important}
+#v69Home#v69Home #v280ExperienceBtn,#v69Home#v69Home #v290InstallBtn{height:36px!important;min-height:36px!important;padding:7px 10px!important;font-size:11px!important}
+#v69Home#v69Home #onlineBadge{grid-column:3!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-width:0!important;max-width:160px!important;height:34px!important;padding:5px 9px!important;border:1px solid #3b4b62!important;border-radius:999px!important;background:#111d2d!important;color:#c0ccdc!important;box-shadow:none!important;font:600 11px/1.2 system-ui!important;white-space:nowrap!important;cursor:default!important}
+#v69Home#v69Home #onlineBadge>span:not(.onlineBadgeDot){font-size:11px!important;line-height:1.2!important}
+#v69Home#v69Home #onlineBadge strong{font-size:12px!important;line-height:1.2!important;color:#f0f4fa!important}
+#v69Home#v69Home #onlineBadge small{font-size:8px!important;color:#8d9cb3!important}
+#v69Home#v69Home #onlineBadge .onlineBadgeDot{display:block!important;flex:0 0 6px!important;width:6px!important;height:6px!important;border-radius:50%!important;background:#748297!important;box-shadow:none!important;animation:none!important}
+#v69Home#v69Home #onlineBadge[data-jrvx-presence=live]{border-color:#2c6e54!important;background:#0b271d!important}
+#v69Home#v69Home #onlineBadge[data-jrvx-presence=live] .onlineBadgeDot{background:#5cd7a1!important;box-shadow:0 0 8px #5cd7a144!important}
+#v69Home#v69Home #onlineBadge[data-jrvx-presence=connecting] .onlineBadgeDot{background:#e4c47d!important}
+#v69Home#v69Home .v69Main{padding-top:18px!important}
+/* Fixed image hooks replace fragile nth-child and embedded-image backgrounds. */
+#v69Home#v69Home .jrvxArtworkCard{position:relative!important;isolation:isolate!important;box-sizing:border-box!important;overflow:hidden!important;border:1px solid #3a485f!important;border-radius:20px!important;background:linear-gradient(90deg,#07101ef5 0%,#07101ee8 35%,#07101e98 65%,#07101e20 100%),var(--jrvx-card-art) center/cover no-repeat!important;box-shadow:0 14px 32px #0003!important}
+#v69Home#v69Home .jrvxArtworkCard::before,#v69Home#v69Home .jrvxArtworkCard::after{display:none!important}
+#v69Home#v69Home .jrvxArtworkCard>*{position:relative!important;z-index:1!important}
+#v69Home#v69Home .jrvxArtworkCard h4,#v69Home#v69Home .jrvxArtworkCard>b{color:#f3f5fa!important;text-shadow:0 2px 14px #0009!important}
+#v69Home#v69Home .jrvxArtworkCard p{color:#c4cede!important;text-shadow:0 2px 10px #000!important}
+#v69Home#v69Home .v69Dash.jrvxArtworkCard{min-height:224px!important;padding:24px!important}
+#v69Home#v69Home .v69Dash.jrvxArtworkCard h4{margin:0 0 18px!important;font-size:22px!important;line-height:1.15!important}
+#v69Home#v69Home .v69Dash.jrvxArtworkCard .v69DashLine{max-width:76%!important;gap:12px!important;color:#c1ccdd!important;font-size:12px!important;line-height:1.5!important;margin:8px 0!important}
+#v69Home#v69Home .v69Dash.jrvxArtworkCard .v69DashLine strong{max-width:60%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#f3ead4!important}
+#v69Home#v69Home .v69Dash.jrvxArtworkCard .v69Btn{min-height:38px!important;margin-top:14px!important;padding:8px 14px!important;font-size:11px!important;background:#0c192de8!important;border-color:#8392aa80!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard{min-height:230px!important;padding:20px!important;background-position:center!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard .v69MiniTop{display:flex!important;align-items:center!important;margin-bottom:44px!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard .v69MiniTop em{font-size:9px!important;color:#e4c47d!important;background:#0a1428c9!important;border:1px solid #e4c47d55!important;border-radius:999px!important;padding:5px 8px!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard .v69MiniIcon{display:none!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard>b{display:block!important;max-width:90%!important;font-size:21px!important;line-height:1.15!important;margin-bottom:9px!important}
+#v69Home#v69Home .v69Mini.jrvxArtworkCard p{max-width:86%!important;font-size:12px!important;line-height:1.5!important;margin:0!important}
+/* Mode images fill the card; title and play control remain in a readable lower band. */
+#v69Home#v69Home .v83Card.jrvxArtworkCard,#v69Home#v69Home .v83Card.jrvxArtworkCard.active{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-end!important;min-height:280px!important;height:280px!important;padding:18px 18px 66px!important;background:linear-gradient(180deg,#07101e08 0%,#07101e36 30%,#07101ed9 60%,#07101e 100%),var(--jrvx-card-art) center top/cover no-repeat!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard .visual,#v69Home#v69Home .v83Card.jrvxArtworkCard .icon{display:none!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard .num{position:absolute!important;top:14px!important;left:17px!important;font-size:9px!important;letter-spacing:.12em!important;color:#fff3d6!important;text-shadow:0 2px 10px #000!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard h4{position:static!important;max-width:100%!important;font-size:23px!important;line-height:1.1!important;letter-spacing:-.025em!important;margin:0 0 8px!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard p{position:static!important;max-width:100%!important;font-size:11px!important;line-height:1.4!important;margin:0!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard .play{position:absolute!important;left:17px!important;right:17px!important;bottom:15px!important;width:calc(100% - 34px)!important;min-width:0!important;min-height:38px!important;margin:0!important;padding:9px 12px!important;border-radius:10px!important;font-size:11px!important;transform:none!important}
+#v69Home#v69Home .v83Card.jrvxArtworkCard[data-jrvx-art=roulette]{background-position:center 25%!important}
+@media(max-width:1340px){#v69Home#v69Home .v69Topbar{grid-template-columns:auto minmax(0,1fr) auto!important;gap:12px!important}#v69Home#v69Home .v103Nav{display:none!important}#v69Home#v69Home #onlineBadge{grid-column:2!important;justify-self:end!important}#v69Home#v69Home .v103TopRight{grid-column:3!important}.v103Search{display:none!important}}
+@media(max-width:700px){
+ #v69Home#v69Home .v69Topbar{height:54px!important;min-height:54px!important;grid-template-columns:auto minmax(0,1fr) auto!important;gap:7px!important;padding:0 8px!important}
+ #v69Home#v69Home .v69Topbar .v69Logo{gap:5px!important}
+ #v69Home#v69Home .v69LogoMark{width:20px!important;height:24px!important}
+ #v69Home#v69Home .v69LogoMark::after{font-size:22px!important}
+ #v69Home#v69Home .v69Topbar .v69LogoText strong{font-size:11px!important;letter-spacing:.025em!important}
+ #v69Home#v69Home .v103TopRight{gap:4px!important}
+ #v69Home#v69Home #jrvxCasAccountButton{height:32px!important;min-height:32px!important;max-width:94px!important;padding:6px 8px!important;font-size:10px!important}
+ #v69Home#v69Home #v280ExperienceBtn,#v69Home#v69Home #v290InstallBtn{width:30px!important;height:32px!important;min-height:32px!important;padding:0!important;overflow:hidden!important;font-size:0!important;letter-spacing:0!important}
+ #v69Home#v69Home #v280ExperienceBtn::before{content:'♫';font:700 17px/1 system-ui!important}
+ #v69Home#v69Home #v290InstallBtn::before{content:'↓';font:800 20px/1 system-ui!important}
+ #v69Home#v69Home #onlineBadge{gap:4px!important;height:29px!important;max-width:105px!important;padding:4px 7px!important}
+ #v69Home#v69Home #onlineBadge>span:not(.onlineBadgeDot){font-size:9px!important}
+ #v69Home#v69Home #onlineBadge strong{font-size:10px!important}
+ #v69Home#v69Home #onlineBadge small{display:none!important}
+ #v69Home#v69Home .v69DashboardGrid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ #v69Home#v69Home .v69Dash.jrvxArtworkCard{min-height:214px!important;padding:22px!important}
+ #v69Home#v69Home .v69Mini.jrvxArtworkCard{min-height:222px!important;padding:18px!important}
+ #v69Home#v69Home .v83Card.jrvxArtworkCard,#v69Home#v69Home .v83Card.jrvxArtworkCard.active{min-height:264px!important;height:264px!important;padding-inline:16px!important}
+ #v69Home#v69Home .v83Card.jrvxArtworkCard h4{font-size:21px!important}
+}
+@media(max-width:359px){#v69Home#v69Home .v69Topbar{gap:4px!important;padding-inline:6px!important}#v69Home#v69Home .v69LogoMark{display:none!important}#v69Home#v69Home #jrvxCasAccountButton{max-width:82px!important;padding-inline:6px!important}#v69Home#v69Home #onlineBadge{padding-inline:5px!important;max-width:84px!important}#v69Home#v69Home #onlineBadge>span:not(.onlineBadgeDot){max-width:48px!important;overflow:hidden!important;text-overflow:ellipsis!important}#v69Home#v69Home .v103TopRight{gap:3px!important}}
+@media(prefers-reduced-motion:reduce){#v69Home#v69Home .jrvxArtworkCard{transition:none!important;animation:none!important}}
+@media(max-width:700px){#v69Home#v69Home #jrvxCasAccountButton{min-width:54px!important;max-width:72px!important;font-size:0!important}#v69Home#v69Home #jrvxCasAccountButton::before{content:attr(data-jrvx-label);font:750 10px/1.2 system-ui!important}}
