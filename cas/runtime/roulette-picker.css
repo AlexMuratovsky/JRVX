@@ -1,0 +1,30 @@
+#jrvxRouletteSelectors{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 66px!important}
+#jrvxRoulettePickerOpen{width:100%;min-width:0;height:100%;min-height:0;padding:3px;border:1px solid #ae9359;border-radius:8px;background:#d6b86f;color:#17130b;font:750 11px/1.2 system-ui;cursor:pointer}
+html body #roulette.game.active #rouletteNumbers [data-jrvx-covered=true]{border-color:#f0cd7d!important;box-shadow:inset 0 0 0 1px #f0cd7d!important;filter:brightness(1.18)}
+html body #roulette.game.active #rouletteNumbers .v220-selected{position:relative!important}
+html body #roulette.game.active #rouletteNumbers .v220-selected::after{content:'';position:absolute;right:1px;top:1px;width:8px;height:8px;border:2px dotted #fff3cf;border-radius:50%;background:#cda44d;box-shadow:0 1px 3px #0009;pointer-events:none}
+#jrvxRoulettePicker{position:fixed;inset:0;z-index:2147483100;display:grid;place-items:center;padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom));background:#02070ee8;backdrop-filter:blur(9px);color:#edf2f8;box-sizing:border-box}
+#jrvxRoulettePicker[hidden]{display:none!important}
+#jrvxRoulettePicker *{box-sizing:border-box}
+#jrvxRoulettePicker .jrvxPickerCard{display:grid;grid-template-rows:auto 36px minmax(0,1fr) 36px 66px 42px;gap:8px;width:min(100%,730px);height:min(730px,calc(100dvh - 24px));min-height:0;max-height:100%;padding:16px;border:1px solid #8c7445;border-radius:22px;background:linear-gradient(145deg,#152437,#08111f);box-shadow:0 25px 100px #0009;overflow:hidden;font-family:system-ui}
+#jrvxRoulettePicker header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:0}
+#jrvxRoulettePicker h2{margin:0;font:800 21px/1.2 system-ui;color:#f2e6c7}
+#jrvxRoulettePicker header p{margin:5px 0 0;font-size:11px;line-height:1.2;color:#b6c4d6}
+#jrvxRoulettePicker button{display:flex;align-items:center;justify-content:center;position:relative;min-width:0;min-height:0;width:100%;height:100%;margin:0;padding:3px;border:1px solid #41546f;border-radius:8px;background:#172a42;color:#edf2f8;font:750 13px/1.2 system-ui;cursor:pointer}
+#jrvxRoulettePicker #jrvxPickerClose{flex:0 0 34px;width:34px;height:34px;font-size:24px}
+#jrvxPickerModes,#jrvxPickerOutside,#jrvxPickerGroups,#jrvxPickerNumbers{display:grid;min-width:0;min-height:0;gap:6px}
+#jrvxPickerModes{grid-template-columns:repeat(4,minmax(0,1fr))}
+#jrvxPickerNumbers{grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr))}
+#jrvxPickerOutside{grid-template-columns:repeat(6,minmax(0,1fr))}
+#jrvxPickerGroups{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+#jrvxRoulettePicker button.red{background:#7d2436;border-color:#b65567;color:#fff1ec}
+#jrvxRoulettePicker button.black{background:#0a1422;border-color:#40536b}
+#jrvxRoulettePicker button.green{background:#14553b;border-color:#469777;color:#eef8ed}
+#jrvxRoulettePicker button[aria-pressed=true]{border-color:#f0cd7d;box-shadow:inset 0 0 0 2px #f0cd7d;background-image:linear-gradient(#edc97420,#edc97420)}
+#jrvxPickerNumbers button[aria-pressed=true]::after{content:'';position:absolute;right:3px;top:3px;width:11px;height:11px;border:2px dashed #fff6db;border-radius:50%;background:#cda44d;box-shadow:0 2px 4px #0009;pointer-events:none}
+#jrvxRoulettePicker footer{display:grid;grid-template-columns:minmax(0,1fr) 100px;align-items:center;gap:10px;min-height:0}
+#jrvxPickerSummary{min-width:0;margin:0;font:650 12px/1.25 system-ui;color:#f2e6c7}
+#jrvxRoulettePicker #jrvxPickerDone{background:#e4c47d;color:#17130b;border-color:#e4c47d}
+#jrvxRoulettePicker button:focus-visible,#jrvxRoulettePickerOpen:focus-visible{outline:3px solid #fff0c8;outline-offset:2px}
+@media(max-width:600px){#jrvxRoulettePicker .jrvxPickerCard{padding:10px;gap:6px;border-radius:16px;grid-template-rows:44px 32px minmax(0,1fr) 62px 62px 42px}#jrvxRoulettePicker h2{font-size:17px}#jrvxRoulettePicker header p{font-size:10px}#jrvxPickerOutside{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}#jrvxPickerModes,#jrvxPickerOutside,#jrvxPickerGroups,#jrvxPickerNumbers{gap:4px}#jrvxRoulettePicker button{font-size:11px}#jrvxPickerNumbers button{font-size:15px}#jrvxPickerSummary{font-size:11px}}
+@media(orientation:landscape) and (max-height:560px){#jrvxRoulettePicker .jrvxPickerCard{width:min(100%,960px);height:calc(100dvh - 16px);padding:8px 12px;gap:5px;grid-template-rows:34px 28px minmax(0,1fr) 28px 28px 32px}#jrvxPickerNumbers{grid-template-columns:repeat(13,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}#jrvxPickerGroups{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:minmax(0,1fr)}#jrvxRoulettePicker h2{font-size:17px}#jrvxRoulettePicker header p{display:none}#jrvxRoulettePicker button{font-size:11px}}

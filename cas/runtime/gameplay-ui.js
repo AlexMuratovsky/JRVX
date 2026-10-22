@@ -53,7 +53,7 @@
   function schedule(){if(!frame)frame=requestAnimationFrame(sync);}
   function boot(){
     // The generated photo supplies the rim and spindle; server pocket geometry stays in the canvas.
-    if(typeof Image==='function'){var artwork=new Image();artwork.onload=function(){window.JRVXRouletteArtwork=artwork;if(typeof window.rouletteDraw==='function')window.rouletteDraw();};artwork.src='/assets/art/roulette-studio-v322.webp';}
+    if(typeof Image==='function'){var artwork=new Image();artwork.onload=function(){window.JRVXRouletteArtwork=artwork;if(typeof window.rouletteDraw==='function')window.rouletteDraw();};artwork.src='/assets/art/roulette-no-ball-v323.webp';}
     var bjMessage=$('bjMessage');if(bjMessage){bjMessage.setAttribute('role','status');bjMessage.setAttribute('aria-live','polite');}
     var bjInput=$('bjBetInput');if(bjInput)bjInput.setAttribute('aria-label','Сумма ставки блэкджека');
     sync();['poker','blackjack','roulette'].forEach(function(id){var root=$(id);if(root)new MutationObserver(schedule).observe(root,{attributes:true,attributeFilter:['class']});});
