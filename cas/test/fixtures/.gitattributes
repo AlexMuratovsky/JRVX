@@ -1,0 +1,2 @@
+# Preserve the public production source bytes used by the audit hash.
+poker-v59-core.js -text

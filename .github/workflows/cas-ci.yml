@@ -1,0 +1,38 @@
+name: Check JRVX CAS
+
+on:
+  push:
+    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+  pull_request:
+    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+      - name: Check changed JavaScript
+        run: |
+          node --check cas/public/assets/js-v326/cas-bootstrap.js
+          node --check cas/public/assets/js-v326/casino.js
+          node --check cas/public/modules/poker/runtime/poker-pro-v326.js
+          node --check cas/public/modules/poker/runtime/poker-core-v326.js
+          node --check cas/public/modules/network/runtime/online-v326.js
+          node --check cas/public/modules/legacy/runtime/wallet-v326.js
+          node --check cas/runtime/roulette-photo.js
+          node --check cas/public/service-worker.js
+      - run: node --test cas/test/*.test.cjs
+      - name: Build and validate public overlay
+        run: |
+          python3 cas/package-reg.py
+          python3 cas/verify-release.py

@@ -18,10 +18,11 @@ readouts are replaced by a compact result, history strip and motion indicator.
 Existing selection handlers remain in use; no odds, payouts or server game
 rules are changed.
 
-The complete approved roulette photograph now supplies the table and rotor.
-The static ball was removed from the image so the live ball follows the verified
-spin plan. Photographed pocket positions align with the unchanged 37-pocket
-geometry. See `ART_V323.md` for provenance and all generation prompts.
+The approved roulette photograph supplies the stationary wooden case. Its
+off-centre, incorrectly numbered photographed rotor is replaced by a cached,
+concentric Canvas disc with the exact European 37-pocket order. The live ball
+follows the server-confirmed spin plan. See `ART_V323.md` for the original asset
+provenance and `FULL_AUDIT_20261023.md` for the correction and measurements.
 
 The larger field picker mirrors all existing selection handlers and shows covered
 numbers, chip markers, straight/pair/street/corner modes, outside bets, dozens and
@@ -59,7 +60,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-30 public files: `index.html`, its service worker, the versioned UI assets and
+32 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
@@ -108,3 +109,17 @@ code and the live lobby DOM: 42 browser checks covered all five modes, cyclic
 arrows, dots and keyboard navigation at 320×568, 390×844, 679×811, 963×700 and
 1280×820. Each active card remained centred and within the stage, the Play button
 was hit-testable, and current dots and keyboard tab stops matched the selection.
+
+The published v326 release repairs the roulette asset geometry and legacy CSS
+perspective, keeps a fixed logical canvas world across DPR/resize, and caches a
+correct 37-pocket disc. It also hardens acknowledged blackjack results, durable
+currency exchange, spectator intent, poker minimum bets and the local heads-up
+engine. Portrait poker controls grow without overlapping automatic actions.
+
+Current checks: 198 CAS tests, 31 local identity/gateway tests, 46 exact backend
+tests against synthetic SQLite data, nine-angle pixel measurements and fifteen
+browser layout configurations. Fourteen additional full Miniflare/D1/DO groups
+passed with synthetic users and a local Identity provider. The 32-file overlay
+and separate owner-guard server patch were published after user authorization;
+all 161 precache resources are available and all package bytes match live HTTP. See
+`FULL_AUDIT_20261023.md` for scope, evidence, remaining checks and release status.
