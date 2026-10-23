@@ -4,19 +4,19 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
-const casino=fs.readFileSync(path.join(root,'public/assets/js-v322/casino.js'),'utf8');
+const casino=fs.readFileSync(path.join(root,'public/assets/js-v324/casino.js'),'utf8');
 const progress=fs.readFileSync(path.join(root,'public/modules/profile/runtime/progression-v322.js'),'utf8');
 const drain=()=>new Promise(resolve=>setImmediate(resolve));
 function fixture({storageFails=false,fetchMode='ok'}={}){
  const records=new Map(),nodes=new Map(),listeners=new Map(),timers=new Map(),requests=[],animations=[];
  let serial=0,timerId=0;
  const makeNode=()=>({value:'50',textContent:'',innerHTML:'',disabled:false,style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},querySelector:()=>null,querySelectorAll:()=>[],addEventListener(){}});
- const ctx={console,Number,JSON,Error,Map,Set,Promise,AbortController,owner:'A',rouletteBusy:false,rouletteHistory:[],rouletteState:{},R_ORDER:[0,1,2,3],
+ const ctx={console,Number,JSON,Error,Map,Set,Promise,AbortController,owner:'A',rouletteType:'red',rouletteExact:null,rouletteBusy:false,rouletteHistory:[],rouletteState:{},R_ORDER:[0,1,2,3],
   sessionStorage:{getItem:k=>{if(storageFails)throw Error('SecurityError');return records.get(k)??null},setItem:(k,v)=>{if(storageFails)throw Error('QuotaExceededError');records.set(k,v)},removeItem:k=>records.delete(k)},
   localStorage:{getItem:k=>records.get(k)??null,setItem:(k,v)=>records.set(k,v)},
   setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id},clearTimeout:id=>timers.delete(id),
   document:{readyState:'loading',getElementById:id=>{if(!nodes.has(id))nodes.set(id,makeNode());return nodes.get(id)},querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(type,fn)=>{if(!listeners.has(type))listeners.set(type,[]);listeners.get(type).push(fn)}},
-  rouletteAnimate:(fn,index,current)=>animations.push({fn,index,current}),rouletteRenderHistory(){},rouletteUpdatePreview(){},rouletteDraw(){},casinoRefresh(){},
+  rouletteColor:()=> 'red',rouletteAnimate:(fn,index,current)=>animations.push({fn,index,current}),rouletteRenderHistory(){},rouletteUpdatePreview(){},rouletteDraw(){},casinoRefresh(){},
   fetch:async(url,options={})=>{requests.push({url,body:options.body?JSON.parse(options.body):null,signal:options.signal});
    if(url==='/api/blackjack/state')return {ok:true,json:async()=>({ok:true,state:{hands:[],dealer:[],active:false,hand:0},version:1})};
    if(ctx.fetchMode==='hang')return new Promise(()=>{});
@@ -27,8 +27,41 @@ function fixture({storageFails=false,fetchMode='ok'}={}){
  ctx.window={crypto:{randomUUID:()=>`00000000-0000-4000-8000-${String(++serial).padStart(12,'0')}`},JRVXCASIdentityV300:{state:()=>({authenticated:!!ctx.owner,requiresAuthentication:true,mode:'production',user:ctx.owner?{id:ctx.owner}:null})},JRVXCASServerAccount:{apply:()=>true,refresh:async()=>({ok:true}),history:async()=>[]}};
  vm.createContext(ctx);vm.runInContext(casino,ctx);
  Object.assign(ctx.window.JRVXCASV220.blackjack.state,{serverOwner:'A',serverVersion:1});
- return {ctx,records,nodes,requests,animations,timers,spin:()=>ctx.window.JRVXCASV220.roulette.spin(),deal:()=>ctx.window.JRVXCASV220.blackjack.deal(),identity(owner){ctx.owner=owner;for(const fn of listeners.get('jrvx-cas-identity')||[])fn()},async timeout(){for(const [id,t] of [...timers])if(t.ms===12000){timers.delete(id);t.fn()}await drain()}};
+ return {ctx,records,nodes,requests,animations,timers,bindRoulette(){listeners.get('DOMContentLoaded').find(fn=>fn.name==='bindV242Roulette')()},spin:()=>ctx.window.JRVXCASV220.roulette.spin(),deal:()=>ctx.window.JRVXCASV220.blackjack.deal(),identity(owner){ctx.owner=owner;for(const fn of listeners.get('jrvx-cas-identity')||[])fn()},async timeout(){for(const [id,t] of [...timers])if(t.ms===12000){timers.delete(id);t.fn()}await drain()}};
 }
+
+test('roulette repeat restores vertical splits, including bets saved before orientation was persisted',async()=>{
+ const f=fixture();f.bindRoulette();const api=f.ctx.window.JRVXCASV220.roulette;
+ api.state.mode='split';api.state.splitAxis='vertical';api.set({type:'split',numbers:[4,7],label:'Split 4 / 7',mult:18});
+ await f.spin();f.animations[0].fn();
+ assert.equal(JSON.parse(f.records.get('jrvxCasRouletteLastBetV220:A')).splitAxis,'vertical');
+ api.state.mode='straight';api.state.splitAxis='horizontal';f.nodes.get('r22Repeat').onclick();
+ assert.equal(api.state.mode,'split');assert.equal(api.state.splitAxis,'vertical');
+ assert.deepEqual([...api.numbersFor('split',4)],[4,7],'The next number uses the direction shown for the restored bet');
+ f.records.set('jrvxCasRouletteLastBetV220:A',JSON.stringify({amount:50,type:'split',numbers:[10,13],label:'Split 10 / 13',mult:18}));
+ api.state.last=null;api.state.splitAxis='horizontal';f.nodes.get('r22Repeat').onclick();
+ assert.equal(api.state.splitAxis,'vertical','Existing saved pairs recover their direction from the two numbers');
+});
+
+test('confirmed roulette spins still display when optional account sync throws or rejects',async()=>{
+ const f=fixture();f.ctx.window.JRVXCASServerAccount.apply=()=>{throw Error('wallet_render_failed')};
+ f.ctx.window.JRVXCASServerAccount.refresh=()=>Promise.reject(Error('offline'));
+ await f.spin();assert.equal(f.animations.length,1,'Wallet presentation must not turn a confirmed result into a failed wager');
+ f.animations[0].fn();await drain();
+ assert.match(f.nodes.get('rouletteMessage').textContent,/Победа!/);
+ assert.equal(f.records.has('jrvxRoulettePendingV302:A'),false);assert.equal(f.ctx.rouletteBusy,false);
+ assert.equal(f.requests.length,1);
+});
+
+test('a failed roulette renderer releases the controls and keeps the confirmed outcome',async()=>{
+ const f=fixture();f.ctx.rouletteAnimate=()=>{throw Error('canvas_unavailable')};
+ f.ctx.rouletteDraw=()=>{throw Error('canvas_unavailable')};
+ await f.spin();
+ assert.match(f.nodes.get('rouletteMessage').textContent,/Победа!/);
+ assert.deepEqual([...f.ctx.rouletteHistory],[2]);assert.equal(f.ctx.rouletteState.lastNumber,2);
+ assert.equal(f.ctx.rouletteBusy,false);assert.equal(f.nodes.get('rouletteSpin').disabled,false);
+ assert.equal(f.records.has('jrvxRoulettePendingV302:A'),false);assert.equal(f.requests.length,1);
+});
 test('roulette retains one operation ID and the original selection after uncertain network failure',async()=>{
  const f=fixture({fetchMode:'error'});await f.spin();const first=f.requests[0].body;
  f.nodes.get('rouletteBetInput').value='300';await f.spin();
@@ -76,19 +109,29 @@ test('progress queue does not send another owner\'s saved event after account ch
  const f=progressFixture();f.ctx.window.JRVXProgress.event('blackjack_hand',{});const before=f.sent.length;f.setOwner('B');f.setAccepted(true);f.timers.shift()();assert.equal(f.sent.length,before);assert.equal(JSON.parse(f.records.get('jrvxCasProgressQueueV301:A')).length,1);
 });
 test('roulette renderer stops before touching a stale account\'s animation frame',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v323/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
  const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start);assert.ok(start>=0&&end>start);
  const frames=[],ctx={window:{},rouletteBuildSpinPlan:()=>({duration:1}),rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn)};vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);
  let active=true,done=false;ctx.rouletteAnimate(()=>{done=true},2,()=>active);active=false;frames.shift()(200);assert.equal(done,false);assert.equal(frames.length,0);assert.equal(ctx.rouletteState.wheelAngle,undefined);
 });
 test('disabling animations shortens the wheel transition while preserving the verified pocket',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v323/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
  const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start),frames=[],message={textContent:''};let sampled=0,target=null,result=null;
  const ctx={window:{JRVXExperience:{settings:{animations:false}}},rouletteBuildSpinPlan:chosen=>{target=chosen;return {duration:13.2}},rouletteSampleSpinPlan:(plan,p)=>{sampled=p;return {wheelAngle:0,ballAngle:2,ballRadius:1,phase:'settled',highlightIndex:2}},roulettePocketIndexAtAngle:()=>2,rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn),document:{visibilityState:'visible',getElementById:id=>id==='rouletteMessage'?message:{classList:{contains:()=>true}}},rouletteDraw(){}};
  vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);ctx.rouletteAnimate(pocket=>{result=pocket},2,()=>true);frames.shift()(250);assert.equal(sampled,1);assert.equal(target,2);assert.equal(result,2);assert.equal(frames.length,0);
 });
+test('a roulette canvas frame failure cannot interrupt the verified timeline or lock the action',()=>{
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
+ const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start),frames=[],completed=[],samples=[],message={textContent:''};let drawings=0;
+ const ctx={window:{},rouletteBuildSpinPlan:()=>({duration:1}),rouletteSampleSpinPlan:(plan,p)=>{samples.push(p);return {wheelAngle:0,ballAngle:2,ballRadius:1,phase:p<1?'rail':'settled',highlightIndex:p<1?-1:2}},roulettePocketIndexAtAngle:()=>2,rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn),document:{visibilityState:'visible',getElementById:id=>id==='rouletteMessage'?message:{classList:{contains:()=>true}}},rouletteDraw(){drawings++;throw Error('canvas_context_lost')}};
+ vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);ctx.rouletteAnimate(pocket=>completed.push(pocket),2,()=>true);
+ assert.doesNotThrow(()=>frames.shift()(250));assert.equal(frames.length,1,'A failed draw still schedules the next verified sample');
+ assert.doesNotThrow(()=>frames.shift()(1000));
+ assert.deepEqual(samples,[.25,1]);assert.deepEqual(completed,[2]);assert.equal(drawings,2);assert.equal(frames.length,0);
+ assert.equal(ctx.rouletteState.highlightIndex,2);
+});
 test('every roulette animation lands in its verified server pocket across different starting angles',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v323/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
  const constants=source.slice(source.indexOf('const R_RED='),source.indexOf('let rouletteBet='));
  const angles=source.slice(source.indexOf('function norm('),source.indexOf('function rouletteCurrentBet('));
  const geometry=source.slice(source.indexOf('function rouletteGeometry('),source.indexOf('function rouletteDrawCircularBrand('));

@@ -12,6 +12,9 @@
  let queued=false,restoreFocus=null;
  const text=(e,v)=>{if(e&&e.textContent!==v)e.textContent=v};
  const attr=(e,k,v)=>{if(e.getAttribute(k)!==v)e.setAttribute(k,v)};
+ // The opener lives inside the observed roulette root. Rewriting an existing
+ // disabled attribute emits another mutation, even when its value is unchanged.
+ const disable=(e,v)=>{if(e&&e.disabled!==v)e.disabled=v};
  function source(selector){return $('roulette')?.querySelector(selector)}
  function choose(selector){if($('rouletteSpin')?.disabled)return;const button=source(selector);if(button&&!button.disabled)button.click();schedule();}
  function button(label,kind,value){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset[kind]=value;return b;}
@@ -35,14 +38,14 @@
  function sync(){
   queued=false;ensure();const root=$('roulette'),s=state();if(!root||!s)return;
   const busy=!!$('rouletteSpin')?.disabled,active=root.classList.contains('active'),selection=s.selection||{type:'none',numbers:[]},numbers=new Set(covered(selection));
-  if($('jrvxRoulettePickerOpen'))$('jrvxRoulettePickerOpen').disabled=busy;
+  disable($('jrvxRoulettePickerOpen'),busy);
   if((busy||!active)&&!$('jrvxRoulettePicker')?.hidden)close();
   const amount=$('rouletteBetInput')?.value||'0',currency=root.querySelector('#jrvxRouletteCurrency .active')?.textContent||'MS';
   text($('jrvxPickerSummary'),selection.type==='none'?'Поле не выбрано':selection.label+' · '+amount+' '+currency+' · ×'+selection.mult);
-  document.querySelectorAll('#jrvxRoulettePicker button[data-pick-number]').forEach(b=>{const on=numbers.has(Number(b.dataset.pickNumber));attr(b,'aria-pressed',String(on));b.disabled=busy;});
+  document.querySelectorAll('#jrvxRoulettePicker button[data-pick-number]').forEach(b=>{const on=numbers.has(Number(b.dataset.pickNumber));attr(b,'aria-pressed',String(on));disable(b,busy);});
   root.querySelectorAll('#rouletteNumbers [data-number]').forEach(b=>{const on=numbers.has(Number(b.dataset.number));attr(b,'data-jrvx-covered',String(on));attr(b,'aria-label','Число '+b.dataset.number+(on?' · входит в выбранную ставку':''));});
-  document.querySelectorAll('#jrvxPickerModes button').forEach(b=>{attr(b,'aria-pressed',String(b.dataset.pickMode===s.mode));if(b.dataset.pickMode==='split')text(b,s.splitAxis==='vertical'?'Пара ↕':'Пара ↔');b.disabled=busy;});
-  document.querySelectorAll('#jrvxPickerOutside button,#jrvxPickerGroups button').forEach(b=>{attr(b,'aria-pressed',String((b.dataset.pickOutside||b.dataset.pickGroup)===selection.type));b.disabled=busy;});
+  document.querySelectorAll('#jrvxPickerModes button').forEach(b=>{attr(b,'aria-pressed',String(b.dataset.pickMode===s.mode));if(b.dataset.pickMode==='split')text(b,s.splitAxis==='vertical'?'Пара ↕':'Пара ↔');disable(b,busy);});
+  document.querySelectorAll('#jrvxPickerOutside button,#jrvxPickerGroups button').forEach(b=>{attr(b,'aria-pressed',String((b.dataset.pickOutside||b.dataset.pickGroup)===selection.type));disable(b,busy);});
  }
  function schedule(){if(!queued){queued=true;requestAnimationFrame(sync)}}
  function boot(){sync();const root=$('roulette');if(root)new MutationObserver(schedule).observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class','disabled']});document.addEventListener('jrvx-cas-identity',schedule)}

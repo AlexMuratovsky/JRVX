@@ -21,7 +21,7 @@
   if (typeof document === 'undefined') return;
   const $ = id => document.getElementById(id);
   const triggerSelector = '#jrvxCasAccountButton,.v120AuthSingle,[data-v103-auth],#v300IdentityLogin';
-  let busy = false, restoreFocus = null, queued = false, notice = '';
+  let busy = false, restoreFocus = null, queued = false, notice = '', logoutPending = false;
   const identity = () => {
     try { return window.JRVXCASIdentityV300?.state?.() || {}; } catch { return {}; }
   };
@@ -77,7 +77,10 @@
     setText($('jrvxCasAccountStatus'), notice || (state.mode === 'offline' ? 'Не удалось связаться с сервером. Проверьте подключение.' : state.networkError || ''));
     $('jrvxCasAccountLogin').hidden = authenticated;
     $('jrvxCasAccountManage').hidden = !authenticated;
-    $('jrvxCasAccountLogout').hidden = !authenticated;
+    // Core identity clears locally before /auth/logout is confirmed. Keep its
+    // retry available when that server request fails or times out.
+    $('jrvxCasAccountLogout').hidden = !authenticated && !logoutPending;
+    setText($('jrvxCasAccountLogout'), logoutPending && !busy ? 'Повторить выход из CAS' : 'Выйти из CAS');
     for (const id of ['jrvxCasAccountLogin', 'jrvxCasAccountRefresh', 'jrvxCasAccountLogout']) $(id).disabled = busy;
     $('jrvxCasAccountPanel').setAttribute('aria-busy', String(busy));
   }
@@ -122,10 +125,11 @@
   }
   async function logout() {
     if (busy) return;
-    busy = true; notice = 'Выходим из CAS…'; sync();
+    busy = true; logoutPending = true; notice = 'Выходим из CAS…'; sync();
     try {
       if (!window.JRVXCASIdentityV300?.logout) throw Error('identity_unavailable');
       const result = await bounded(() => window.JRVXCASIdentityV300.logout());
+      if (result?.ok) logoutPending = false;
       notice = result?.ok ? 'Вы вышли из CAS.' : 'Сервер не подтвердил выход. Повторите после восстановления связи.';
     } catch { notice = 'Сервер не подтвердил выход. Повторите после восстановления связи.'; }
     finally { busy = false; sync(); }

@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v322/casino.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v324/casino.js'), 'utf8');
 const drain = () => new Promise(resolve => setImmediate(resolve));
 const ids = { deal: 'bjDeal', hit: 'bjHit', stand: 'bjStand', double: 'bjDouble', split: 'bjSplit', insurance: 'bjInsurance' };
 const card = (r, s = '♠') => ({ r, s });
@@ -11,8 +11,8 @@ const hand = (cards = [card('8'), card('8', '♥')], extra = {}) => ({ cards, be
 const idle = () => ({ hands: [], dealer: [], active: false, hand: 0, hideDealer: true, insuranceOffered: false, insuranceResolved: true, currency: 'MS' });
 const active = (extra = {}) => ({ ...idle(), hands: [hand()], dealer: [card('A'), card('9', '♥')], active: true, ...extra });
 
-async function fixture(view, { holdAction = false } = {}) {
-  const nodes = new Map(), listeners = new Map(), records = new Map(), requests = [], timers = new Map();
+async function fixture(view, { holdAction = false, holdState = false } = {}) {
+  const nodes = new Map(), listeners = new Map(), records = new Map(), requests = [], timers = new Map(), stateResponses = [];
   let timerId = 0, operationId = 0, releaseAction;
   function node(id) {
     if (!nodes.has(id)) {
@@ -26,7 +26,7 @@ async function fixture(view, { holdAction = false } = {}) {
   }
   const currencies = [node('currencyMS'), node('currencyMG')];
   const chips = [10, 50, 100].map(amount => { const button = node('chip' + amount); button.dataset.bjBet = String(amount); return button; });
-  const owner = 'JRVX-ABCD12345678';
+  let owner = 'JRVX-ABCD12345678';
   const response = state => ({ ok: true, json: async () => ({ ok: true, result: { state, version: 8, actionVersion: 8, currency: 'MS' } }) });
   const ctx = {
     console, Number, String, JSON, Error, Map, Set, Promise, AbortController, navigator: {},
@@ -41,7 +41,10 @@ async function fixture(view, { holdAction = false } = {}) {
     },
     fetch: async (url, options = {}) => {
       requests.push({ url, method: options.method || 'GET', body: options.body ? JSON.parse(options.body) : null });
-      if (url === '/api/blackjack/state') return { ok: true, json: async () => ({ ok: true, state: view, version: 7 }) };
+      if (url === '/api/blackjack/state') {
+        if (holdState) return new Promise(resolve => stateResponses.push((state, version) => resolve({ ok: true, json: async () => ({ ok: true, state, version }) })));
+        return { ok: true, json: async () => ({ ok: true, state: view, version: 7 }) };
+      }
       assert.equal(url, '/api/blackjack/action', 'No real request or unexpected endpoint');
       if (holdAction) return new Promise(resolve => { releaseAction = state => resolve(response(state)); });
       return response(view);
@@ -58,6 +61,8 @@ async function fixture(view, { holdAction = false } = {}) {
   const boot = listeners.get('DOMContentLoaded').find(fn => fn.name === 'bindV242Blackjack');
   assert.ok(boot, 'The production blackjack binder is installed'); boot(); await drain();
   return { nodes, node, requests, currencies, chips, owner, api: ctx.window.JRVXCASV220.blackjack,
+    identity(value) { owner = value; for (const fn of listeners.get('jrvx-cas-identity') || []) fn(); },
+    releaseState(index, state, version) { assert.equal(typeof stateResponses[index], 'function'); stateResponses[index](state, version); },
     release(state = view) { assert.equal(typeof releaseAction, 'function'); releaseAction(state); } };
 }
 
@@ -129,4 +134,18 @@ test('blackjack rejects fractional, odd and out-of-range amounts before sending 
     const f = await fixture(idle()); f.node('bjBetInput').value = value; await f.node('bjDeal').click();
     assert.equal(f.requests.find(request => request.url === '/api/blackjack/action').body.bet, Number(value));
   }
+});
+
+test('a delayed blackjack snapshot cannot return after changing accounts and signing back in', async () => {
+  const f = await fixture(idle(), { holdState: true });
+  f.identity('JRVX-EFGH87654321');
+  f.identity(f.owner);
+  f.releaseState(2, idle(), 3); await drain();
+  assert.equal(f.api.state.serverVersion, 3);
+  f.releaseState(0, active(), 8); await drain();
+  f.releaseState(1, active(), 9); await drain();
+  assert.equal(f.api.state.serverOwner, f.owner);
+  assert.equal(f.api.state.serverVersion, 3, 'Only the current login may restore its server hand');
+  assert.equal(f.api.state.active, false);
+  assertEnabled(f, ['deal'], 'The old login cannot revive a hand or change the buttons');
 });
