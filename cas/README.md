@@ -110,7 +110,7 @@ arrows, dots and keyboard navigation at 320×568, 390×844, 679×811, 963×700 a
 1280×820. Each active card remained centred and within the stage, the Play button
 was hit-testable, and current dots and keyboard tab stops matched the selection.
 
-The v326 local candidate repairs the roulette asset geometry and legacy CSS
+The published v326 release repairs the roulette asset geometry and legacy CSS
 perspective, keeps a fixed logical canvas world across DPR/resize, and caches a
 correct 37-pocket disc. It also hardens acknowledged blackjack results, durable
 currency exchange, spectator intent, poker minimum bets and the local heads-up
@@ -118,6 +118,8 @@ engine. Portrait poker controls grow without overlapping automatic actions.
 
 Current checks: 198 CAS tests, 31 local identity/gateway tests, 46 exact backend
 tests against synthetic SQLite data, nine-angle pixel measurements and fifteen
-browser layout configurations. The 32-file overlay and a separate owner-guard
-server patch are prepared locally; this audit did not publish them. See
+browser layout configurations. Fourteen additional full Miniflare/D1/DO groups
+passed with synthetic users and a local Identity provider. The 32-file overlay
+and separate owner-guard server patch were published after user authorization;
+all 161 precache resources are available and all package bytes match live HTTP. See
 `FULL_AUDIT_20261023.md` for scope, evidence, remaining checks and release status.

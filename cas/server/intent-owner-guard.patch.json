@@ -1,5 +1,5 @@
 {
-  "status": "LOCAL CANDIDATE; NOT DEPLOYED",
+  "status": "DEPLOYED AND VERIFIED 2026-10-23",
   "worker": "jrvx-cas-v300",
   "baseSha256": "c294cb84b8044114f61eb983965f613736e0e68b5f47d1fbcf31855d33c86390",
   "candidateSha256": "9cd0bbd6fae00ff478f0758928900abe915ee1596b7f68b7733ab9300b3d4679",
@@ -20,5 +20,5 @@
   ],
   "behavior": "Each provided ownerId must strictly equal verified session.id. Mismatch returns HTTP409 intent_owner_mismatch before any money helper/DB operation. Verified session remains the sole authority for jrvxId.",
   "compatibility": "Older clients omitting ownerId are accepted unchanged; this does not protect legacy intents lacking an owner snapshot.",
-  "deployment": "Not performed. Preserve the existing ASSETS, Durable Object, D1, service and secret bindings; validate in staging before production."
+  "deployment": "Version 27f2e145-f4ab-4249-b6e6-9c39f7eb4460 at 100%, deployment 1a80c8d9-87aa-4188-a5c9-6b3ae0281488. Fourteen full local Miniflare/D1/DO groups passed; ASSETS, DO, D1, service, secret and runtime settings preserved. The original exact-base patch is a historical release artifact, not a patch for reapplication to the current live source."
 }
