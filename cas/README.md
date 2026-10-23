@@ -59,7 +59,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-27 public files: `index.html`, its service worker, the versioned UI assets and
+30 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
@@ -69,7 +69,7 @@ To roll back, restore the previous root document and service worker; the old
 versioned assets remain installed. New assets then remain unused.
 
 The HTML snapshot was recovered from the public installation on 21 October 2026.
-Validation includes 92 Node checks, 185 wheel-pocket simulations, DOM
+Validation includes 109 Node checks, 185 wheel-pocket simulations, DOM
 checks and isolated browser layout checks at 320×568, 360×640, 390×844,
 844×390 and 1100×820. All roulette, large picker and blackjack controls are in bounds and
 uncovered at those sizes. The tests use simulated requests and display fixtures;
@@ -91,3 +91,20 @@ its single completion callback running.
 `public/modules/poker/runtime/poker-pro-v324.js` retains the installed public
 module (source SHA-256 bbb931ee611f0405347e5e86afa986cf75425f2f55ad71fe7b2f747eeca4edb7)
 with these action-guard fixes. Old versioned assets remain available for rollback.
+
+The v325 lobby fix keeps mode cards absolutely centred inside the real v120
+carousel, overriding the generic decorative card position. Cards fit the stage
+at narrow widths; mobile arrows have their own row. Only the selected card's
+controls enter keyboard navigation, and named dots expose its current state.
+The obsolete second connection status is hidden in the header.
+
+The release also rejects foreign-owner poker frames before writing local hand
+history, reports production connection status from identity and handshake state,
+and clears failed join correlation so valid reconnect snapshots are not dropped.
+Legacy network, lifecycle and poker-history modules are retained unchanged.
+
+The carousel regression was checked with the actual v108 and v120 controller
+code and the live lobby DOM: 42 browser checks covered all five modes, cyclic
+arrows, dots and keyboard navigation at 320×568, 390×844, 679×811, 963×700 and
+1280×820. Each active card remained centred and within the stage, the Play button
+was hit-testable, and current dots and keyboard tab stops matched the selection.

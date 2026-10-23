@@ -7,14 +7,16 @@ files['modules/ui/styles/gameplay-v322.css'] = root/'runtime/gameplay-ui.css'
 files['modules/ui/runtime/gameplay-v323.js'] = root/'runtime/gameplay-ui.js'
 files['modules/ui/runtime/account-v324.js'] = root/'runtime/account-ui.js'
 files['assets/art/roulette-studio-v322.webp'] = root/'public/assets/art/roulette-studio-v322.webp'
-for public_name, source_name in (('blackjack-photo','blackjack-photo'),('lobby-v323','lobby-ui'),('roulette-picker-v323','roulette-picker')):
-    files['modules/ui/styles/'+public_name+'.css' if public_name.endswith('v323') else 'modules/ui/styles/'+public_name+'-v323.css'] = root/'runtime'/(source_name+'.css')
-for public_name, source_name in (('roulette-photo','roulette-photo'),('roulette-picker-v324','roulette-picker'),('lobby','lobby-ui')):
-    files['modules/ui/runtime/'+public_name+('' if public_name.endswith('v324') else '-v323')+'.js'] = root/'runtime'/(source_name+'.js')
+for public_name, source_name in (('blackjack-photo','blackjack-photo'),('lobby-v325','lobby-ui'),('roulette-picker-v323','roulette-picker')):
+    files['modules/ui/styles/'+public_name+'.css' if public_name.endswith(('v323','v325')) else 'modules/ui/styles/'+public_name+'-v323.css'] = root/'runtime'/(source_name+'.css')
+for public_name, source_name in (('roulette-photo','roulette-photo'),('roulette-picker-v324','roulette-picker'),('lobby-v325','lobby-ui')):
+    files['modules/ui/runtime/'+public_name+('' if public_name.endswith(('v324','v325')) else '-v323')+'.js'] = root/'runtime'/(source_name+'.js')
 for name in ('blackjack-reference','profile','leaderboard','updates','tutorial','poker','roulette-no-ball'):
     files['assets/art/'+name+'-v323.webp'] = root/'public/assets/art'/(name+'-v323.webp')
 files['modules/poker/runtime/poker-pro-v324.js'] = root/'public/modules/poker/runtime/poker-pro-v324.js'
 for name in ('assets/js-v324/cas-bootstrap.js', 'assets/js-v324/casino.js', 'modules/profile/runtime/progression-v322.js', 'modules/ui/runtime/experience-v322.js', 'modules/ui/runtime/pwa-v322.js'):
+    files[name] = root/'public'/name
+for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runtime/lifecycle-v325.js', 'modules/network/runtime/online-v325.js'):
     files[name] = root/'public'/name
 (root/'deploy').mkdir(exist_ok=True)
 with ZipFile(root/'deploy/cas-ecosystem.zip','w',compression=ZIP_DEFLATED) as out:

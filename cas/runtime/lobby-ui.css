@@ -3,6 +3,7 @@
 #v69Home#v69Home .v69Main::after{display:none!important;background:none!important;content:none!important}
 #v69Home#v69Home #jrvxCasEcosystem{display:none!important}
 body.jrvx-lobby-visible>.wrap>.topbar,body.jrvx-lobby-visible .wrap>.topbar{display:none!important}
+#v69Home#v69Home .v69Topbar .v107OnlineStatus{display:none!important}
 #v69Home#v69Home .v69Topbar{position:sticky!important;top:0!important;z-index:90!important;display:grid!important;grid-template-columns:auto minmax(0,1fr) auto auto!important;align-items:center!important;gap:16px!important;width:100%!important;max-width:none!important;height:64px!important;min-height:64px!important;margin:0!important;padding:0 max(18px,calc((100vw - 1460px)/2))!important;box-sizing:border-box!important;border-bottom:1px solid #34435b!important;background:#070d18f5!important;box-shadow:0 6px 22px #0003!important}
 #v69Home#v69Home .v69Topbar .v69Logo{grid-column:1!important;min-width:0!important;width:auto!important;gap:8px!important}
 #v69Home#v69Home .v69Topbar .v69LogoText strong{font-size:15px!important;letter-spacing:.08em!important;white-space:nowrap!important}
@@ -46,6 +47,15 @@ body.jrvx-lobby-visible>.wrap>.topbar,body.jrvx-lobby-visible .wrap>.topbar{disp
 #v69Home#v69Home .v83Card.jrvxArtworkCard p{position:static!important;max-width:100%!important;font-size:11px!important;line-height:1.4!important;margin:0!important}
 #v69Home#v69Home .v83Card.jrvxArtworkCard .play{position:absolute!important;left:17px!important;right:17px!important;bottom:15px!important;width:calc(100% - 34px)!important;min-width:0!important;min-height:38px!important;margin:0!important;padding:9px 12px!important;border-radius:10px!important;font-size:11px!important;transform:none!important}
 #v69Home#v69Home .v83Card.jrvxArtworkCard[data-jrvx-art=roulette]{background-position:center 25%!important}
+/* The carousel controller positions every mode around the same stage centre. */
+#v69Home#v69Home #v83Stage>.v83Card.jrvxArtworkCard{position:absolute!important;left:50%!important;top:50%!important;margin:0!important;flex:none!important;width:min(392px,calc(100% - 20px))!important}
+@media(max-width:760px){#v69Home#v69Home #v83Stage>.v83Card.jrvxArtworkCard{width:min(296px,calc(100% - 12px))!important}}
+@media(max-width:540px){
+ #v69Home#v69Home #v83ModesHub .v83Modes{padding:0 0 46px!important}
+ #v69Home#v69Home #v83ModesHub .v83Arrow{top:auto!important;bottom:0!important;width:36px!important;height:36px!important;transform:none!important}
+ #v69Home#v69Home #v83ModesHub .v83Arrow.left{left:calc(50% - 48px)!important}
+ #v69Home#v69Home #v83ModesHub .v83Arrow.right{right:calc(50% - 48px)!important}
+}
 @media(max-width:1340px){#v69Home#v69Home .v69Topbar{grid-template-columns:auto minmax(0,1fr) auto!important;gap:12px!important}#v69Home#v69Home .v103Nav{display:none!important}#v69Home#v69Home #onlineBadge{grid-column:2!important;justify-self:end!important}#v69Home#v69Home .v103TopRight{grid-column:3!important}.v103Search{display:none!important}}
 @media(max-width:700px){
  #v69Home#v69Home .v69Topbar{height:54px!important;min-height:54px!important;grid-template-columns:auto minmax(0,1fr) auto!important;gap:7px!important;padding:0 8px!important}

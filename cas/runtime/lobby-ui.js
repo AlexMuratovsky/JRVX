@@ -24,7 +24,7 @@
   const $ = id => document.getElementById(id);
   const text = (node, value) => { if (node && node.textContent !== value) node.textContent = value; };
   const attr = (node, name, value) => { if (node && node.getAttribute(name) !== value) node.setAttribute(name, value); };
-  let queued = false, originalBadgeParent = null, originalBadgeNext = null, observedBadge = null;
+  let queued = false, originalBadgeParent = null, originalBadgeNext = null, observedBadge = null, observedStage = null, stageObserver = null;
   function mark(node, key) {
     if (!node || !art[key]) return;
     if (!node.classList.contains('jrvxArtworkCard')) node.classList.add('jrvxArtworkCard');
@@ -72,6 +72,22 @@
     // A passive status replaces the old toast that claimed founder presence was online.
     if (badge.onclick) badge.onclick = null;
   }
+  function carousel(home) {
+    const stage = home.querySelector('#v83Stage'); if (!stage) return;
+    if (stage !== observedStage) {
+      stageObserver?.disconnect(); observedStage = stage;
+      stageObserver = new MutationObserver(schedule);
+      stageObserver.observe(stage, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    }
+    attr(stage, 'aria-roledescription', 'карусель');
+    const cards = [...stage.querySelectorAll('.v83Card')], dots = [...home.querySelectorAll('#v83Dots button')];
+    cards.forEach((card, index) => {
+      const active = card.classList.contains('active'), title = card.querySelector('h4')?.textContent || 'Режим';
+      attr(card, 'aria-hidden', String(!active));
+      card.querySelectorAll('button,a[href]').forEach(button => { const order = active ? 0 : -1; if (button.tabIndex !== order) button.tabIndex = order; });
+      if (dots[index]) { attr(dots[index], 'aria-current', String(active)); attr(dots[index], 'aria-label', title + ', ' + (index + 1) + ' из ' + cards.length); }
+    });
+  }
   function sync() {
     queued = false;
     const home = $('v69Home'); if (!home) return;
@@ -79,7 +95,7 @@
     document.body.classList.toggle('jrvx-lobby-visible', active);
     const extra = $('jrvxCasEcosystem'); if (extra) { extra.hidden = true; attr(extra, 'aria-hidden', 'true'); }
     const header = home.querySelector('.v69Topbar');
-    presence(home, header, active); decorate(home);
+    presence(home, header, active); decorate(home); carousel(home);
     const account=$('jrvxCasAccountButton');
     if(account){const signed=window.JRVXCASIdentityV300?.state?.().authenticated===true;attr(account,'data-jrvx-label',signed?'Аккаунт':'Войти');attr(account,'title',account.textContent||'JRVX ID');}
     const install = $('v290InstallBtn'); if (install) attr(install, 'aria-label', 'Установить JRVX CAS');
