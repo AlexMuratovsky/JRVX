@@ -1,0 +1,24 @@
+{
+  "status": "LOCAL CANDIDATE; NOT DEPLOYED",
+  "worker": "jrvx-cas-v300",
+  "baseSha256": "c294cb84b8044114f61eb983965f613736e0e68b5f47d1fbcf31855d33c86390",
+  "candidateSha256": "9cd0bbd6fae00ff478f0758928900abe915ee1596b7f68b7733ab9300b3d4679",
+  "applyOnlyToExactBase": true,
+  "edits": [
+    {
+      "before": "let a=await Ne(e),c=await Hn(t.DB,{jrvxId:s.id,operationId:String(a.operationId||\"\"),quantity:Number(a.quantity)});",
+      "after": "let a=await Ne(e);if(a.ownerId!==void 0&&a.ownerId!==s.id)return v({ok:!1,error:\"intent_owner_mismatch\"},409);let c=await Hn(t.DB,{jrvxId:s.id,operationId:String(a.operationId||\"\"),quantity:Number(a.quantity)});"
+    },
+    {
+      "before": "if(n===\"/api/roulette/spin\"&&e.method===\"POST\")return v({ok:!0,result:await Kn(t.DB,{...await Ne(e),jrvxId:s.id})});",
+      "after": "if(n===\"/api/roulette/spin\"&&e.method===\"POST\"){let a=await Ne(e);if(a.ownerId!==void 0&&a.ownerId!==s.id)return v({ok:!1,error:\"intent_owner_mismatch\"},409);return v({ok:!0,result:await Kn(t.DB,{...a,jrvxId:s.id})})}"
+    },
+    {
+      "before": "if(n===\"/api/blackjack/action\"&&e.method===\"POST\")return v({ok:!0,result:await Qn(t.DB,{...await Ne(e),jrvxId:s.id})});",
+      "after": "if(n===\"/api/blackjack/action\"&&e.method===\"POST\"){let a=await Ne(e);if(a.ownerId!==void 0&&a.ownerId!==s.id)return v({ok:!1,error:\"intent_owner_mismatch\"},409);return v({ok:!0,result:await Qn(t.DB,{...a,jrvxId:s.id})})}"
+    }
+  ],
+  "behavior": "Each provided ownerId must strictly equal verified session.id. Mismatch returns HTTP409 intent_owner_mismatch before any money helper/DB operation. Verified session remains the sole authority for jrvxId.",
+  "compatibility": "Older clients omitting ownerId are accepted unchanged; this does not protect legacy intents lacking an owner snapshot.",
+  "deployment": "Not performed. Preserve the existing ASSETS, Durable Object, D1, service and secret bindings; validate in staging before production."
+}

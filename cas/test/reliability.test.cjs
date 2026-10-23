@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
-const casino=fs.readFileSync(path.join(root,'public/assets/js-v324/casino.js'),'utf8');
+const casino=fs.readFileSync(path.join(root,'public/assets/js-v326/casino.js'),'utf8');
 const progress=fs.readFileSync(path.join(root,'public/modules/profile/runtime/progression-v322.js'),'utf8');
 const drain=()=>new Promise(resolve=>setImmediate(resolve));
 function fixture({storageFails=false,fetchMode='ok'}={}){
@@ -109,19 +109,19 @@ test('progress queue does not send another owner\'s saved event after account ch
  const f=progressFixture();f.ctx.window.JRVXProgress.event('blackjack_hand',{});const before=f.sent.length;f.setOwner('B');f.setAccepted(true);f.timers.shift()();assert.equal(f.sent.length,before);assert.equal(JSON.parse(f.records.get('jrvxCasProgressQueueV301:A')).length,1);
 });
 test('roulette renderer stops before touching a stale account\'s animation frame',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v326/cas-bootstrap.js'),'utf8');
  const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start);assert.ok(start>=0&&end>start);
  const frames=[],ctx={window:{},rouletteBuildSpinPlan:()=>({duration:1}),rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn)};vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);
  let active=true,done=false;ctx.rouletteAnimate(()=>{done=true},2,()=>active);active=false;frames.shift()(200);assert.equal(done,false);assert.equal(frames.length,0);assert.equal(ctx.rouletteState.wheelAngle,undefined);
 });
 test('disabling animations shortens the wheel transition while preserving the verified pocket',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v326/cas-bootstrap.js'),'utf8');
  const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start),frames=[],message={textContent:''};let sampled=0,target=null,result=null;
  const ctx={window:{JRVXExperience:{settings:{animations:false}}},rouletteBuildSpinPlan:chosen=>{target=chosen;return {duration:13.2}},rouletteSampleSpinPlan:(plan,p)=>{sampled=p;return {wheelAngle:0,ballAngle:2,ballRadius:1,phase:'settled',highlightIndex:2}},roulettePocketIndexAtAngle:()=>2,rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn),document:{visibilityState:'visible',getElementById:id=>id==='rouletteMessage'?message:{classList:{contains:()=>true}}},rouletteDraw(){}};
  vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);ctx.rouletteAnimate(pocket=>{result=pocket},2,()=>true);frames.shift()(250);assert.equal(sampled,1);assert.equal(target,2);assert.equal(result,2);assert.equal(frames.length,0);
 });
 test('a roulette canvas frame failure cannot interrupt the verified timeline or lock the action',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v326/cas-bootstrap.js'),'utf8');
  const start=source.indexOf('function rouletteAnimate('),end=source.indexOf('\nfunction rouletteSpin(',start),frames=[],completed=[],samples=[],message={textContent:''};let drawings=0;
  const ctx={window:{},rouletteBuildSpinPlan:()=>({duration:1}),rouletteSampleSpinPlan:(plan,p)=>{samples.push(p);return {wheelAngle:0,ballAngle:2,ballRadius:1,phase:p<1?'rail':'settled',highlightIndex:p<1?-1:2}},roulettePocketIndexAtAngle:()=>2,rouletteState:{},performance:{now:()=>0},requestAnimationFrame:fn=>frames.push(fn),document:{visibilityState:'visible',getElementById:id=>id==='rouletteMessage'?message:{classList:{contains:()=>true}}},rouletteDraw(){drawings++;throw Error('canvas_context_lost')}};
  vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);ctx.rouletteAnimate(pocket=>completed.push(pocket),2,()=>true);
@@ -131,7 +131,7 @@ test('a roulette canvas frame failure cannot interrupt the verified timeline or 
  assert.equal(ctx.rouletteState.highlightIndex,2);
 });
 test('every roulette animation lands in its verified server pocket across different starting angles',()=>{
- const source=fs.readFileSync(path.join(root,'public/assets/js-v324/cas-bootstrap.js'),'utf8');
+ const source=fs.readFileSync(path.join(root,'public/assets/js-v326/cas-bootstrap.js'),'utf8');
  const constants=source.slice(source.indexOf('const R_RED='),source.indexOf('let rouletteBet='));
  const angles=source.slice(source.indexOf('function norm('),source.indexOf('function rouletteCurrentBet('));
  const geometry=source.slice(source.indexOf('function rouletteGeometry('),source.indexOf('function rouletteDrawCircularBrand('));
