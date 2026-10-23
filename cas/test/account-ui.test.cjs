@@ -36,3 +36,43 @@ test('account entry intercepts legacy login before document capture and uses ref
   assert.doesNotMatch(source, /\/auth\/login|\.login\(''\)/);
   assert.match(source, /location\.assign\(path\)/);
 });
+
+function accountFixture() {
+  const nodes = new Map(), events = new Map(); let authenticated = true, logoutOK = false, calls = 0;
+  function node(id = '') {
+    const value = { id, hidden: false, disabled: false, textContent: '', isConnected: true,
+      classList: { add() {} }, setAttribute() {}, addEventListener() {}, focus() {},
+      appendChild(child) { nodes.set(child.id, child); }, querySelectorAll: () => [] };
+    Object.defineProperty(value, 'innerHTML', { set(html) {
+      for (const match of html.matchAll(/id="([^"]+)"/g)) nodes.set(match[1], node(match[1]));
+    }});
+    return value;
+  }
+  const host = node(), document = { readyState: 'loading', body: node(),
+    getElementById: id => nodes.get(id) || null, createElement: () => node(), querySelector: () => host,
+    addEventListener(type, fn) { if (!events.has(type)) events.set(type, []); events.get(type).push(fn); } };
+  const window = { addEventListener() {}, JRVXCASIdentityV300: {
+    state: () => ({ mode: 'production', authenticated, user: authenticated ? { id: 'JRVX-ABCD12345678' } : null }),
+    logout: async () => { calls++; authenticated = false; for (const fn of events.get('jrvx-cas-identity') || []) fn(); return { ok: logoutOK }; }
+  }};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../runtime/account-ui.js'), 'utf8'), {
+    document, window, URL, AbortController, Promise, setTimeout, clearTimeout, queueMicrotask,
+    MutationObserver: class { observe() {} }
+  });
+  for (const fn of events.get('DOMContentLoaded') || []) fn();
+  return { nodes, confirmLogout() { logoutOK = true; }, get calls() { return calls; } };
+}
+
+test('an unconfirmed server logout keeps an explicit retry even after local identity is cleared', async () => {
+  const f = accountFixture(), button = f.nodes.get('jrvxCasAccountLogout');
+  await button.onclick();
+  assert.equal(button.hidden, false, 'A failed server logout must remain retryable');
+  assert.equal(button.disabled, false);
+  assert.match(button.textContent, /Повторить выход/);
+  assert.match(f.nodes.get('jrvxCasAccountStatus').textContent, /не подтвердил выход/);
+  f.confirmLogout(); await button.onclick();
+  assert.equal(f.calls, 2);
+  assert.equal(button.hidden, true);
+  assert.equal(f.nodes.get('jrvxCasAccountLogin').hidden, false);
+  assert.equal(f.nodes.get('jrvxCasAccountStatus').textContent, 'Вы вышли из CAS.');
+});

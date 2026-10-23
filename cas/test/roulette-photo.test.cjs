@@ -24,7 +24,7 @@ function canvas({failImage=false}={}) {
   return {ctx,calls,get depth(){return depth;}};
 }
 test('photographic pocket centres agree with all 185 verified server wheel positions',()=>{
-  const source=fs.readFileSync(path.join(__dirname,'../public/assets/js-v323/cas-bootstrap.js'),'utf8');
+  const source=fs.readFileSync(path.join(__dirname,'../public/assets/js-v324/cas-bootstrap.js'),'utf8');
   const start=source.indexOf('function norm('),end=source.indexOf('function rouletteCurrentBet(');
   assert.ok(start>=0&&end>start);
   const legacy={R_TAU:Math.PI*2,R_SEG:Math.PI*2/37,rouletteState:{wheelAngle:0},Math};

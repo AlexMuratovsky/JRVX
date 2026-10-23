@@ -59,7 +59,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-26 public files: `index.html`, its service worker, the versioned UI assets and
+27 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
@@ -69,9 +69,25 @@ To roll back, restore the previous root document and service worker; the old
 versioned assets remain installed. New assets then remain unused.
 
 The HTML snapshot was recovered from the public installation on 21 October 2026.
-Validation includes 45 Node checks, 185 wheel-pocket simulations, DOM
+Validation includes 92 Node checks, 185 wheel-pocket simulations, DOM
 checks and isolated browser layout checks at 320×568, 360×640, 390×844,
 844×390 and 1100×820. All roulette, large picker and blackjack controls are in bounds and
 uncovered at those sizes. The tests use simulated requests and display fixtures;
 they do not place live wagers, purchase currency or change live game records.
 This package does not change the server API.
+
+The v324 bug-fix release binds poker ALL-IN confirmations and queued automatic
+actions to their exact owner, table, hand, currency and action snapshot. Its
+confirmation interceptor runs before the older action lock so an immediate
+confirmation works once. Blackjack ignores snapshots from a previous login
+epoch. Failed server logout keeps a visible retry, roulette Repeat restores split
+orientation (including older saved bets), and optional account/render failures
+cannot turn an already confirmed roulette result into a retry prompt. Picker
+controls update their disabled attributes only when the value changes, avoiding
+a MutationObserver/frame feedback loop during a spin.
+An asynchronous canvas drawing error also leaves the verified spin timeline and
+its single completion callback running.
+
+`public/modules/poker/runtime/poker-pro-v324.js` retains the installed public
+module (source SHA-256 bbb931ee611f0405347e5e86afa986cf75425f2f55ad71fe7b2f747eeca4edb7)
+with these action-guard fixes. Old versioned assets remain available for rollback.
