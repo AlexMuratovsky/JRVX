@@ -1,14 +1,16 @@
 # JRVX CAS interface and game reliability
 
-The current repository package is the **unpublished v327 release candidate**
-prepared on 24 October 2026. It contains 33 public files and fixes blackjack
+The current repository package is the **published v327 release**,
+deployed on 24 October 2026 after explicit owner approval. It contains 33 public files and fixes blackjack
 acknowledgement recovery, account/logout races, poker join/leave intent lifecycle,
 currency labels and a clipped desktop poker bet button. Validation: 280 client
 tests, 31 identity/gateway tests, 46 backend-rule tests, 19 full CAS runtime groups,
 5 actual CAS/ID Worker OIDC groups, 13 additional room fault/restart groups, actual
 Service Worker upgrade/failure/rollback and 24 browser layout configurations. See
 `FULL_AUDIT_20261024.md` for exact boundaries, evidence, package hash and rollback.
-Production remains on v326. Deployment requires separate owner confirmation.
+Production runs v327. All 33 package files match live HTTP; all 161 precache
+resources are available, and the previous active assets remain intact for rollback.
+The backend and live game data were not changed by this publication.
 The sections below also describe earlier published releases and their checks.
 
 This release updates the existing CAS 3.0.17 installation at
