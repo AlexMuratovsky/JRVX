@@ -3,9 +3,10 @@
 The current repository package is the **unpublished v327 release candidate**
 prepared on 24 October 2026. It contains 33 public files and fixes blackjack
 acknowledgement recovery, account/logout races, poker join/leave intent lifecycle,
-currency labels and a clipped desktop poker bet button. Validation: 248 client
+currency labels and a clipped desktop poker bet button. Validation: 280 client
 tests, 31 identity/gateway tests, 46 backend-rule tests, 19 full CAS runtime groups,
-5 actual CAS/ID Worker OIDC groups and 24 browser layout configurations. See
+5 actual CAS/ID Worker OIDC groups, 13 additional room fault/restart groups, actual
+Service Worker upgrade/failure/rollback and 24 browser layout configurations. See
 `FULL_AUDIT_20261024.md` for exact boundaries, evidence, package hash and rollback.
 Production remains on v326. Deployment requires separate owner confirmation.
 The sections below also describe earlier published releases and their checks.

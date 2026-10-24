@@ -58,6 +58,14 @@ Android, Safari/WebKit, системная клавиатура, реальны�
 | P2 | Загрузка скрытого/idle Blackjack state меняла общую выбранную валюту другого режима. Дополнительный рендер кошелька мог переписать подпись завершённой руки или старого выигрыша MS как MG. | Общая валюта восстанавливается только для видимой активной руки. У активной руки собственная валюта, у следующей ставки выбранная, у истории неизменяемая. Финансовый серверный расчёт не меняется. Тесты active/hidden/idle/settled и исторических подписей. |
 | P1 | При 963×700 внутренняя legacy-сетка poker bet box требовала 349 px при доступных примерно 304 px. Кнопка «+» выходила за правый край; hit-test попадал в bottom dock. | Desktop grid теперь сжимается в реальную ширину, оставляя отдельные 30 px для «−» и «+». Повторный браузерный hit-test проходит, включая ширины 901, 932, 963 и 1024 px. |
 | P2 | Повторная сборка после Git checkout могла изменить ZIP из-за Windows `core.autocrlf`, хотя игровые изменения отсутствовали. | `.gitattributes` фиксирует LF для overlay sources, а два ранее опубликованных CRLF-ресурса сохраняет побайтно через `-text`. Проверяются чистый Git-снимок, повторная сборка и SHA-256 пакета. |
+| P1 | После OIDC → browser Back через bfcache account panel восстанавливался с `busy=true`, оставляя Login/Refresh заблокированными. | `pageshow.persisted` снимает только блокировку завершённой навигации. Обычный pageshow не разблокирует незавершённый переход. VM/DOM regression; физический browser Back отдельно не проверен. |
+| P2 | ServerAccount `/api/me` и `/api/history` имели только abort timer. Игнорирующий abort fetch/JSON не завершался и мог позже применить ответ уже после timeout. | Promise deadline 10 секунд ограничивает fetch вместе с body. Поздние ответы не применяются; проверены зависания fetch и JSON для обоих endpoints. |
+| P2 | Accept Invite терял приглашение и переключал текущий стол до принятия команды транспортом. | При false/throw приглашение и UI сохраняются, повтор использует прежний operation ID. Успешная отправка переключает один раз. |
+| P2 | Старый queued animation frame покера мог вернуть Start/reconnect message после новой ревизии, leave или A–B–A. | Callback требует точного совпадения текущего server snapshot, помимо owner. Тесты старого и актуального frame. |
+| P1 | Отложенная инициализация покера продолжала join после Home, выбора столов, другого режима или смены аккаунта. | Launch token отменяется на этих переходах, owner проверяется до join; дополнительно проверяется фактически активный режим для прямых legacy routes. Same-owner refresh и новый явный launch сохраняют нормальный вход. |
+| P2 | Private-game picker повторно интерпретировал textContent имени друга как HTML при переносе options. | Label и value экранируются. Подтверждена DOM markup injection; эксплуатация через обычный текущий OIDC username не доказана и не заявляется. |
+| P2 | Повреждённый сохранённый roulette last bet (`numbers=8`, неверная amount/type/mult) ломал Repeat и текущий selection. | Проверяются amount, тип, множитель, массив, количество/уникальность/диапазон чисел до восстановления. Valid split продолжает восстанавливать направление. |
+| P1 | Ошибка/зависание CacheStorage превращала уже полученный успешный HTTP response в старую оболочку, network error или бесконечное ожидание. | Сетевая response отдаётся независимо от фоновой записи; cache read/write отказы обработаны. Lifetime продлевается синхронно, cache write выполняется через waitUntil. Шесть новых тестов, включая quota/read/write failures, stalled write и lifecycle contract. |
 
 Отдельно устранён пробел CI (P3): вместо выборочных восьми `node --check`
 проверяются все доступные `.js` в `cas/runtime` и `cas/public`, сейчас 29 файлов.
@@ -73,6 +81,7 @@ Android, Safari/WebKit, системная клавиатура, реальны�
 - `public/assets/js-v327/identity-account.js` — identity и server-account recovery.
 - `public/modules/network/runtime/online-v327.js` — poker intents, owner и transport fences.
 - `public/modules/legacy/runtime/wallet-v327.js` — собственная валюта руки и фиксированные подписи.
+- `modules/ui/runtime/account-v327.js` в ZIP, источник `runtime/account-ui.js` — восстановление account panel после bfcache. Прежний account-v324.js не перезаписывается.
 - `modules/ui/styles/gameplay-v327.css` в ZIP, источник `runtime/gameplay-ui.css` — доступная desktop-сетка poker bets.
 
 `identity-account.js` основан на **точной установленной** группе
@@ -93,19 +102,23 @@ versioned payloads не изменялись и не удалялись. Для 
 
 | Уровень | Свежий результат | Что реально проверялось |
 | --- | --- | --- |
-| Клиентский Node runner | **248/248** (было 198, добавлено 50) | Активные UI/game modules, owner/epoch/revision fences, durable pending IDs, retry, действия, восстановление, кошелёк, roulette timeline, PWA. |
+| Клиентский Node runner | **280/280** (было 198, добавлено 82) | Активные UI/game modules, owner/epoch/revision fences, durable pending IDs, retry, действия, восстановление, кошелёк, roulette timeline, PWA. |
 | Синтаксис | **29/29 JavaScript файлов** | Все доступные public/runtime scripts. |
 | JRVX ID / gateway | **31/31** | Локальный настоящий identity runtime и PHP gateway; это отдельная проверка от CAS fixture identity. |
 | Точные серверные алгоритмы + SQLite | **46/46** | Извлечённые функции установленного CAS Worker, исходная схема, ledger, ограничения и игровые расчёты. В том числе классификация всех **2 598 960** пятикарточных комбинаций и **146 × 37** roulette placements/outcomes. |
 | Полный CAS Worker / Miniflare / D1 / DO | **19/19 групп** | Настоящие HTTP handlers и Durable Objects, production compatibility `2026-09-30` + `nodejs_compat`, локальные synthetic users. Identity provider в этой конкретной suite — fixture. |
 | Настоящие CAS + ID Workers | **5/5 групп** | Настоящий OIDC code/PKCE/JWKS callback, secure session cookie, invalid state, повтор code, refresh rotation и logout. Два отдельных локальных D1. |
+| PokerRoom failure injection | **13/13 групп** | Настоящие локальные D1/DO с явным audit subclass: потеря ответа commit, ошибка перед DO commit, progress/history и persisted recovery после restart. |
+| Настоящий browser Service Worker | **4 lifecycle шага + 2 runtime сценария** | Baseline → неполный candidate → полный candidate → rollback; свежие static/navigation responses при реальном отказе Cache.put из-за Vary: *. Синтетические игровые assets. |
 | Браузерная адаптация игровых режимов | **24/24 конфигурации** | DOM, размеры, отсутствие горизонтального overflow, доступность и hit-test игровых controls; локальные display fixtures из настоящих DOM/CSS. |
 | Пиксельная геометрия рулетки | **27 fits на 9 углах** | Три окружности реального Canvas screenshot на каждом угле. Максимальное отклонение центра **0,2872 CSS px**. |
 | Overlay | **33 файла; проверка пройдена** | CRC, уникальность, source bytes, active script paths, приватные пути, детерминированная повторная сборка и сравнение с v326 ZIP. |
 
-Пять новых public suites: `blackjack-recovery-v327.test.cjs` (9),
+Восемь новых public suites: `blackjack-recovery-v327.test.cjs` (9),
 `identity-account-v327.test.cjs` (13), `online-intents-v327.test.cjs` (15),
-`currency-labels-v327.test.cjs` (4), `service-worker-recovery.test.cjs` (9).
+`currency-labels-v327.test.cjs` (4), `service-worker-recovery.test.cjs` (15),
+`account-recovery-followup.test.cjs` (6), `online-followup.test.cjs` (7),
+`casino-followup.test.cjs` (13).
 Новые проверки не подменяют старые: общий прогон включает обе группы.
 
 ### Сервер, деньги и online poker
@@ -170,12 +183,39 @@ OIDC suite описаны отдельно выше, чтобы не смеши�
 
 ### Service Worker, обновление и rollback
 
-Девять новых VM-тестов исполняют фактический SW source с контрактной моделью
+Пятнадцать VM-тестов исполняют фактический SW source с контрактной моделью
 CacheStorage/fetch: завершение precache до skipWaiting; отказ установки сохраняет
 предыдущую оболочку; activate удаляет только старые CAS caches; API/auth/callback/
 socket/mutations/cross-origin не кэшируются; online shell refresh; HTTP ошибки;
 offline fallback; stalled navigation abort; static cache и retained v326 bundles.
-Это проверка поведения обработчиков, не реальное обновление установленной iOS PWA.
+Дополнительно выполнен настоящий browser lifecycle на отдельном localhost origin:
+baseline v326 активируется с 161 cache entry; candidate с намеренным 404 становится
+redundant, старый controller и его 161 entry сохраняются; полный v327 активируется
+с 161 entry; rollback возвращает активный v326 и его cache. Реальные исходники SW,
+синтетические игровые assets: это не полный CAS E2E или установленная iOS PWA.
+Дополнительно текущий Worker отдаёт свежие static и navigation HTTP responses
+с `Vary: *`, хотя настоящий browser Cache.put отклоняет такие ответы с TypeError.
+В первом случае проверены HTTP 200, fresh marker и отсутствие сохранённого entry;
+во втором реальная навигация показывает новый marker вместо старого cached index.
+Продление lifetime организовано через [ExtendableEvent.waitUntil](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent/waitUntil).
+
+### Дополнительная инъекция серверных сбоев
+
+**13/13 новых групп** проходят на реальных локальных D1/SQLite Durable Objects:
+buy-in/rebuy/cashout × потеря ответа после фактического D1 commit / ошибка index
+перед DO room commit; cashout активной руки после обоих progress commits;
+потеря ответа progression batch; сохранение pending plan и восстановление каждой
+из трёх финансовых операций после Miniflare dispose/recreate.
+
+Проверены conservation wallet + planned escrow (10 000 / 20 000 MS), однократные
+ledger/history/progress/receipt, очистка plan и восстановление D1 room index.
+Outbound attempts — ноль. Новых серверных дефектов в этих сценариях не найдено.
+Это **явно инструментированный локальный подкласс PokerRoom**: исходный ES-модуль
+сохранён точным byte prefix, исходные игровые/recovery методы наследуются, а
+wrapper теряет ответ после настоящего batch или бросает ошибку в index.
+Эти 13 групп не описываются как запуск полностью неизменённого Worker и не
+заменяют 19 групп без такой instrumentation. Production source не менялся.
+Локальный restart не доказывает корректность любого регионального Cloudflare сбоя.
 
 Публичные тесты и сборка пригодны для GitHub Actions. Full recovered Worker и
 расширенные local server harness не публикуются: исходник production остаётся
@@ -184,10 +224,10 @@ offline fallback; stalled navigation abort; static cache и retained v326 bundle
 
 ## Производительность и legacy
 
-Измерены размер/целостность overlay: v326 — 1 590 573 bytes, v327 — **1 597 936 bytes**,
-изменение **+7 363 bytes**. Новый shell заменяет прежние активные JS пути, а не
+Измерены размер/целостность overlay: v326 — 1 590 573 bytes, v327 — **1 598 742 bytes**,
+изменение **+8 169 bytes**. Новый shell заменяет прежние активные JS пути, а не
 подключает обе версии. В HTML нет дублирующихся script src. Неизменившиеся
-26 versioned файлов в обоих ZIP побайтно совпадают.
+25 versioned файлов в обоих ZIP побайтно совпадают.
 
 Профиль CPU/GPU, heap snapshots, Core Web Vitals и длительная память до/после
 не получены. В дополнительном инструментированном Canvas-прогоне измерены 240
@@ -207,9 +247,9 @@ Canvas на каждом кадре. Lifecycle/animation cleanup провере�
 
 ## Артефакты, установка и откат
 
-Кандидат: `cas/deploy/cas-ecosystem.zip`, **33 public files**, **1 597 936 bytes**.
+Кандидат: `cas/deploy/cas-ecosystem.zip`, **33 public files**, **1 598 742 bytes**.
 SHA-256:
-`c48e73308a86d492aa28772f9ac08d313f8b0109f18786dc698bf83e10e1c0fc`.
+`d00549d418886b588bac33b313b927784b66215fad1927cfb12e6c2843723f36`.
 Повторная сборка даёт тот же SHA. CRC, имена, активные sources и precache проверены.
 Новый cache: `jrvx-cas-http-v1-oidc-d89b2bd99e442117-recovery-20261024-v327-shell`.
 
@@ -221,21 +261,25 @@ precache URL и их bytes. Не удалять отсутствующие в ZI
 
 Rollback: восстановить `index.html` и `service-worker.js` из baseline commit
 `003732db980c5e74599a5a63c8be3998adced54c` / его ZIP, сохранив legacy и v326 assets.
-Четыре заменённых v326 пути остаются установленными; новые v327 пути становятся
+Пять заменённых v326 пути остаются установленными; новые v327 пути становятся
 неиспользуемыми. Серверного rollback или миграции D1 этому кандидату не требуется.
 Не выдавать восстановление файлов за мгновенное обновление уже открытых PWA:
 нужно проверить установку старого SW и перезагрузку клиентов.
 
 Локальные доказательства находятся вне репозитория в
-`evidence/cas-audit-20261024/`: журналы 248/31/46/19/5, responsive JSON,
+`evidence/cas-audit-20261024/`: исходные журналы 248/31/46/19/5, responsive JSON,
 Blackjack flow, screenshots poker/roulette, 27 circle fits, Canvas draw timings и release-integrity manifest.
+Продолжение: `evidence/cas-audit-20261024-followup/` содержит свежий прогон
+**280/280**, новый package manifest, browser lifecycle/runtime JSON и screenshots.
+13 новых server fault groups документированы отдельно в частном
+`ROOM_FAULT_INJECTION_20261024.md` и machine-readable result рядом с harness.
 Частные исходники, схема и server harness — в `private-recovery/`; они не входят
 в ZIP или PR. Production в рамках этого аудита **не изменялся**.
 
 ## Итог и оставшиеся проверки
 
-**ИСПРАВЛЕНО:** 12 воспроизведённых групп клиентских дефектов, расширение CI,
-50 новых regression tests и rollback-safe v327 overlay. Доступные обязательные
+**ИСПРАВЛЕНО:** 20 воспроизведённых групп клиентских дефектов, расширение CI,
+82 новых regression tests и rollback-safe v327 overlay. Доступные обязательные
 локальные проверки проходят. Подготовлен локальный release candidate; обнаруженных
 неустранённых блокирующих дефектов в проверенном объёме нет.
 
@@ -245,13 +289,13 @@ Blackjack flow, screenshots poker/roulette, 27 circle fits, Canvas draw timings 
 
 **НЕ ПРОВЕРЕНО:** физические Safari/iOS/Android, клавиатура/safe-area, настоящий
 production OIDC через REG.RU и браузерные cookies после будущей публикации, реальная
-доставка почты, установленная PWA update/rollback, многочасовая память, массовые
+доставка почты, физически установленная iOS/Android PWA, многочасовая память, массовые
 reconnect/load, распределённый crash между DO и D1 и обрывы во всех точках commit.
 Эти ограничения не позволяют называть CAS полностью протестированным или обещать
 отсутствие любых финансовых/сетевых ошибок. Продуктивные ставки не выполнялись.
 
 **РЕКОМЕНДУЕТСЯ:** перед отдельным одобрением публикации пройти smoke на настоящем
-iPhone/Safari и Android; затем проверить staging PWA upgrade/rollback и настоящий
+iPhone/Safari и Android; затем проверить staging PWA upgrade/rollback с настоящими CAS assets и настоящий
 OIDC proxy path без ставок. Дальше вынести recovered backend в контролируемый
 приватный source/CI, добавить failure injection на DO↔D1 границе и длительный
 reconnect/heap soak. Legacy сокращать только после подтверждения зависимостей.

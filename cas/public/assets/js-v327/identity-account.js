@@ -111,6 +111,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 'use strict';
 let owner='',revision={MS:-1,MG:-1},progressRevision=-1,historyEpoch=0,historySequence={};
 const currentOwner=()=>{const auth=window.JRVXCASIdentityV300?.state?.();return auth?.authenticated?String(auth.user?.id||''):''};
+async function requestSnapshot(path){
+ const controller=new AbortController();let timer;
+ const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('account_snapshot_timeout'))},10000)});
+ try{return await Promise.race([(async()=>{const response=await fetch(path,{credentials:'same-origin',cache:'no-store',headers:{accept:'application/json'},signal:controller.signal});const data=await response.json();return {response,data}})(),deadline])}finally{clearTimeout(timer)}
+}
 function apply(data){
  const active=currentOwner(),id=String(data?.account?.id||data?.jrvxId||data?.playerId||'');
  if(!active||id!==active)return false;
@@ -134,27 +139,24 @@ function apply(data){
 async function refresh(){
  const requestedOwner=currentOwner();if(!requestedOwner)return null;
  const epoch=historyEpoch;
- const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
  try{
   // Each mutation requests a new snapshot. Joining an older in-flight request
   // could miss a commit; version checks make parallel fresh requests safe.
-  const response=await fetch('/api/me',{credentials:'same-origin',cache:'no-store',headers:{accept:'application/json'},signal:controller.signal});
-  const data=await response.json();
+  const {response,data}=await requestSnapshot('/api/me');
   if(!response.ok||data.ok!==true||currentOwner()!==requestedOwner||epoch!==historyEpoch)return null;
   return apply(data)?data:null;
- }catch{return null}finally{clearTimeout(timeout)}
+ }catch{return null}
 }
 async function history(game=''){
  if(!['','poker','blackjack','roulette'].includes(game))return null;
  const requestedOwner=currentOwner();if(!requestedOwner)return null;
- const epoch=historyEpoch,sequence=historySequence[game]=(historySequence[game]||0)+1,controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+ const epoch=historyEpoch,sequence=historySequence[game]=(historySequence[game]||0)+1;
  try{
-  const response=await fetch('/api/history'+(game?'?game='+encodeURIComponent(game):''),{credentials:'same-origin',cache:'no-store',headers:{accept:'application/json'},signal:controller.signal});
-  const data=await response.json();
+  const {response,data}=await requestSnapshot('/api/history'+(game?'?game='+encodeURIComponent(game):''));
   if(!response.ok||data.ok!==true||!Array.isArray(data.history)||currentOwner()!==requestedOwner||epoch!==historyEpoch||sequence!==historySequence[game])return null;
   if(game==='roulette')window.JRVXCASV220?.roulette?.restoreHistory?.(data.history);
   return data.history;
- }catch{return null}finally{clearTimeout(timeout)}
+ }catch{return null}
 }
 function clearSnapshot(){const eco=window.JRVXCasEconomy||window.JVRXCasEconomy;try{eco?.set?.({ms:0,mg:0})}catch{}if(window.arcadeNetState){window.arcadeNetState.muraTokens=0;window.arcadeNetState.pokerTokens=0}try{window.JRVXProgress?.reset?.('account-reset')}catch{}try{window.casinoRefresh?.()}catch{}}
 function reset(){owner='';revision={MS:-1,MG:-1};progressRevision=-1;historyEpoch++;historySequence={};clearSnapshot()}

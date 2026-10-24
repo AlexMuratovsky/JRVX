@@ -2,9 +2,9 @@ name: Check JRVX CAS
 
 on:
   push:
-    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+    paths: ["cas/**", ".github/workflows/cas-ci.yml", ".gitattributes"]
   pull_request:
-    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+    paths: ["cas/**", ".github/workflows/cas-ci.yml", ".gitattributes"]
   workflow_dispatch:
 
 permissions:

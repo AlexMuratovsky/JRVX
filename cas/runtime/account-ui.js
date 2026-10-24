@@ -21,7 +21,7 @@
   if (typeof document === 'undefined') return;
   const $ = id => document.getElementById(id);
   const triggerSelector = '#jrvxCasAccountButton,.v120AuthSingle,[data-v103-auth],#v300IdentityLogin';
-  let busy = false, restoreFocus = null, queued = false, notice = '', logoutPending = false;
+  let busy = false, restoreFocus = null, queued = false, notice = '', logoutPending = false, navigationPending = false;
   const identity = () => {
     try { return window.JRVXCASIdentityV300?.state?.() || {}; } catch { return {}; }
   };
@@ -108,9 +108,10 @@
       }, 9000, () => controller.abort());
       const path = approvedLoginPath(config.loginUrl, location.origin);
       if (!path) throw Error('account_login_unavailable');
+      navigationPending = true;
       location.assign(path);
     } catch {
-      busy = false; notice = 'Не удалось начать вход. Повторите попытку после восстановления связи.'; sync();
+      navigationPending = false; busy = false; notice = 'Не удалось начать вход. Повторите попытку после восстановления связи.'; sync();
     }
   }
   async function refreshSession() {
@@ -143,6 +144,12 @@
     openPanel(trigger);
   }, true);
   document.addEventListener('jrvx-cas-identity', queueSync);
+  window.addEventListener('pageshow', event => {
+    // Back from JRVX ID can restore this document together with its JS state.
+    // The old navigation no longer owns the account controls after restoration.
+    if (!event.persisted || !navigationPending) return;
+    navigationPending = false; busy = false; notice = ''; sync();
+  });
   function boot() {
     sync();
     new MutationObserver(queueSync).observe(document.querySelector('#v69Home') || document.body, { childList: true, subtree: true });

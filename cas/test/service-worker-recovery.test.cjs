@@ -12,7 +12,7 @@ const deferred = () => { let resolve, reject; const promise = new Promise((yes, 
 
 function fixture() {
   const listeners = new Map(), stores = new Map(), deleted = [], events = [], timers = new Map();
-  const network = [], writes = [], precache = [];
+  const network = [], writes = [], precache = [], background = [];
   let nextTimer = 0;
   const context = { URL, Response, AbortController, location: { origin },
     Request: class { constructor(url, options = {}) { this.url = new URL(url, origin).href; Object.assign(this, options); } },
@@ -30,9 +30,9 @@ function fixture() {
   vm.runInNewContext(source, context);
   const dispatch = name => { let result; listeners.get(name)({ waitUntil: promise => { result = promise; } }); return result; };
   const request = (url, overrides = {}) => {
-    let result; listeners.get('fetch')({ request: { url: new URL(url, origin).href, method: 'GET', mode: 'cors', ...overrides }, respondWith: promise => { result = promise; } }); return result;
+    let result; listeners.get('fetch')({ request: { url: new URL(url, origin).href, method: 'GET', mode: 'cors', ...overrides }, respondWith: promise => { result = promise; }, waitUntil: promise => background.push(promise) }); return result;
   };
-  return { context, listeners, stores, deleted, events, timers, network, writes, precache, dispatch, request };
+  return { context, listeners, stores, deleted, events, timers, network, writes, precache, background, dispatch, request };
 }
 
 test('service worker installs all versioned assets before replacing the active shell', async () => {
@@ -112,6 +112,7 @@ test('static shell files use cached content and do not store rejected or opaque 
   f.context.reply = async () => new Response('404', { status: 404 }); await f.request('/offline.html');
   assert.equal(f.writes.length, 0);
   f.context.reply = async () => ({ ok: true, type: 'basic', clone: () => new Response('fresh') }); await f.request('/offline.html');
+  await Promise.all(f.background);
   assert.equal(f.writes.length, 1); assert.equal(f.writes[0].path, '/offline.html');
 });
 
@@ -121,4 +122,51 @@ test('previous client versioned game bundles remain present for rollback', () =>
     assert.ok(fs.existsSync(path.join(__dirname, '../public', asset)), asset);
   }
   assert.equal(f.stores.size, 0); // Merely loading the candidate cannot delete installed files.
+});
+
+test('a cache quota failure cannot replace a successful online navigation with the old shell', async () => {
+  const f = fixture(); f.stores.set(oldCache, new Map([['/index.html', new Response('old shell')]]));
+  f.context.caches.open = async () => { throw Error('QuotaExceededError'); };
+  f.context.reply = async () => new Response('current shell');
+  assert.equal(await (await f.request('/', { mode: 'navigate' })).text(), 'current shell');
+  await Promise.all(f.background);
+});
+
+test('a cache write failure cannot turn a downloaded static asset into a network error', async () => {
+  const f = fixture(); f.context.caches.open = async () => ({ put: async () => { throw Error('disk full'); } });
+  f.context.reply = async () => ({ ok: true, type: 'basic', status: 200, text: async () => 'fresh asset', clone: () => new Response('fresh asset') });
+  const result = await f.request('/assets/js-v327/casino.js');
+  assert.equal(result.status, 200); assert.equal(await result.text(), 'fresh asset');
+  await Promise.all(f.background);
+});
+
+test('broken cache reads still allow a successful online static fetch', async () => {
+  const f = fixture(); f.context.caches.match = async () => { throw Error('cache unavailable'); };
+  f.context.reply = async () => new Response('online asset');
+  assert.equal(await (await f.request('/offline.html')).text(), 'online asset');
+  assert.equal(f.network.length, 1);
+});
+
+test('an unreadable cached shell still permits the separate offline document fallback', async () => {
+  const f = fixture(); f.context.reply = async () => { throw Error('offline'); };
+  f.context.caches.match = async req => { if (key(req) === '/index.html') throw Error('corrupt shell'); return new Response('offline fallback'); };
+  assert.equal(await (await f.request('/', { mode: 'navigate' })).text(), 'offline fallback');
+});
+
+test('a stalled cache write cannot hold an already downloaded navigation response', async () => {
+  const f = fixture(), gate = deferred();
+  f.context.caches.open = async () => ({ put: () => gate.promise });
+  const navigation = f.request('/', { mode: 'navigate' });
+  const first = await Promise.race([navigation.then(() => 'network response'), new Promise(resolve => setImmediate(() => resolve('still blocked')))]);
+  gate.resolve(); await navigation; await Promise.all(f.background);
+  assert.equal(first, 'network response'); assert.equal(f.background.length, 2);
+});
+
+test('fetch extends its lifetime synchronously before deferred cache work can be registered', async () => {
+  const f = fixture(), gate = deferred();
+  f.context.reply = () => gate.promise;
+  const navigation = f.request('/', { mode: 'navigate' });
+  assert.equal(f.background.length, 1, 'waitUntil must first be called during the fetch event callback');
+  gate.resolve(new Response('ready')); await navigation; await Promise.all(f.background);
+  assert.equal(f.background.length, 2, 'the background cache write keeps its own lifetime promise');
 });

@@ -13,6 +13,7 @@ active={
  'modules/network/runtime/online-v327.js':root/'public/modules/network/runtime/online-v327.js',
  'modules/legacy/runtime/wallet-v327.js':root/'public/modules/legacy/runtime/wallet-v327.js',
  'modules/ui/runtime/roulette-photo-v326.js':root/'runtime/roulette-photo.js',
+ 'modules/ui/runtime/account-v327.js':root/'runtime/account-ui.js',
  'modules/ui/styles/gameplay-v327.css':root/'runtime/gameplay-ui.css',
 }
 with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
