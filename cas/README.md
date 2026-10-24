@@ -1,16 +1,19 @@
 # JRVX CAS interface and game reliability
 
-The current repository package is the **published v327 release**,
-deployed on 24 October 2026 after explicit owner approval. It contains 33 public files and fixes blackjack
-acknowledgement recovery, account/logout races, poker join/leave intent lifecycle,
-currency labels and a clipped desktop poker bet button. Validation: 280 client
-tests, 31 identity/gateway tests, 46 backend-rule tests, 19 full CAS runtime groups,
-5 actual CAS/ID Worker OIDC groups, 13 additional room fault/restart groups, actual
-Service Worker upgrade/failure/rollback and 24 browser layout configurations. See
-`FULL_AUDIT_20261024.md` for exact boundaries, evidence, package hash and rollback.
-Production runs v327. All 33 package files match live HTTP; all 161 precache
-resources are available, and the previous active assets remain intact for rollback.
-The backend and live game data were not changed by this publication.
+The current repository package is an **unpublished v328 client reliability candidate**.
+It fixes profile owner isolation and delayed statistics, admin ledger response races
+and misleading send feedback, game result effects, recoverable audio initialization,
+route frame coalescing, lifecycle cleanup and install-dialog keyboard access.
+Validation: **360 client tests, 34 JavaScript syntax checks**, a 35-file overlay,
+28 unchanged common immutable assets and an isolated browser keyboard check.
+See `IMPROVEMENTS_V328_20261024.md` for reproduction, scope and remaining limits.
+
+**Production runs v327**, published on 24 October 2026 after explicit owner approval.
+All 33 v327 package files match live HTTP; all 161 precache resources are available,
+and the previous active assets remain intact for rollback. Its client/backend,
+Service Worker and layout validation is recorded in `FULL_AUDIT_20261024.md`.
+The backend and live game data were not changed by that publication. v328 requires
+separate publication approval and has not been installed on cas.jrvx.ru.
 The sections below also describe earlier published releases and their checks.
 
 This release updates the existing CAS 3.0.17 installation at
@@ -73,7 +76,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-33 public files: `index.html`, its service worker, the versioned UI assets and
+35 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
