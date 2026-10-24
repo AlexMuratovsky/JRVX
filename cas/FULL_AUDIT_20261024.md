@@ -190,8 +190,13 @@ offline fallback; stalled navigation abort; static cache и retained v326 bundle
 26 versioned файлов в обоих ZIP побайтно совпадают.
 
 Профиль CPU/GPU, heap snapshots, Core Web Vitals и длительная память до/после
-не получены. Браузерный контроль в фоне не даёт надёжного device-FPS benchmark;
-числа реального FPS или ускорения здесь намеренно не приводятся. По коду rotor
+не получены. В дополнительном инструментированном Canvas-прогоне измерены 240
+отрисовок на viewport 1100×820, backing canvas 458×458: median draw **0,4 ms**,
+p95 **1,1 ms**, max **5,5 ms**, warm-up **0,8 ms**. Это wall-time вызова draw;
+GPU completion и производительность физического телефона он не измеряет.
+Браузер в фоне ограничивал frame interval примерно 1003,5 ms, поэтому эти данные
+не дают надёжного device-FPS benchmark; числа реального FPS или ускорения до/после
+намеренно не приводятся. По коду rotor
 остаётся одной переиспользуемой поверхностью с пределом 2048×2048, без нового
 Canvas на каждом кадре. Lifecycle/animation cleanup проверен функциональными
 тестами, но это не заменяет многочасовой heap soak.
@@ -223,7 +228,7 @@ Rollback: восстановить `index.html` и `service-worker.js` из base
 
 Локальные доказательства находятся вне репозитория в
 `evidence/cas-audit-20261024/`: журналы 248/31/46/19/5, responsive JSON,
-Blackjack flow, screenshots poker/roulette, 27 circle fits и release-integrity manifest.
+Blackjack flow, screenshots poker/roulette, 27 circle fits, Canvas draw timings и release-integrity manifest.
 Частные исходники, схема и server harness — в `private-recovery/`; они не входят
 в ZIP или PR. Production в рамках этого аудита **не изменялся**.
 
