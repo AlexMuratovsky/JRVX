@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v326/casino.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v327/casino.js'), 'utf8');
 const A = 'JRVX-ABCD12345678', B = 'JRVX-EFGH87654321';
 const drain = () => new Promise(resolve => setImmediate(resolve));
 const idle = () => ({ hands: [], dealer: [], active: false, hand: 0, hideDealer: true, currency: 'MS' });
@@ -80,12 +80,14 @@ test('an accepted blackjack settlement remains confirmed if optional local histo
   assert.notEqual(actions[1].body.actionId, first, 'A subsequent explicit Deal is a new acknowledged action');
 });
 
-test('a delayed accepted settlement cannot enter another login after the wallet refresh awaits', async () => {
+test('an accepted settlement is recorded before an optional wallet refresh and cannot replay after another login', async () => {
   const f = fixture({ result: settled(), holdWallet: true });
   const work = f.api.deal(); await drain();
   assert.equal(f.api.state.serverVersion, 8); assert.equal(f.records.has('jrvxBlackjackPendingV302:' + A), false);
+  const confirmedHistory = f.records.get('jrvxCasBlackjackHistoryV220:' + A);
+  assert.equal(JSON.parse(confirmedHistory).length, 1);
   f.identity(B); f.identity(A); await drain(); f.releaseWallet(); await work;
-  assert.equal(f.records.has('jrvxCasBlackjackHistoryV220:' + A), false);
+  assert.equal(f.records.get('jrvxCasBlackjackHistoryV220:' + A), confirmedHistory);
   assert.equal(f.records.has('jrvxCasBlackjackHistoryV220:' + B), false);
   assert.equal(f.api.state.serverVersion, 7, 'The current login keeps its freshly loaded state');
 });
@@ -104,7 +106,7 @@ test('a blackjack reply from an earlier owner cannot credit, render or clear the
   assert.equal(f.records.has('jrvxCasBlackjackHistoryV220:' + B), false);
 });
 
-const walletSource = fs.readFileSync(path.join(__dirname, '../public/modules/legacy/runtime/wallet-v326.js'), 'utf8');
+const walletSource = fs.readFileSync(path.join(__dirname, '../public/modules/legacy/runtime/wallet-v327.js'), 'utf8');
 function walletFixture({ storageFails = '', reply = 'ok', applyFails = false, refreshFails = false } = {}) {
   const nodes = new Map();
   const records = new Map(), requests = [], notices = [], listeners = [], timers = new Map(), applied = [];

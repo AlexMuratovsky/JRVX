@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const source = fs.readFileSync(process.env.JRVX_ONLINE_SOURCE || path.join(__dirname, '../public/modules/network/runtime/online-v326.js'), 'utf8');
+const source = fs.readFileSync(process.env.JRVX_ONLINE_SOURCE || path.join(__dirname, '../public/modules/network/runtime/online-v327.js'), 'utf8');
 const join = () => ({ type: 'poker_join', mode: 'online', tableId: '2-4', buyIn: 40 });
 const tableState = (revision = 5, roomId = 'room-current') => ({
   authoritative: true, roomId, tableId: '1-2', currency: 'MS', mode: 'online', handNo: 3, revision,

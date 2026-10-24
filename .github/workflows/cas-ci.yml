@@ -2,9 +2,9 @@ name: Check JRVX CAS
 
 on:
   push:
-    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+    paths: ["cas/**", ".github/workflows/cas-ci.yml", ".gitattributes"]
   pull_request:
-    paths: ["cas/**", ".github/workflows/cas-ci.yml"]
+    paths: ["cas/**", ".github/workflows/cas-ci.yml", ".gitattributes"]
   workflow_dispatch:
 
 permissions:
@@ -21,16 +21,9 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "24"
-      - name: Check changed JavaScript
+      - name: Check all available UI and public JavaScript
         run: |
-          node --check cas/public/assets/js-v326/cas-bootstrap.js
-          node --check cas/public/assets/js-v326/casino.js
-          node --check cas/public/modules/poker/runtime/poker-pro-v326.js
-          node --check cas/public/modules/poker/runtime/poker-core-v326.js
-          node --check cas/public/modules/network/runtime/online-v326.js
-          node --check cas/public/modules/legacy/runtime/wallet-v326.js
-          node --check cas/runtime/roulette-photo.js
-          node --check cas/public/service-worker.js
+          find cas/runtime cas/public -type f -name '*.js' -print0 | xargs -0 -n 1 node --check
       - run: node --test cas/test/*.test.cjs
       - name: Build and validate public overlay
         run: |
