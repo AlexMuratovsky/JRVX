@@ -15,10 +15,12 @@ for name in ('blackjack-reference','profile','leaderboard','updates','tutorial',
     files['assets/art/'+name+'-v323.webp'] = root/'public/assets/art'/(name+'-v323.webp')
 files['modules/legacy/runtime/wallet-v327.js'] = root/'public/modules/legacy/runtime/wallet-v327.js'
 files['modules/poker/runtime/poker-core-v326.js'] = root/'public/modules/poker/runtime/poker-core-v326.js'
-files['modules/poker/runtime/poker-pro-v326.js'] = root/'public/modules/poker/runtime/poker-pro-v326.js'
+files['modules/poker/runtime/poker-pro-v328.js'] = root/'public/modules/poker/runtime/poker-pro-v328.js'
 files['modules/profile/runtime/profile-v328.js'] = root/'public/modules/profile/runtime/profile-v328.js'
 files['modules/profile/runtime/admin-v328.js'] = root/'public/modules/profile/runtime/admin-v328.js'
-for name in ('assets/js-v326/cas-bootstrap.js', 'assets/js-v327/casino.js', 'assets/js-v327/identity-account.js', 'modules/profile/runtime/progression-v322.js', 'modules/ui/runtime/experience-v328.js', 'modules/ui/runtime/pwa-v328.js'):
+files['modules/profile/runtime/history-v328.js'] = root/'public/modules/profile/runtime/history-v328.js'
+files['modules/profile/styles/history-v328.css'] = root/'public/modules/profile/styles/history-v328.css'
+for name in ('assets/js-v326/cas-bootstrap.js', 'assets/js-v328/casino.js', 'assets/js-v327/identity-account.js', 'modules/profile/runtime/progression-v322.js', 'modules/ui/runtime/experience-v328.js', 'modules/ui/runtime/pwa-v328.js'):
     files[name] = root/'public'/name
 for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runtime/lifecycle-v328.js', 'modules/network/runtime/online-v327.js'):
     files[name] = root/'public'/name

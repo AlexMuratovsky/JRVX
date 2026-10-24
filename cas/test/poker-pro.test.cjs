@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const source = fs.readFileSync(process.env.JRVX_POKER_PRO_SOURCE || path.join(__dirname, '../public/modules/poker/runtime/poker-pro-v326.js'), 'utf8');
+const source = fs.readFileSync(process.env.JRVX_POKER_PRO_SOURCE || path.join(__dirname, '../public/modules/poker/runtime/poker-pro-v328.js'), 'utf8');
 const initial = (extra = {}) => ({
   authoritative: true, active: true, roomId: 'room-1', tableId: '1-2', mode: 'jarvis', currency: 'MS',
   handNo: 7, revision: 15, street: 'flop', turnSeat: 0, currentBet: 10, minRaiseTo: 20, pot: 30,

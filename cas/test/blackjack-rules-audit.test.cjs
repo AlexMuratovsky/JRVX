@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v327/casino.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v328/casino.js'), 'utf8');
 const card = (r, s = '♠') => ({ r, s });
 const cards = ranks => ranks.map(rank => card(rank));
 const hand = (ranks, extra = {}) => ({ cards: cards(ranks), bet: 50, done: false, doubled: false, fromSplit: false, ...extra });

@@ -1,6 +1,7 @@
 # Public overlay bytes must survive a Windows/Linux checkout unchanged.
 cas/public/**/*.js text eol=lf
 cas/public/**/*.html text eol=lf
+cas/public/**/*.css text eol=lf
 cas/runtime/*.js text eol=lf
 cas/runtime/*.css text eol=lf
 # These installed immutable resources were originally published with CRLF.

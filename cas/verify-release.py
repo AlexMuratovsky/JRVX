@@ -5,6 +5,8 @@ import re
 
 root=Path(__file__).resolve().parent
 active={
+ 'modules/profile/runtime/history-v328.js':root/'public/modules/profile/runtime/history-v328.js',
+ 'modules/profile/styles/history-v328.css':root/'public/modules/profile/styles/history-v328.css',
  'modules/profile/runtime/profile-v328.js':root/'public/modules/profile/runtime/profile-v328.js',
  'modules/profile/runtime/admin-v328.js':root/'public/modules/profile/runtime/admin-v328.js',
  'modules/ui/runtime/experience-v328.js':root/'public/modules/ui/runtime/experience-v328.js',
@@ -13,8 +15,8 @@ active={
  'assets/js-v327/identity-account.js':root/'public/assets/js-v327/identity-account.js',
  'modules/poker/runtime/poker-core-v326.js':root/'public/modules/poker/runtime/poker-core-v326.js',
  'assets/js-v326/cas-bootstrap.js':root/'public/assets/js-v326/cas-bootstrap.js',
- 'assets/js-v327/casino.js':root/'public/assets/js-v327/casino.js',
- 'modules/poker/runtime/poker-pro-v326.js':root/'public/modules/poker/runtime/poker-pro-v326.js',
+ 'assets/js-v328/casino.js':root/'public/assets/js-v328/casino.js',
+ 'modules/poker/runtime/poker-pro-v328.js':root/'public/modules/poker/runtime/poker-pro-v328.js',
  'modules/network/runtime/online-v327.js':root/'public/modules/network/runtime/online-v327.js',
  'modules/legacy/runtime/wallet-v327.js':root/'public/modules/legacy/runtime/wallet-v327.js',
  'modules/ui/runtime/roulette-photo-v326.js':root/'runtime/roulette-photo.js',
@@ -23,7 +25,7 @@ active={
 }
 with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     names=[i.filename for i in archive.infolist() if not i.is_dir()]
-    assert len(names)==len(set(names))==35, 'Unexpected or duplicate public files'
+    assert len(names)==len(set(names))==37, 'Unexpected or duplicate public files'
     assert archive.testzip() is None, 'Corrupt archive entry'
     for name in names:
         assert not name.startswith(('/', '\\')) and '..' not in name.split('/'), name
@@ -40,4 +42,4 @@ with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     assert 'modules/legacy/legacy-runtime/04-v69-jarvis-cas-runtime.js' not in index
     assert archive.read('index.html')==(root/'public/index.html').read_bytes()
     assert archive.read('service-worker.js')==(root/'public/service-worker.js').read_bytes()
-print('Verified 35 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')
+print('Verified 37 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')

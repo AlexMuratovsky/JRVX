@@ -1,11 +1,12 @@
 # JRVX CAS interface and game reliability
 
 The current repository package is an **unpublished v328 client reliability candidate**.
-It fixes profile owner isolation and delayed statistics, admin ledger response races
-and misleading send feedback, game result effects, recoverable audio initialization,
-route frame coalescing, lifecycle cleanup and install-dialog keyboard access.
-Validation: **360 client tests, 34 JavaScript syntax checks**, a 35-file overlay,
-28 unchanged common immutable assets and an isolated browser keyboard check.
+It adds game/currency history filters and fixes profile owner isolation and delayed
+statistics, admin ledger response races, pending roulette presentation, game effects,
+background audio/animation cleanup, shared haptic preferences, poker confirmation
+keyboard access, route frame coalescing, lifecycle cleanup and the install dialog.
+Validation: **410 client tests, 37 JavaScript syntax checks**, a 37-file overlay,
+26 unchanged common immutable assets and isolated browser keyboard/filter checks.
 See `IMPROVEMENTS_V328_20261024.md` for reproduction, scope and remaining limits.
 
 **Production runs v327**, published on 24 October 2026 after explicit owner approval.
@@ -76,7 +77,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-35 public files: `index.html`, its service worker, the versioned UI assets and
+37 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS

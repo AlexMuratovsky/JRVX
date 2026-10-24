@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const walletSource = fs.readFileSync(path.join(__dirname, '../public/modules/legacy/runtime/wallet-v327.js'), 'utf8');
-const casinoSource = fs.readFileSync(path.join(__dirname, '../public/assets/js-v327/casino.js'), 'utf8');
+const casinoSource = fs.readFileSync(path.join(__dirname, '../public/assets/js-v328/casino.js'), 'utf8');
 const OWNER = 'JRVX-ABCD12345678', OTHER = 'JRVX-EFGH87654321';
 
 // Execute the complete production wallet/navigation module with local DOM and
