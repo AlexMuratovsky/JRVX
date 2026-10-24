@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
-const casino=fs.readFileSync(path.join(root,'public/assets/js-v326/casino.js'),'utf8');
+const casino=fs.readFileSync(path.join(root,'public/assets/js-v327/casino.js'),'utf8');
 const progress=fs.readFileSync(path.join(root,'public/modules/profile/runtime/progression-v322.js'),'utf8');
 const drain=()=>new Promise(resolve=>setImmediate(resolve));
 function fixture({storageFails=false,fetchMode='ok'}={}){
@@ -93,7 +93,7 @@ test('blackjack request timeout re-enables controls and keeps the same retry act
  const f=fixture({fetchMode:'hang'}),work=f.deal();await drain();await f.timeout();await work;assert.equal(f.nodes.get('bjDeal').disabled,false);assert.ok(f.records.has('jrvxBlackjackPendingV302:A'));
 });
 test('blackjack tells the player when an accepted action could not refresh their balance',async()=>{
- const f=fixture();f.ctx.window.JRVXCASServerAccount.refresh=async()=>null;await f.deal();assert.match(f.nodes.get('bjMessage').textContent,/Действие подтверждено.*баланс/);
+ const f=fixture();f.ctx.window.JRVXCASServerAccount.refresh=async()=>null;await f.deal();await drain();assert.match(f.nodes.get('bjMessage').textContent,/Действие подтверждено.*баланс/);assert.match(f.nodes.get('bjMessage').textContent,/Раздача завершена/);assert.equal(f.nodes.get('bjDeal').disabled,false);
 });
 function progressFixture(){
  const records=new Map(),timers=[],sent=[];let accepted=false,owner='A',connected=true;

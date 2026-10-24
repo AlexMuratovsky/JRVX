@@ -262,6 +262,12 @@ html body #poker#poker #poker59App.seated .v110Profile{display:none!important}
 html body #poker#poker #poker59App.seated .p59Hero{top:auto!important;bottom:9%!important;left:50%!important;transform:translateX(-50%)!important}
 html body #poker#poker #poker59App.seated .p59Center{top:40%!important}
 html body #poker#poker #poker59App.seated .p59HeroCards .p59Card{width:clamp(38px,8dvh,70px)!important;height:clamp(54px,11dvh,98px)!important}
+/* The desktop dock can be narrower than the legacy 349px betting grid. Keep
+   both step buttons inside its real grid track instead of clipping the +. */
+@media(min-width:901px){
+ html body #poker#poker #poker59App.seated .p59BetBox{box-sizing:border-box!important;min-width:0!important;max-width:100%!important;grid-template-columns:minmax(0,1fr) 30px minmax(48px,.7fr) 30px!important;gap:4px!important}
+ html body #poker#poker #poker59App.seated .p59BetBox>button,html body #poker#poker #poker59App.seated #p59Bet{box-sizing:border-box!important;min-width:0!important;max-width:100%!important;width:100%!important}
+}
 /* Portrait poker has one scroll owner. Content rows grow around the complete
    betting controls instead of clipping a second row of shortcuts into AUTO. */
 @media(max-width:900px) and (orientation:portrait){
