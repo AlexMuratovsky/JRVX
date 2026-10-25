@@ -1,0 +1,13 @@
+.jrvxPanelV329[hidden],.jrvxPanelV329 [hidden]{display:none!important}
+.jrvxPanelV329{position:fixed;inset:0;z-index:2147482000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:#030811c9;backdrop-filter:blur(8px);box-sizing:border-box;color:#edf2f8;font-family:inherit}
+.jrvxPanelCardV329{width:min(100%,680px);max-height:calc(100dvh - 40px);overflow:auto;overscroll-behavior:contain;border:1px solid #d7b56c45;border-radius:20px;background:linear-gradient(145deg,#142035,#0a1321);box-shadow:0 24px 80px #0009;padding:22px;box-sizing:border-box}
+.jrvxPanelHeadV329{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.jrvxPanelHeadV329 h2,.jrvxPanelHeadV329 h3{margin:0;color:#edf2f8;font-size:22px;line-height:1.25;letter-spacing:-.02em}
+.jrvxPanelHeadV329 p{margin:7px 0 0;color:#a9bacf;line-height:1.5;font-size:13px}
+.jrvxPanelCloseV329{flex:0 0 36px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ffffff30;border-radius:10px;background:#ffffff08;color:#edf2f8;font:inherit;font-size:22px;cursor:pointer}
+.jrvxPanelV329 :is(button,a,input,select,[tabindex]):focus-visible{outline:2px solid #e4c47d!important;outline-offset:3px}
+.jrvxPanelOpenV329{overflow:hidden!important}
+.jrvxGameUtilityV329{display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px!important;min-width:32px!important;height:32px!important;padding:0!important;border:1px solid #e4c47d50!important;border-radius:9px!important;background:#101b2c!important;color:#e4c47d!important;font-size:15px!important;line-height:1!important;cursor:pointer}
+@media(max-width:600px){.jrvxPanelV329{align-items:flex-end;padding:10px max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}.jrvxPanelCardV329{max-height:calc(100dvh - 24px);padding:18px;border-radius:18px}.jrvxPanelHeadV329 h2,.jrvxPanelHeadV329 h3{font-size:20px}}
+@media(max-width:360px){html body #roulette.game.active .gamehead h2{font-size:12px!important}html body #roulette.game.active .gamehead .actions{gap:3px!important}}
+@media(prefers-reduced-motion:reduce){.jrvxPanelV329,.jrvxPanelV329 *{animation:none!important;transition:none!important}}

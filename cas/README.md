@@ -1,19 +1,19 @@
 # JRVX CAS interface and game reliability
 
-The current repository package is an **unpublished v328 client reliability candidate**.
-It adds game/currency history filters and fixes profile owner isolation and delayed
-statistics, admin ledger response races, pending roulette presentation, game effects,
-background audio/animation cleanup, shared haptic preferences, poker confirmation
-keyboard access, route frame coalescing, lifecycle cleanup and the install dialog.
-Validation: **410 client tests, 37 JavaScript syntax checks**, a 37-file overlay,
-26 unchanged common immutable assets and isolated browser keyboard/filter checks.
-See `IMPROVEMENTS_V328_20261024.md` for reproduction, scope and remaining limits.
+The current repository package is an **unpublished v329 global client update**.
+It adds a game hub with account-scoped favorites/recent choices, a truthful connection
+center, contextual rules/control guides and shared accessible panels. It includes the
+v328 history filters, recovery, profile, admin, audio and keyboard fixes unchanged.
+Validation: **482 client tests, 41 JavaScript syntax checks**, a 45-file overlay,
+35 unchanged v328 payloads, 26 unchanged production payloads and 12 responsive
+game-layout configurations. See `GLOBAL_UPDATE_V329_20261024.md` for the new features,
+evidence and limits; `IMPROVEMENTS_V328_20261024.md` records the earlier candidate.
 
 **Production runs v327**, published on 24 October 2026 after explicit owner approval.
 All 33 v327 package files match live HTTP; all 161 precache resources are available,
 and the previous active assets remain intact for rollback. Its client/backend,
 Service Worker and layout validation is recorded in `FULL_AUDIT_20261024.md`.
-The backend and live game data were not changed by that publication. v328 requires
+The backend and live game data were not changed by that publication. v329 requires
 separate publication approval and has not been installed on cas.jrvx.ru.
 The sections below also describe earlier published releases and their checks.
 
@@ -77,7 +77,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-37 public files: `index.html`, its service worker, the versioned UI assets and
+45 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS

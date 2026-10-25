@@ -1,0 +1,18 @@
+.jrvxGuideCardV329{box-sizing:border-box;display:flex;flex-direction:column;max-height:min(88dvh,820px);width:min(680px,calc(100vw - 32px))}
+.jrvxGuideDescriptionV329{margin:5px 0 0;color:#a5b0c2;font-size:13px;line-height:1.5}
+.jrvxGuideTabsV329{display:flex;gap:7px;flex:none;padding:0 0 14px;overflow-x:auto;scrollbar-width:thin}
+.jrvxGuideTabV329{flex:1 0 auto;min-height:40px;padding:8px 14px;border:1px solid #ffffff25;border-radius:11px;background:#152033;color:#c7d2e3;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.jrvxGuideTabV329[aria-selected=true]{border-color:#e4c47d;background:#e4c47d;color:#101522}
+.jrvxGuideBodyV329{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 5px 0 0;line-height:1.65}
+.jrvxGuideContentV329[hidden]{display:none!important}
+.jrvxGuideIntroV329{margin:0 0 16px;font-size:15px;color:#edf2f8}
+.jrvxGuideSectionV329{margin:0 0 15px;padding:13px 15px;border:1px solid #ffffff16;border-radius:13px;background:#ffffff04}
+.jrvxGuideSectionV329 h3{margin:0 0 8px;color:#e4c47d;font-size:14px;line-height:1.4}
+.jrvxGuideSectionV329 ul{margin:0;padding:0 0 0 18px;color:#c7d2e3;font-size:13px}
+.jrvxGuideSectionV329 li+li{margin-top:7px}
+.jrvxGuideNoteV329{margin:15px 0 0;padding:12px 14px;border-left:2px solid #e4c47d;background:#e4c47d08;color:#a5b0c2;font-size:12px}
+.jrvxGuidePanelV329 :is(button,[role=tabpanel]):focus-visible{outline:2px solid #e4c47d;outline-offset:3px}
+.jrvxGuideButtonV329.jrvxGameUtilityV329{flex:0 0 auto;min-width:34px;min-height:34px;width:34px;padding:4px;border-radius:50%;font-weight:800;line-height:1}
+.p59GameBtns .jrvxGuideButtonV329.jrvxGameUtilityV329{min-width:32px;min-height:32px;width:32px;height:32px;padding:4px}
+.jrvxGuideLobbyButtonV329{flex:0 0 auto;min-height:36px;white-space:nowrap;margin-left:auto}
+@media(max-width:480px){.jrvxGuideCardV329{width:calc(100vw - 20px);max-height:calc(100dvh - 24px)}.jrvxGuideTabV329{padding:8px 11px;font-size:12px}.jrvxGuideSectionV329{padding:11px}.jrvxGuideDescriptionV329{font-size:12px}.jrvxGuideIntroV329{font-size:14px}}

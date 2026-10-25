@@ -1,0 +1,20 @@
+.jrvxConnectionButtonV329{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:32px;padding:5px 9px;border:1px solid #ffffff26;border-radius:10px;background:#111d2b;color:#dce8f1;font:inherit;font-size:11px;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer;flex:0 0 auto}
+.jrvxConnectionButtonV329:focus-visible,.jrvxConnectionRetryV329:focus-visible{outline:2px solid #e4c47d;outline-offset:2px}
+.jrvxConnectionButtonV329:disabled{opacity:.55;cursor:default}
+.jrvxConnectionDotV329{display:block;width:8px;height:8px;border-radius:50%;background:#f1c66b;box-shadow:0 0 0 3px #f1c66b15;flex:0 0 8px}
+[data-connection="confirmed"] .jrvxConnectionDotV329{background:#64dba9;box-shadow:0 0 0 3px #64dba915}
+[data-connection="offline"] .jrvxConnectionDotV329,[data-connection="disconnected"] .jrvxConnectionDotV329{background:#ff8a8a;box-shadow:0 0 0 3px #ff8a8a15}
+.game .jrvxConnectionButtonV329.jrvxGameUtilityV329{box-sizing:border-box;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;padding:0!important;position:relative!important;flex:0 0 32px!important}
+.game .jrvxConnectionButtonV329 .jrvxConnectionLabelV329{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.jrvxConnectionCardV329{width:min(460px,100%)}
+.jrvxConnectionStateV329{margin:2px 0 10px;color:#e4c47d;font-weight:700;font-size:16px}
+[data-connection="confirmed"] .jrvxConnectionStateV329{color:#64dba9}
+[data-connection="offline"] .jrvxConnectionStateV329,[data-connection="disconnected"] .jrvxConnectionStateV329{color:#ff9a9a}
+.jrvxConnectionDetailV329,.jrvxConnectionNoteV329,.jrvxConnectionFeedbackV329{color:#a4b8c6;font-size:12px;line-height:1.6;margin:10px 0}
+.jrvxConnectionFactsV329{display:grid;gap:0;margin:18px 0;border:1px solid #ffffff18;border-radius:12px;padding:0 12px;background:#ffffff03}
+.jrvxConnectionFactsV329>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid #ffffff12}
+.jrvxConnectionFactsV329>div:last-child{border:0}.jrvxConnectionFactsV329 dt{color:#a4b8c6;font-size:12px}.jrvxConnectionFactsV329 dd{margin:0;text-align:right;font-size:12px;color:#e5edf4}
+.jrvxConnectionNoteV329{padding:10px 12px;border-radius:10px;background:#e4c47d09;border:1px solid #e4c47d20}
+.jrvxConnectionRetryV329{width:100%;min-height:40px;margin-top:6px}
+.jrvxConnectionFeedbackV329{min-height:1.6em;margin-bottom:0}.jrvxConnectionFeedbackV329[data-tone="ok"]{color:#64dba9}
+@media(max-width:380px){.jrvxConnectionFactsV329>div{gap:8px}.jrvxConnectionFactsV329 dd{max-width:56%;overflow-wrap:anywhere}}
