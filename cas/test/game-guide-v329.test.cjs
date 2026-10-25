@@ -60,12 +60,12 @@ test('content describes actual controls and pending confirmation without a winni
  assert.match(text(guides.roulette),/0.*не красный.*нечётное/);assert.match(text(guides.roulette),/выбор.*не запускает|Выбор.*не запускает/);assert.match(text(guides.roulette),/прежней ставке/);
  assert.doesNotMatch(JSON.stringify(guides),/гарантирован|без риска|стратегия побед|повысить шансы|AI|джекпот/i);
 });
-test('boot adds compact help to all three game headers and one lobby modes heading',()=>{
+test('boot adds compact help to game headers and leaves the mode carousel untouched',()=>{
  const f=fixture();for(const mode of ['poker','blackjack','roulette']){const host=f.hosts.get('#'+mode+' .gamehead .actions'),button=host.querySelector('[data-jrvx-guide-open="'+mode+'"]');assert.equal(button.textContent,'?');assert.match(button.getAttribute('aria-label'),/Как играть/);assert.equal(host.children.length,2,'Legacy INFO remains intact')}
- const hub=f.id('v83ModesHub');assert.equal(hub.querySelector('.v83Header').children.length,1);assert.equal(hub.querySelector('[data-jrvx-guide-lobby]').textContent,'Как играть');assert.equal(f.id('jrvxGameGuideV329'),null,'Guide content is lazy until opened');
+ const hub=f.id('v83ModesHub');assert.equal(hub.querySelector('.v83Header').children.length,0);assert.equal(hub.querySelector('[data-jrvx-guide-lobby]'),null);assert.equal(f.id('jrvxGameGuideV329'),null,'Guide content is lazy until opened');
 });
 test('repeated refresh, identity and pageshow do not duplicate help controls',()=>{
- const f=fixture();f.api.refresh();f.identity();f.pageshow();for(const host of f.hosts.values())assert.equal(host.children.length,2);assert.equal(f.id('v83ModesHub').querySelector('.v83Header').children.length,1);
+ const f=fixture();f.api.refresh();f.identity();f.pageshow();for(const host of f.hosts.values())assert.equal(host.children.length,2);assert.equal(f.id('v83ModesHub').querySelector('.v83Header').children.length,0);
 });
 test('seated poker retains its own help control when the legacy game header is hidden',()=>{
  const f=fixture();f.hosts.get('#poker .gamehead .actions').hidden=true;

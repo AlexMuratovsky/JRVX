@@ -1,10 +1,10 @@
 # JRVX CAS interface and game reliability
 
 The current repository package is an **unpublished v329 global client update**.
-It adds a game hub with account-scoped favorites/recent choices, a truthful connection
+It preserves the existing mode carousel unchanged and adds a truthful connection
 center, contextual rules/control guides and shared accessible panels. It includes the
 v328 history filters, recovery, profile, admin, audio and keyboard fixes unchanged.
-Validation: **482 client tests, 41 JavaScript syntax checks**, a 45-file overlay,
+Validation: **460 client tests, 40 JavaScript syntax checks**, a 43-file overlay,
 35 unchanged v328 payloads, 26 unchanged production payloads and 12 responsive
 game-layout configurations. See `GLOBAL_UPDATE_V329_20261024.md` for the new features,
 evidence and limits; `IMPROVEMENTS_V328_20261024.md` records the earlier candidate.
@@ -77,7 +77,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-45 public files: `index.html`, its service worker, the versioned UI assets and
+43 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS

@@ -6,11 +6,9 @@ import re
 root=Path(__file__).resolve().parent
 active={
  'modules/ui/styles/panels-v329.css':root/'public/modules/ui/styles/panels-v329.css',
- 'modules/ui/styles/club-hub-v329.css':root/'public/modules/ui/styles/club-hub-v329.css',
  'modules/ui/styles/connection-v329.css':root/'public/modules/ui/styles/connection-v329.css',
  'modules/ui/styles/game-guide-v329.css':root/'public/modules/ui/styles/game-guide-v329.css',
  'modules/ui/runtime/panels-v329.js':root/'public/modules/ui/runtime/panels-v329.js',
- 'modules/ui/runtime/club-hub-v329.js':root/'public/modules/ui/runtime/club-hub-v329.js',
  'modules/ui/runtime/connection-v329.js':root/'public/modules/ui/runtime/connection-v329.js',
  'modules/ui/runtime/game-guide-v329.js':root/'public/modules/ui/runtime/game-guide-v329.js',
 
@@ -34,7 +32,7 @@ active={
 }
 with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     names=[i.filename for i in archive.infolist() if not i.is_dir()]
-    assert len(names)==len(set(names))==45, 'Unexpected or duplicate public files'
+    assert len(names)==len(set(names))==43, 'Unexpected or duplicate public files'
     assert archive.testzip() is None, 'Corrupt archive entry'
     for name in names:
         assert not name.startswith(('/', '\\')) and '..' not in name.split('/'), name
@@ -51,4 +49,4 @@ with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     assert 'modules/legacy/legacy-runtime/04-v69-jarvis-cas-runtime.js' not in index
     assert archive.read('index.html')==(root/'public/index.html').read_bytes()
     assert archive.read('service-worker.js')==(root/'public/service-worker.js').read_bytes()
-print('Verified 45 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')
+print('Verified 43 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')

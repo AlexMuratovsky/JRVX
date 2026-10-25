@@ -14,5 +14,4 @@
 .jrvxGuidePanelV329 :is(button,[role=tabpanel]):focus-visible{outline:2px solid #e4c47d;outline-offset:3px}
 .jrvxGuideButtonV329.jrvxGameUtilityV329{flex:0 0 auto;min-width:34px;min-height:34px;width:34px;padding:4px;border-radius:50%;font-weight:800;line-height:1}
 .p59GameBtns .jrvxGuideButtonV329.jrvxGameUtilityV329{min-width:32px;min-height:32px;width:32px;height:32px;padding:4px}
-.jrvxGuideLobbyButtonV329{flex:0 0 auto;min-height:36px;white-space:nowrap;margin-left:auto}
 @media(max-width:480px){.jrvxGuideCardV329{width:calc(100vw - 20px);max-height:calc(100dvh - 24px)}.jrvxGuideTabV329{padding:8px 11px;font-size:12px}.jrvxGuideSectionV329{padding:11px}.jrvxGuideDescriptionV329{font-size:12px}.jrvxGuideIntroV329{font-size:14px}}

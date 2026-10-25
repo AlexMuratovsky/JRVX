@@ -24,7 +24,7 @@ for name in ('assets/js-v326/cas-bootstrap.js', 'assets/js-v328/casino.js', 'ass
     files[name] = root/'public'/name
 for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runtime/lifecycle-v328.js', 'modules/network/runtime/online-v327.js'):
     files[name] = root/'public'/name
-for name in ('modules/ui/styles/panels-v329.css', 'modules/ui/styles/club-hub-v329.css', 'modules/ui/styles/connection-v329.css', 'modules/ui/styles/game-guide-v329.css', 'modules/ui/runtime/panels-v329.js', 'modules/ui/runtime/club-hub-v329.js', 'modules/ui/runtime/connection-v329.js', 'modules/ui/runtime/game-guide-v329.js'):
+for name in ('modules/ui/styles/panels-v329.css', 'modules/ui/styles/connection-v329.css', 'modules/ui/styles/game-guide-v329.css', 'modules/ui/runtime/panels-v329.js', 'modules/ui/runtime/connection-v329.js', 'modules/ui/runtime/game-guide-v329.js'):
     files[name] = root/'public'/name
 (root/'deploy').mkdir(exist_ok=True)
 with ZipFile(root/'deploy/cas-ecosystem.zip','w',compression=ZIP_DEFLATED) as out:

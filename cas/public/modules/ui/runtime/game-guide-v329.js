@@ -69,8 +69,6 @@ function gameButton(host,mode){if(host&&!host.querySelector('[data-jrvx-guide-op
 function ensureButtons(){
  for(const mode of modes)gameButton(document.querySelector('#'+mode+' .gamehead .actions'),mode);
  gameButton(document.querySelector('#p59Game .p59GameBtns')||document.querySelector('#poker .p59GameBtns'),'poker');
- const hub=$('v83ModesHub'),host=hub?.querySelector('.v83Header')||hub;
- if(host&&!host.querySelector('[data-jrvx-guide-lobby]'))host.appendChild(element('button','v69Btn jrvxGuideLobbyButtonV329','Как играть',{type:'button','data-jrvx-guide-open':'poker','data-jrvx-guide-lobby':'','aria-label':'Как играть: покер, блэкджек и рулетка'}));
 }
 function boot(){if(bound)return;bound=true;ensureButtons();document.addEventListener('click',event=>{const opener=event.target.closest?.('[data-jrvx-guide-open]');if(!opener||opener.disabled)return;event.preventDefault();open(opener.getAttribute('data-jrvx-guide-open'),opener)});document.addEventListener('jrvx-cas-identity',ensureButtons);window.addEventListener('pageshow',ensureButtons)}
 window.JRVXCASGuideV329={open,close,refresh:ensureButtons};
