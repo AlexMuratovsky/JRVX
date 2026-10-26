@@ -4,6 +4,9 @@ cas/public/**/*.html text eol=lf
 cas/public/**/*.css text eol=lf
 cas/runtime/*.js text eol=lf
 cas/runtime/*.css text eol=lf
+cas/server/**/*.mjs text eol=lf
+cas/server/**/*.sql text eol=lf
+cas/scripts/**/*.mjs text eol=lf
 # These installed immutable resources were originally published with CRLF.
 # Preserve their exact bytes instead of normalizing an existing versioned URL.
 cas/public/modules/poker/runtime/poker-core-v326.js -text

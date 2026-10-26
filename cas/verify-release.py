@@ -30,9 +30,16 @@ active={
  'modules/ui/runtime/account-v327.js':root/'runtime/account-ui.js',
  'modules/ui/styles/gameplay-v327.css':root/'runtime/gameplay-ui.css',
 }
+import json
+mg_paths=json.loads((root/'mg-v330-active-paths.json').read_text(encoding='utf-8'))
+for old,new in mg_paths['paths'].items():
+    active.pop(old,None)
+    active[new]=root/'public'/new
+for name in mg_paths['additional']:
+    active[name]=root/'public'/name
 with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     names=[i.filename for i in archive.infolist() if not i.is_dir()]
-    assert len(names)==len(set(names))==43, 'Unexpected or duplicate public files'
+    assert len(names)==len(set(names))==66, 'Unexpected or duplicate public files'
     assert archive.testzip() is None, 'Corrupt archive entry'
     for name in names:
         assert not name.startswith(('/', '\\')) and '..' not in name.split('/'), name
@@ -40,7 +47,7 @@ with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
         assert not any(part in name.lower() for part in ('private','secret','.env','worker.owner','test/','fixture')),name
     index=archive.read('index.html').decode('utf-8')
     worker=archive.read('service-worker.js').decode('utf-8')
-    assert 'recovery-20261024-v329-shell' in worker
+    assert 'mg-only-20261025-v330-shell' in worker
     scripts=re.findall(r'<script\b[^>]*src="([^"]+)"',index)
     assert len(scripts)==len(set(scripts)), 'Duplicate script load'
     for name,source in active.items():
@@ -49,4 +56,4 @@ with ZipFile(root/'deploy/cas-ecosystem.zip') as archive:
     assert 'modules/legacy/legacy-runtime/04-v69-jarvis-cas-runtime.js' not in index
     assert archive.read('index.html')==(root/'public/index.html').read_bytes()
     assert archive.read('service-worker.js')==(root/'public/service-worker.js').read_bytes()
-print('Verified 43 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')
+print('Verified 66 public files, active release assets, script uniqueness, source bytes and rollback-safe cache paths.')

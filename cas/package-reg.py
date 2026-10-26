@@ -26,6 +26,14 @@ for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runt
     files[name] = root/'public'/name
 for name in ('modules/ui/styles/panels-v329.css', 'modules/ui/styles/connection-v329.css', 'modules/ui/styles/game-guide-v329.css', 'modules/ui/runtime/panels-v329.js', 'modules/ui/runtime/connection-v329.js', 'modules/ui/runtime/game-guide-v329.js'):
     files[name] = root/'public'/name
+# Apply the reviewed MG-only active paths, including formerly external legacy bundles.
+import json
+mg_paths=json.loads((root/'mg-v330-active-paths.json').read_text(encoding='utf-8'))
+for old,new in mg_paths['paths'].items():
+    files.pop(old,None)
+    files[new]=root/'public'/new
+for name in mg_paths['additional']:
+    files[name]=root/'public'/name
 (root/'deploy').mkdir(exist_ok=True)
 with ZipFile(root/'deploy/cas-ecosystem.zip','w',compression=ZIP_DEFLATED) as out:
     dirs = {str(parent).replace('\\','/')+'/' for name in files for parent in Path(name).parents if str(parent) != '.'}

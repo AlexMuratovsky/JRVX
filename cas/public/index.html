@@ -14,6 +14,7 @@
 .jrvxStartupCard p{margin:0 0 24px!important;color:#bbcedc!important}
 .jrvxStartupCard button{appearance:none!important;-webkit-appearance:none!important;display:block!important;box-sizing:border-box!important;min-height:48px!important;width:100%!important;border:0!important;border-radius:10px!important;background:#c5a75f!important;color:#07131b!important;padding:12px 16px!important;font:inherit!important;font-weight:700!important;cursor:pointer!important;touch-action:manipulation!important}
 </style>
+<script src="modules/core/runtime/money-v330.js"></script>
 <script data-jrvx-module="startup-guard">
 /* Runs before styles and the application bundles, including on older Safari. */
 (function () {
@@ -202,23 +203,23 @@
 <!-- JRVX CAS v3.0.17: dormant breakout DOM removed from production. -->
 
 <section class="game" id="poker">
-<div class="gamehead pokerGameHead"><div><h2>JRVX POKER <span class="age18GameBadge">18+</span></h2><div class="score">Texas Hold'em • премиальный стол • MS или MG</div><div class="pokerModeSwitch"><button class="pokerModeBtn active" data-poker-mode="jarvis">1×1 с JRVX</button><button class="pokerModeBtn" data-poker-mode="online">ONLINE</button><button class="pokerModeBtn" data-poker-mode="friend">С другом</button></div></div><div class="actions"><button aria-label="Правила и комбинации Poker" class="btn pokerInfoBtn" id="pokerInfoBtn">ⓘ INFO</button><button class="btn" data-open-token-shop="">Магазин MS / MG</button><button class="btn" id="pokerReconnect">SERVER LINK</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
+<div class="gamehead pokerGameHead"><div><h2>JRVX POKER <span class="age18GameBadge">18+</span></h2><div class="score">Texas Hold'em • премиальный стол • MG или MG</div><div class="pokerModeSwitch"><button class="pokerModeBtn active" data-poker-mode="jarvis">1×1 с JRVX</button><button class="pokerModeBtn" data-poker-mode="online">ONLINE</button><button class="pokerModeBtn" data-poker-mode="friend">С другом</button></div></div><div class="actions"><button aria-label="Правила и комбинации Poker" class="btn pokerInfoBtn" id="pokerInfoBtn">ⓘ INFO</button><button class="btn" data-open-token-shop="">Магазин MG / MG</button><button class="btn" id="pokerReconnect">SERVER LINK</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
 <div class="pokerShell pokerV52">
-<div class="pokerStatusBar"><div class="pokerStatusLeft"><span class="pokerStatusDot" id="pokerStatusDot"></span><strong id="pokerNetStatus">Сервер не подключён</strong><span class="pokerStatusMeta" id="pokerOnlineText">ONLINE: —</span></div><div class="pokerBlindBadge"><span>ТЕКУЩИЙ СТОЛ</span><strong id="pokerBlindBadgeText">SB 1 MS • BB 2 MS</strong></div></div>
-<div class="pokerWalletBar"><div class="pokerTokenBadge"><span class="pokerTokenCoin">MS</span><div><small>MS / MG • CASINO WALLET</small><strong id="pokerTokenBalance">0 MS</strong><em>Poker / Blackjack / Roulette</em></div></div><div class="pokerTokenBadge"><div><small>Валюта</small><strong>MS / MG</strong></div></div></div>
+<div class="pokerStatusBar"><div class="pokerStatusLeft"><span class="pokerStatusDot" id="pokerStatusDot"></span><strong id="pokerNetStatus">Сервер не подключён</strong><span class="pokerStatusMeta" id="pokerOnlineText">ONLINE: —</span></div><div class="pokerBlindBadge"><span>ТЕКУЩИЙ СТОЛ</span><strong id="pokerBlindBadgeText">SB 1 MG • BB 2 MG</strong></div></div>
+<div class="pokerWalletBar"><div class="pokerTokenBadge"><span class="pokerTokenCoin">MG</span><div><small>MG / MG • CASINO WALLET</small><strong id="pokerTokenBalance">0 MG</strong><em>Poker / Blackjack / Roulette</em></div></div><div class="pokerTokenBadge"><div><small>Валюта</small><strong>MG / MG</strong></div></div></div>
 <div class="pokerLobbyDeck">
-<div class="pokerTableSelector"><div><span>ЛИМИТ</span><strong>Выберите стол</strong><small id="pokerBuyInMinLabel">Минимальный вход: 20 MS</small></div><div class="pokerTableChips" id="pokerTableChips"><button class="btn active" data-poker-table="1-2">1 / 2</button><button class="btn" data-poker-table="2-4">2 / 4</button><button class="btn" data-poker-table="5-10">5 / 10</button><button class="btn" data-poker-table="10-20">10 / 20</button><button class="btn" data-poker-table="25-50">25 / 50</button><button class="btn" data-poker-table="50-100">50 / 100</button><button class="btn" data-poker-table="100-200">100 / 200</button></div></div>
+<div class="pokerTableSelector"><div><span>ЛИМИТ</span><strong>Выберите стол</strong><small id="pokerBuyInMinLabel">Минимальный вход: 20 MG</small></div><div class="pokerTableChips" id="pokerTableChips"><button class="btn active" data-poker-table="1-2">1 / 2</button><button class="btn" data-poker-table="2-4">2 / 4</button><button class="btn" data-poker-table="5-10">5 / 10</button><button class="btn" data-poker-table="10-20">10 / 20</button><button class="btn" data-poker-table="25-50">25 / 50</button><button class="btn" data-poker-table="50-100">50 / 100</button><button class="btn" data-poker-table="100-200">100 / 200</button></div></div>
 <div class="pokerFriendBar" id="pokerFriendBar"><div><span>ДРУЗЬЯ</span><strong>Играть вместе</strong><small>Выберите друга и пригласите его за приватный online-стол.</small></div><select id="pokerFriendSelect"><option value="">Выберите друга</option></select><button class="btn" id="pokerInviteFriend">Пригласить друга</button></div>
 <div class="pokerInviteIncoming" id="pokerInviteIncoming"><div><span>ПРИГЛАШЕНИЕ</span><strong id="pokerInviteIncomingText">Друг зовёт Вас за стол</strong></div><button class="btn primary" id="pokerInviteAccept">Сесть за стол</button><button class="btn" id="pokerInviteDecline">Отклонить</button></div>
-<div class="pokerBuyInBar"><div><span>БАЙ-ИН</span><strong>Стек за столом</strong><small id="pokerRebuyMin">Rebuy: минимум 38 MS (19 BB)</small></div><input id="pokerBuyInInput" inputmode="numeric" max="1000000" min="20" step="1" type="number" value="20"/><span class="pokerBuyInUnit">MS</span><button class="btn primary" id="pokerQuickJoin">Играть против JRVX</button><button class="btn pokerRebuyBtn" id="pokerRebuy">Rebuy</button><button class="btn pokerStandUpBtn" id="pokerLeave">Встать из-за стола</button></div>
+<div class="pokerBuyInBar"><div><span>БАЙ-ИН</span><strong>Стек за столом</strong><small id="pokerRebuyMin">Rebuy: минимум 38 MG (19 BB)</small></div><input id="pokerBuyInInput" inputmode="numeric" max="1000000" min="20" step="1" type="number" value="20"/><span class="pokerBuyInUnit">MG</span><button class="btn primary" id="pokerQuickJoin">Играть против JRVX</button><button class="btn pokerRebuyBtn" id="pokerRebuy">Rebuy</button><button class="btn pokerStandUpBtn" id="pokerLeave">Встать из-за стола</button></div>
 <div class="pokerBuyInPolicy"><strong>BUY-IN LOCK:</strong> Валюта выбранного стола списывается сразу при посадке. Если раздача ещё не началась, при выходе стек возвращается полностью. После начала игры возвращается оставшийся стек.</div>
 </div>
 <div class="pokerTableStage">
-<div class="pokerTableWrap" id="pokerTableWrap"><div class="pokerTableGlow"></div><div class="pokerSeats" id="pokerSeats"></div><div class="pokerCenter"><div class="pokerPot"><small>MAIN POT</small><span id="pokerPot">0 MS</span></div><div class="pokerStreet" id="pokerStreet">Ожидание игроков</div><div class="pokerCommunity" id="pokerCommunity"></div></div></div>
+<div class="pokerTableWrap" id="pokerTableWrap"><div class="pokerTableGlow"></div><div class="pokerSeats" id="pokerSeats"></div><div class="pokerCenter"><div class="pokerPot"><small>MAIN POT</small><span id="pokerPot">0 MG</span></div><div class="pokerStreet" id="pokerStreet">Ожидание игроков</div><div class="pokerCommunity" id="pokerCommunity"></div></div></div>
 </div>
 <div class="pokerBottom">
 <div class="pokerPanel pokerHandPanel"><div class="pokerPanelEyebrow">HOLE CARDS</div><h3>ВАШИ КАРТЫ</h3><div class="pokerHole" id="pokerHole"></div><div class="pokerMessage" id="pokerMessage">Выберите режим, место и бай-ин.</div><div class="pokerResult" id="pokerResult">Текущая комбинация отображается прямо над Вашим местом за столом.</div></div>
-<div class="pokerPanel pokerActionPanel"><div class="pokerPanelEyebrow">BETTING CONTROL</div><h3>ДЕЙСТВИЯ</h3><div class="pokerActions"><button class="btn pokerFoldBtn" id="pokerFold">Фолд</button><button class="btn primary pokerCheckBtn" id="pokerCheckCall">Чек</button><div class="pokerBetAmount"><span>СТАВКА ДО</span><input class="pokerBetInput" id="pokerBetInput" min="2" step="1" type="number" value="4"/><strong id="pokerBetPreview">4 MS</strong></div><button class="btn pokerRaiseBtn" id="pokerRaise">Рейз</button><div class="pokerBetQuick"><button class="btn" data-poker-size="min">MIN</button><button class="btn" data-poker-size="half">½ БАНК</button><button class="btn" data-poker-size="pot">БАНК</button><button class="btn" data-poker-size="allin">ALL-IN</button></div><div class="pokerBetHint" id="pokerBetHint">Выберите размер рейза.</div><div class="pokerDecisionStrip" id="pokerDecisionStrip"><span>TO CALL <strong id="pokerToCallStat">0 MS</strong></span><span>POT ODDS <strong id="pokerPotOddsStat">—</strong></span><span>STACK <strong id="pokerStackStat">—</strong></span></div></div><div class="pokerEconomyNote"><strong>MS / MG:</strong> минимальный вход зависит от стола. Rebuy — минимум 19 BB. Кнопки MIN / ½ банка / БАНК / ALL-IN меняют сумму даже до начала Вашего хода.</div></div>
+<div class="pokerPanel pokerActionPanel"><div class="pokerPanelEyebrow">BETTING CONTROL</div><h3>ДЕЙСТВИЯ</h3><div class="pokerActions"><button class="btn pokerFoldBtn" id="pokerFold">Фолд</button><button class="btn primary pokerCheckBtn" id="pokerCheckCall">Чек</button><div class="pokerBetAmount"><span>СТАВКА ДО</span><input class="pokerBetInput" id="pokerBetInput" min="2" step="1" type="number" value="4"/><strong id="pokerBetPreview">4 MG</strong></div><button class="btn pokerRaiseBtn" id="pokerRaise">Рейз</button><div class="pokerBetQuick"><button class="btn" data-poker-size="min">MIN</button><button class="btn" data-poker-size="half">½ БАНК</button><button class="btn" data-poker-size="pot">БАНК</button><button class="btn" data-poker-size="allin">ALL-IN</button></div><div class="pokerBetHint" id="pokerBetHint">Выберите размер рейза.</div><div class="pokerDecisionStrip" id="pokerDecisionStrip"><span>TO CALL <strong id="pokerToCallStat">0 MG</strong></span><span>POT ODDS <strong id="pokerPotOddsStat">—</strong></span><span>STACK <strong id="pokerStackStat">—</strong></span></div></div><div class="pokerEconomyNote"><strong>MG / MG:</strong> минимальный вход зависит от стола. Rebuy — минимум 19 BB. Кнопки MIN / ½ банка / БАНК / ALL-IN меняют сумму даже до начала Вашего хода.</div></div>
 </div>
 <div class="pokerHandLogPanel"><div class="pokerHandLogHead"><div><span>LIVE HAND LOG</span><strong>История раздачи</strong></div><div class="pokerHandLogMeta" id="pokerHandLogMeta">Ожидание раздачи</div></div><div class="pokerHandTimeline" id="pokerHandTimeline"><div class="pokerHandEmpty">Действия игроков появятся здесь.</div></div></div>
 </div>
@@ -226,7 +227,7 @@
 <div aria-hidden="true" class="pokerInfoOverlay" id="pokerInfoOverlay">
 <div aria-labelledby="pokerInfoTitle" aria-modal="true" class="pokerInfoCard" role="dialog">
 <div class="pokerInfoHead"><div><div class="profileOverline">JRVX POKER</div><h3 id="pokerInfoTitle">Texas Hold’em — правила и комбинации</h3></div><button aria-label="Закрыть" class="btn pokerInfoClose" id="pokerInfoClose">×</button></div>
-<div class="pokerInfoIntro"><strong>Цель:</strong> собрать лучшую пятикарточную комбинацию из любых пяти карт среди двух своих и пяти общих. Можно выиграть на вскрытии или раньше, если все соперники сделают фолд. За столом используется только внутриигровая валюта <strong>MS или MG</strong>.</div>
+<div class="pokerInfoIntro"><strong>Цель:</strong> собрать лучшую пятикарточную комбинацию из любых пяти карт среди двух своих и пяти общих. Можно выиграть на вскрытии или раньше, если все соперники сделают фолд. За столом используется только внутриигровая валюта <strong>MG или MG</strong>.</div>
 <div class="pokerInfoSectionTitle">Как идёт раздача</div>
 <div class="pokerRulesGrid">
 <div class="pokerRuleBox"><strong>1. Блайнды</strong><span>Перед раздачей выставляются блайнды выбранного стола: от 1/2 до 100/200 в валюте выбранного стола. В heads-up дилер ставит small blind.</span></div>
@@ -259,11 +260,11 @@
 </div>
 </div>
 <section class="game" id="blackjack">
-<div class="gamehead v66GameHead"><div><div class="v66Eyebrow">PRIVATE CASINO · TABLE 01</div><h2>JRVX BLACKJACK <span class="age18GameBadge">18+</span></h2><div class="score">Blackjack 3:2 · 6 deck shoe · Dealer stands on 17</div></div><div class="actions"><button class="btn" data-open-token-shop="">Магазин MS / MG</button><button aria-label="Правила Blackjack" class="btn bjInfoBtn" id="bjInfoBtn">ⓘ Правила</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
+<div class="gamehead v66GameHead"><div><div class="v66Eyebrow">PRIVATE CASINO · TABLE 01</div><h2>JRVX BLACKJACK <span class="age18GameBadge">18+</span></h2><div class="score">Blackjack 3:2 · 6 deck shoe · Dealer stands on 17</div></div><div class="actions"><button class="btn" data-open-token-shop="">Магазин MG / MG</button><button aria-label="Правила Blackjack" class="btn bjInfoBtn" id="bjInfoBtn">ⓘ Правила</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
 <div class="casinoShell v66CasinoShell v66BlackjackShell">
 <div class="v66CasinoCommand">
 <div class="v66TableIdentity"><span class="v66LiveDot"></span><div><small>JRVX PRIVATE TABLE</small><strong>BLACKJACK · TABLE 01</strong></div></div>
-<div class="v66CasinoMetrics"><div><span>БАЛАНС</span><strong id="blackjackBalance">0 MS</strong></div><div><span>ТЕКУЩАЯ СТАВКА</span><strong id="bjCurrentBet">50 MS</strong></div><div><span>ВЫПЛАТА</span><strong>3 : 2</strong></div></div>
+<div class="v66CasinoMetrics"><div><span>БАЛАНС</span><strong id="blackjackBalance">0 MG</strong></div><div><span>ТЕКУЩАЯ СТАВКА</span><strong id="bjCurrentBet">50 MG</strong></div><div><span>ВЫПЛАТА</span><strong>3 : 2</strong></div></div>
 </div>
 <div class="blackjackSessionBar v66SessionRail" id="blackjackSessionBar"><span>СЕССИЯ</span><div id="blackjackSessionHistory"><em>Пока нет раздач</em></div><strong id="blackjackSessionStats">0W / 0L / 0P</strong></div>
 <div class="casinoTable v66BlackjackTable">
@@ -293,17 +294,17 @@
 <div class="bjRuleItem"><strong>Ещё</strong><span>Взять ещё одну карту.</span></div>
 <div class="bjRuleItem"><strong>Хватит</strong><span>Остановиться и передать ход дилеру.</span></div>
 <div class="bjRuleItem"><strong>Удвоить</strong><span>Удвоить ставку, получить ровно одну карту и сразу остановиться.</span></div>
-<div class="bjRuleItem"><strong>MS / MG</strong><span>MS и MG — внутриигровые валюты JRVX CAS. Реальные деньги в раздачах не участвуют.</span></div>
+<div class="bjRuleItem"><strong>MG / MG</strong><span>MG и MG — внутриигровые валюты JRVX CAS. Реальные деньги в раздачах не участвуют.</span></div>
 </div>
 <button class="btn primary bjRulesDone" id="bjRulesDone">Понятно</button>
 </div>
 </div>
 <section class="game" id="roulette">
-<div class="gamehead v66GameHead"><div><div class="v66Eyebrow">EUROPEAN CASINO · SINGLE ZERO</div><h2>JRVX ROULETTE <span class="age18GameBadge">18+</span></h2><div class="score">European wheel · 37 pockets · MS / MG table</div></div><div class="actions"><button class="btn" data-open-token-shop="">Магазин MS / MG</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
+<div class="gamehead v66GameHead"><div><div class="v66Eyebrow">EUROPEAN CASINO · SINGLE ZERO</div><h2>JRVX ROULETTE <span class="age18GameBadge">18+</span></h2><div class="score">European wheel · 37 pockets · MG / MG table</div></div><div class="actions"><button class="btn" data-open-token-shop="">Магазин MG / MG</button><button class="btn" data-main-menu="">Главное меню</button></div></div>
 <div class="casinoShell v66CasinoShell v66RouletteShell">
 <div class="v66CasinoCommand">
 <div class="v66TableIdentity"><span class="v66LiveDot"></span><div><small>JRVX EUROPEAN WHEEL</small><strong>ROULETTE · SINGLE ZERO</strong></div></div>
-<div class="v66CasinoMetrics"><div><span>БАЛАНС</span><strong id="rouletteBalance">0 MS</strong></div><div><span>СТАВКА</span><strong id="v66RouletteBetLive">50 MS</strong></div><div><span>КОЛЕСО</span><strong>EU 0</strong></div></div>
+<div class="v66CasinoMetrics"><div><span>БАЛАНС</span><strong id="rouletteBalance">0 MG</strong></div><div><span>СТАВКА</span><strong id="v66RouletteBetLive">50 MG</strong></div><div><span>КОЛЕСО</span><strong>EU 0</strong></div></div>
 </div>
 <div class="casinoTable rouletteLayout v66RouletteTable">
 <div class="v66WheelColumn">
@@ -327,15 +328,15 @@
 
 <div class="arcadeToastStack" id="arcadeToastStack"></div>
 <!-- JRVX CAS v3.0.17: legacy local profile switcher removed; unified JRVX ID owns identity. -->
-<div aria-hidden="true" class="ageGateOverlay" id="ageGateOverlay"><div class="ageGateCard"><button aria-label="Закрыть" class="ageGateClose" id="ageGateClose">×</button><div class="ageGateBadge">18+</div><h3>Раздел «Азартные»</h3><p>В JRVX CAS используются только виртуальные MS/MG. Реальные денежные ставки и вывод средств отсутствуют.</p><strong>Переходя дальше, Вы подтверждаете, что Вам исполнилось 18 лет.</strong><div class="ageGateActions"><button class="btn primary" id="ageGateConfirm">Мне есть 18+</button><button class="btn" id="ageGateCancel">Назад</button></div></div></div>
+<div aria-hidden="true" class="ageGateOverlay" id="ageGateOverlay"><div class="ageGateCard"><button aria-label="Закрыть" class="ageGateClose" id="ageGateClose">×</button><div class="ageGateBadge">18+</div><h3>Раздел «Азартные»</h3><p>В JRVX CAS используются только виртуальные MG. Реальные денежные ставки и вывод средств отсутствуют.</p><strong>Переходя дальше, Вы подтверждаете, что Вам исполнилось 18 лет.</strong><div class="ageGateActions"><button class="btn primary" id="ageGateConfirm">Мне есть 18+</button><button class="btn" id="ageGateCancel">Назад</button></div></div></div>
 <div class="footer">JRVX CAS v3.0.17 • Poker • Blackjack • Roulette</div>
 </div>
 <script src="assets/cas-http-config.js"></script>
 <script src="assets/cas-http-transport-v1.js"></script>
-<script src="assets/js-v326/cas-bootstrap.js"></script>
-<script id="poker-v59-core" src="modules/poker/runtime/poker-core-v326.js"></script>
+<script src="assets/js-v330/cas-bootstrap.js"></script>
+<script id="poker-v59-core" src="modules/poker/runtime/poker-core-v330.js"></script>
 <link href="modules/poker/legacy-styles/22-v59-poker-style.css" id="v59-poker-style" rel="stylesheet"/>
-<script id="v59-poker-runtime" src="modules/poker/legacy-runtime/02-v59-poker-runtime.js"></script>
+<script id="v59-poker-runtime" src="modules/poker/legacy-runtime/02-v59-poker-runtime-mg-v330.js"></script>
 <script id="v66-premium-runtime" src="modules/ui/legacy-runtime/03-v66-premium-runtime.js"></script>
 <link href="modules/legacy/legacy-styles/23-v69-jarvis-cas-styles.css" id="v69-jarvis-cas-styles" rel="stylesheet"/>
 <div aria-label="JRVX CAS" id="v69Root">
@@ -369,7 +370,7 @@
 <header class="v69Topbar">
 <div class="v69Logo"><div class="v69LogoMark">JC</div><div class="v69LogoText"><span>Mura Entertainment</span><strong>JRVX CAS</strong></div></div>
 <div class="v69TopActions">
-<div class="v69WalletPill" id="v69WalletOpen"><div class="v69WalletUnit ms"><span>Mura Silver</span><strong id="v69MsTop">0 MS</strong></div><div class="v69WalletUnit mg"><span>Mura Gold</span><strong id="v69MgTop">0 MG</strong></div></div>
+<div class="v69WalletPill" id="v69WalletOpen"><div class="v69WalletUnit mg"><span>Mura Gold</span><strong id="v69MgTop">0 MG</strong></div></div>
 <button class="v69Btn" id="v69ShopTop">Магазин</button>
 <div class="v69Avatar" id="v69ProfileTop">JC</div>
 </div>
@@ -378,78 +379,78 @@
 <div class="v69Welcome">
 <article class="v69HeroCard"><span class="v69Kicker">JRVX CAS • ROYAL LOUNGE</span><h1>Добро пожаловать, <span id="v69HeroName">Игрок</span>.</h1><p>Новый главный экран клуба: столы, быстрый матч против JRVX CAS, турниры, ежедневные награды, магазин и все игровые режимы в одном месте.</p><div class="v69HeroArt"></div></article>
 <div class="v69SideStack">
-<article class="v69InfoCard"><div class="v69InfoCardHead"><span>Ежедневные задания</span><strong class="v69DailyReady" id="v69DailyState">Задания</strong></div><strong>Играйте и получайте награды</strong><p id="v69DailyText">Награды за подтверждённые сервером игры.</p><button class="v69Btn silver" id="v69DailyClaim" style="margin-top:12px">Открыть задания</button></article>
-<article class="v69InfoCard"><div class="v69InfoCardHead"><span>Баланс игрока</span><button class="v69Btn" id="v69BalanceShop">+</button></div><strong><span id="v69MsHero">0 MS</span> · <span id="v69MgHero" style="color:#e7c36b">0 MG</span></strong><p>300 MS можно обменять на 1 MG. Mura Gold также доступен в магазине.</p></article>
+<article class="v69InfoCard"><div class="v69InfoCardHead"><span>Ежедневная награда</span><strong class="v69DailyReady" id="v69DailyState">Задания</strong></div><strong>10K MG каждый день</strong><p id="v69DailyText">10 000 MG один раз за календарный день UTC.</p><button class="v69Btn silver" id="v69DailyClaim" style="margin-top:12px">Получить 10 000 MG</button></article>
+<article class="v69InfoCard"><div class="v69InfoCardHead"><span>Баланс игрока</span><button class="v69Btn" id="v69BalanceShop">+</button></div><strong><span id="v69MgHero" style="color:#e7c36b">0 MG</span></strong><p>Единая валюта клуба — Mura Gold. Ежедневная награда — 10 000 MG.</p></article>
 </div>
 </div>
 <section class="v69Section"><div class="v69SectionHead"><div><h2>Играть</h2><p>Основные действия клуба.</p></div></div><div class="v69PrimaryGrid">
-<button class="v69Primary tables" id="v69Tables"><div class="num">01 • Poker Rooms</div><div class="v69PrimaryIcon">♠</div><h3>Столы</h3><p>Сначала выберите MS или MG, затем Hold’em / Omaha и нужный стол.</p></button>
+<button class="v69Primary tables" id="v69Tables"><div class="num">01 • Poker Rooms</div><div class="v69PrimaryIcon">♠</div><h3>Столы</h3><p>Играйте на MG: выберите Hold’em / Omaha и нужный стол.</p></button>
 <button class="v69Primary play" id="v69QuickPlay"><div class="num">02 • Heads-Up</div><div class="v69PrimaryIcon">J</div><h3>Играть</h3><p>Сразу открыть матч один на один против JRVX CAS.</p></button>
 <button class="v69Primary tournaments" id="v69Tournaments"><div class="num">03 • Events</div><div class="v69PrimaryIcon">★</div><h3>Турниры</h3><p>Турнирные серии, события и рейтинговые столы — раздел в разработке.</p></button>
 </div></section>
 <section class="v69Section"><div class="v69SectionHead"><div><h2>Клуб</h2><p>Листайте вправо: новости, обучение, приватная игра и дополнительные режимы.</p></div></div><div class="v69Scroller">
-<article class="v69Mini" data-v69-action="news"><div class="v69MiniTop"><em>v3.0.17</em><div class="v69MiniIcon">N</div></div><b>Новости</b><p>Economy/Admin hardening: атомарное сохранение профиля, строгий ledger и защита MS/MG.</p></article>
+<article class="v69Mini" data-v69-action="news"><div class="v69MiniTop"><em>v3.0.17</em><div class="v69MiniIcon">N</div></div><b>Новости</b><p>Economy/Admin hardening: атомарное сохранение профиля, строгий ledger и защита MG.</p></article>
 <article class="v69Mini" data-v69-action="learn"><div class="v69MiniTop"><em>Academy</em><div class="v69MiniIcon">?</div></div><b>Обучение покеру</b><p>Комбинации, этапы раздачи, позиции и базовые правила Texas Hold’em.</p></article>
 <article class="v69Mini" data-v69-action="private"><div class="v69MiniTop"><em>Private</em><div class="v69MiniIcon">♥</div></div><b>Частная игра</b><p>Приватный стол с другом через существующий friend-flow.</p></article>
 <article class="v69Mini" data-v69-action="roulette"><div class="v69MiniTop"><em>European</em><div class="v69MiniIcon">◉</div></div><b>Roulette</b><p>Европейская рулетка в общей стилистике JRVX CAS.</p></article>
-<article class="v69Mini" data-v69-action="blackjack"><div class="v69MiniTop"><em>Table 21</em><div class="v69MiniIcon">21</div></div><b>Blackjack</b><p>Классический стол 21 с выбранной валютой кошелька.</p></article>
+<article class="v69Mini" data-v69-action="blackjack"><div class="v69MiniTop"><em>Table 21</em><div class="v69MiniIcon">21</div></div><b>Blackjack</b><p>Классический стол 21 на MG.</p></article>
 </div></section>
 <section class="v69Section"><div class="v69DashboardGrid">
 <article class="v69Dash"><h4>Профиль</h4><div class="v69DashLine"><span>Игрок</span><strong id="v69DashName">Игрок</strong></div><div class="v69DashLine"><span>ID</span><strong id="v69DashId">—</strong></div><button class="v69Btn" id="v69ProfileBtn" style="margin-top:9px">Открыть профиль</button></article>
 <article class="v69Dash"><h4>Турнирная таблица</h4><div class="v69DashLine"><span>1. Royal Ace</span><strong>1 840</strong></div><div class="v69DashLine"><span>2. Mura King</span><strong>1 620</strong></div><div class="v69DashLine"><span>3. <span id="v69LeaderboardYou">Вы</span></span><strong>—</strong></div><button class="v69Btn" id="v69LeaderboardBtn" style="margin-top:9px">Подробнее</button></article>
-<article class="v69Dash"><h4>Новости</h4><div class="v69DashLine"><span>Экономика</span><strong>MS + MG</strong></div><div class="v69DashLine"><span>Daily</span><strong>Задания</strong></div><div class="v69DashLine"><span>Progression</span><strong>XP + достижения</strong></div><button class="v69Btn" data-v69-action="news" style="margin-top:9px">Что нового</button></article>
+<article class="v69Dash"><h4>Новости</h4><div class="v69DashLine"><span>Экономика</span><strong>MG</strong></div><div class="v69DashLine"><span>Daily</span><strong>Задания</strong></div><div class="v69DashLine"><span>Progression</span><strong>XP + достижения</strong></div><button class="v69Btn" data-v69-action="news" style="margin-top:9px">Что нового</button></article>
 </div></section>
 </main>
 </section>
 <section class="v69PanelScreen" id="v69TablesScreen">
-<div class="v69PanelWrap"><div class="v69PanelHead"><div><h2>Столы JRVX CAS</h2><p id="v69TableSubtitle">Шаг 1 из 2 — выберите валюту.</p></div><button class="v69Btn v69Back" id="v69TablesBack">← Главное меню</button></div>
+<div class="v69PanelWrap"><div class="v69PanelHead"><div><h2>Столы JRVX CAS</h2><p id="v69TableSubtitle">Выберите стол MG.</p></div><button class="v69Btn v69Back" id="v69TablesBack">← Главное меню</button></div>
 <div id="v69CurrencyStep"><div class="v69CurrencyChoice">
-<article class="v69CurrencyCard silver" data-currency="MS"><div class="v69CoinBig">MS</div><div class="v69CurrencyBalance" id="v69MsCurrency">0 MS</div><h3>Mura Silver</h3><p>Основная игровая валюта. Награды начисляются за ежедневные задания. Подходит для обычных столов и тренировочных сессий.</p></article>
-<article class="v69CurrencyCard gold" data-currency="MG"><div class="v69CoinBig">MG</div><div class="v69CurrencyBalance" id="v69MgCurrency">0 MG</div><h3>Mura Gold</h3><p>Премиальная валюта. Получается обменом 300 MS → 1 MG или приобретается в магазине.</p></article>
+
+<article class="v69CurrencyCard gold" data-currency="MG"><div class="v69CoinBig">MG</div><div class="v69CurrencyBalance" id="v69MgCurrency">0 MG</div><h3>Mura Gold</h3><p>Единая игровая валюта JRVX CAS. Ежедневная награда — 10 000 MG.</p></article>
 </div></div>
 <div hidden="" id="v69TableStep">
-<div class="v69TableToolbar"><div class="v69VariantToggle"><button class="active" data-variant="holdem">Texas Hold’em</button><button data-variant="omaha">Omaha</button></div><div class="v69CurrencyTiny">Игра на: <b id="v69ActiveCurrencyLabel">MS</b> <button class="v69Btn" id="v69ChangeCurrency" style="padding:7px 10px;margin-left:7px">сменить</button></div></div>
+<div class="v69TableToolbar"><div class="v69VariantToggle"><button class="active" data-variant="holdem">Texas Hold’em</button><button data-variant="omaha">Omaha</button></div><div class="v69CurrencyTiny">Игра на: <b id="v69ActiveCurrencyLabel">MG</b> </div></div>
 <div class="v69TableStage"><button class="v69Arrow" id="v69PrevTable">‹</button><div class="v69TableViewport"><div class="v69TableTrack" id="v69TableTrack"></div></div><button class="v69Arrow" id="v69NextTable">›</button></div>
 <div class="v69TableCounter" id="v69TableCounter">1 / 7</div><div class="v69TableAction"><button class="v69Btn primary" id="v69EnterTable">Войти за стол</button></div>
 </div>
 </div>
 </section>
 <div class="v69Modal" id="v69Shop"><div class="v69ModalCard"><div class="v69ModalHead"><div><span class="v69Kicker">Mura Gold Store</span><h3>Магазин MG</h3></div><button class="v69Close" data-close="v69Shop">×</button></div><div class="v69ShopGrid">
-<article class="v69Pack"><div class="v69PackCoin">MG</div><strong>100 MG</strong><span>Mura Gold</span><div class="v69Price">119 ₽</div><button class="v69Btn gold" data-pack="100">Купить</button></article>
-<article class="v69Pack"><div class="v69PackCoin">MG</div><strong>500 MG</strong><span>Mura Gold</span><div class="v69Price">499 ₽</div><button class="v69Btn gold" data-pack="500">Купить</button></article>
-<article class="v69Pack"><div class="v69PackCoin">MG</div><strong>1 000 MG</strong><span>Mura Gold</span><div class="v69Price">899 ₽</div><button class="v69Btn gold" data-pack="1000">Купить</button></article>
-<article class="v69Pack"><div class="v69PackCoin">MG</div><strong>2 000 MG</strong><span>Mura Gold</span><div class="v69Price">1 699 ₽</div><button class="v69Btn gold" data-pack="2000">Купить</button></article>
-<article class="v69Pack"><div class="v69PackCoin">MG</div><strong>3 000 MG</strong><span>Mura Gold</span><div class="v69Price">2 499 ₽</div><button class="v69Btn gold" data-pack="3000">Купить</button></article>
-</div><div class="v69Exchange"><div class="v69ModalHead" style="margin-bottom:12px"><div><h3 style="font-size:21px">Обмен MS → MG</h3><p style="margin:5px 0 0;color:#95a2c7">Курс: 300 MS = 1 MG. Обратный обмен не предусмотрен.</p></div></div><div class="v69ExchangeRow"><div class="v69Field"><label>Сколько MG получить</label><input id="v69ExchangeQty" min="1" step="1" type="number" value="1"/></div><div><div style="color:#92a0c4;font-size:11px">Будет списано</div><strong id="v69ExchangeCost" style="display:block;margin:6px 0 8px;font-size:20px">300 MS</strong></div><button class="v69Btn silver" id="v69ExchangeBtn">Обменять</button></div></div><p style="margin:14px 0 0;color:#7f8caf;font-size:11px;line-height:1.5">Покупки за рубли сейчас работают только как интерфейс. Платёжный провайдер и реальное списание денег не подключены.</p></div></div>
-<div class="v69Modal" id="v69Profile"><div class="v69ModalCard"><div class="v69ModalHead"><h3>Профиль JRVX CAS</h3><button class="v69Close" data-close="v69Profile">×</button></div><div class="v69ProfileGrid"><div class="v69Stat"><span>Игрок</span><strong id="v69ProfileName">Игрок</strong></div><div class="v69Stat"><span>ID</span><strong id="v69ProfileId">—</strong></div><div class="v69Stat"><span>Mura Silver</span><strong id="v69ProfileMs">0 MS</strong></div><div class="v69Stat"><span>Mura Gold</span><strong id="v69ProfileMg">0 MG</strong></div><div class="v69Stat"><span>Победы Poker</span><strong id="v69ProfileWins">0</strong></div><div class="v69Stat"><span>Раздачи Poker</span><strong id="v69ProfileHands">0</strong></div></div></div></div>
+<article class="v69Pack"><div class="v69PackCoin">MG</div><strong title="100 000 MG">100K MG</strong><span>Mura Gold</span><div class="v69Price">119 ₽</div><button class="v69Btn gold" data-package-id="pack_1" disabled>Оплата пока недоступна</button></article>
+<article class="v69Pack"><div class="v69PackCoin">MG</div><strong title="500 000 MG">500K MG</strong><span>Mura Gold</span><div class="v69Price">499 ₽</div><button class="v69Btn gold" data-package-id="pack_2" disabled>Оплата пока недоступна</button></article>
+<article class="v69Pack"><div class="v69PackCoin">MG</div><strong title="1 000 000 MG">1M MG</strong><span>Mura Gold</span><div class="v69Price">899 ₽</div><button class="v69Btn gold" data-package-id="pack_3" disabled>Оплата пока недоступна</button></article>
+<article class="v69Pack"><div class="v69PackCoin">MG</div><strong title="2 000 000 MG">2M MG</strong><span>Mura Gold</span><div class="v69Price">1 699 ₽</div><button class="v69Btn gold" data-package-id="pack_4" disabled>Оплата пока недоступна</button></article>
+<article class="v69Pack"><div class="v69PackCoin">MG</div><strong title="3 000 000 MG">3M MG</strong><span>Mura Gold</span><div class="v69Price">2 499 ₽</div><button class="v69Btn gold" data-package-id="pack_5" disabled>Оплата пока недоступна</button></article>
+</div><p style="margin:14px 0 0;color:#7f8caf;font-size:11px;line-height:1.5">Покупки за рубли сейчас работают только как интерфейс. Платёжный провайдер и реальное списание денег не подключены.</p></div></div>
+<div class="v69Modal" id="v69Profile"><div class="v69ModalCard"><div class="v69ModalHead"><h3>Профиль JRVX CAS</h3><button class="v69Close" data-close="v69Profile">×</button></div><div class="v69ProfileGrid"><div class="v69Stat"><span>Игрок</span><strong id="v69ProfileName">Игрок</strong></div><div class="v69Stat"><span>ID</span><strong id="v69ProfileId">—</strong></div><div class="v69Stat"><span>Mura Gold</span><strong id="v69ProfileMg">0 MG</strong></div><div class="v69Stat"><span>Победы Poker</span><strong id="v69ProfileWins">0</strong></div><div class="v69Stat"><span>Раздачи Poker</span><strong id="v69ProfileHands">0</strong></div></div></div></div>
 <div class="v69Modal" id="v69Leaderboard"><div class="v69ModalCard"><div class="v69ModalHead"><h3>Турнирная таблица</h3><button class="v69Close" data-close="v69Leaderboard">×</button></div><div class="v69Leaderboard"><div class="v69Leader"><div class="v69Rank">1</div><div><strong>Royal Ace</strong><small>Season points</small></div><strong>1 840</strong></div><div class="v69Leader"><div class="v69Rank">2</div><div><strong>Mura King</strong><small>Season points</small></div><strong>1 620</strong></div><div class="v69Leader"><div class="v69Rank">3</div><div><strong id="v69LeaderName">Вы</strong><small>Ваш рейтинг появится после запуска турниров</small></div><strong>—</strong></div></div></div></div>
 <div class="v69Modal" id="v69InfoModal"><div class="v69ModalCard"><div class="v69ModalHead"><h3 id="v69InfoTitle">JRVX CAS</h3><button class="v69Close" data-close="v69InfoModal">×</button></div><div id="v69InfoBody"></div></div></div>
 <div class="v69Toast" id="v69Toast"><strong id="v69ToastTitle"></strong><span id="v69ToastText"></span></div>
 </div>
-<script id="v69-jarvis-cas-runtime" src="modules/legacy/runtime/wallet-v327.js"></script>
+<script id="v69-jarvis-cas-runtime" src="modules/legacy/runtime/wallet-v330.js"></script>
 <link href="modules/ui/legacy-styles/24-v70-jarvis-cas-polish.css" id="v70-jarvis-cas-polish" rel="stylesheet"/>
-<script id="v70-jarvis-cas-polish-script" src="modules/ui/legacy-runtime/05-v70-jarvis-cas-polish-script.js"></script>
+<script id="v70-jarvis-cas-polish-script" src="modules/ui/legacy-runtime/05-v70-jarvis-cas-polish-script-mg-v330.js"></script>
 <link href="modules/legacy/legacy-styles/25-v71-final-overhaul-style.css" id="v71-final-overhaul-style" rel="stylesheet"/>
 <div aria-hidden="true" class="v71Fallback" id="v71Fallback"><div class="v71FallbackCard"><h3 id="v71FallbackTitle">SERVER LINK недоступен</h3><p id="v71FallbackText">Публичный стол сейчас не подключён к серверу.</p><div class="v71FallbackActions"><button class="v69Btn" id="v71FallbackCancel">Назад</button><button class="v69Btn primary" id="v71FallbackLocal">Играть локально</button></div></div></div>
-<script id="v71-final-overhaul-script" src="modules/legacy/legacy-runtime/06-v71-final-overhaul-script.js"></script>
+<script id="v71-final-overhaul-script" src="modules/legacy/legacy-runtime/06-v71-final-overhaul-script-mg-v330.js"></script>
 <link href="modules/ui/legacy-styles/26-v72-premium-polish-style.css" id="v72-premium-polish-style" rel="stylesheet"/>
 <div aria-hidden="true" class="v72PageFlash" id="v72PageFlash"></div>
-<script id="v72-premium-polish-script" src="modules/ui/legacy-runtime/07-v72-premium-polish-script.js"></script>
+<script id="v72-premium-polish-script" src="modules/ui/legacy-runtime/07-v72-premium-polish-script-mg-v330.js"></script>
 <link href="modules/ui/legacy-styles/27-v74-royal-wow-style.css" id="v74-royal-wow-style" rel="stylesheet"/>
-<script id="v74-royal-wow-runtime" src="modules/ui/legacy-runtime/08-v74-royal-wow-runtime.js"></script>
+<script id="v74-royal-wow-runtime" src="modules/ui/legacy-runtime/08-v74-royal-wow-runtime-mg-v330.js"></script>
 <link href="modules/ui/legacy-styles/28-v76-royal-experience-style.css" id="v76-royal-experience-style" rel="stylesheet"/>
-<script id="v76-royal-experience-runtime" src="modules/ui/legacy-runtime/09-v76-royal-experience-runtime.js"></script>
+<script id="v76-royal-experience-runtime" src="modules/ui/legacy-runtime/09-v76-royal-experience-runtime-mg-v330.js"></script>
 <!-- v79 hotfix + redesign patch -->
 <!-- v80 global redesign patch -->
 <!-- v81 UI refinement patch -->
 <!-- v82 visual modes + profile + tournaments patch -->
 <!-- v83 visual correction patch -->
 <link href="modules/legacy/legacy-styles/29-v83PatchStyle.css" id="v83PatchStyle" rel="stylesheet"/>
-<script id="v83PatchScript" src="modules/legacy/legacy-runtime/10-v83PatchScript.js"></script>
+<script id="v83PatchScript" src="modules/legacy/legacy-runtime/10-v83PatchScript-mg-v330.js"></script>
 <link href="modules/poker/legacy-styles/30-v84PokerStyle.css" id="v84PokerStyle" rel="stylesheet"/>
-<div class="v84Rebuy" id="v84Rebuy"><div class="v84RebuyCard"><span class="v69Kicker">JRVX • REBUY</span><h3>Вернуться за стол</h3><p>Раздача уже завершена. Пополните стек из баланса и продолжайте играть за тем же лимитом.</p><div class="v84RebuyStats"><div class="v84RebuyStat"><span>Баланс</span><strong id="v84RebuyBalance">0 MS</strong></div><div class="v84RebuyStat"><span>Минимальный ребай</span><strong id="v84RebuyMinLabel">20 MS</strong></div></div><div class="v84RebuyActions"><button class="v82Btn primary" id="v84RebuyMin">Ребай</button><button class="v82Btn secondary" id="v84RebuyDouble">Удвоенный</button><button class="v82Btn secondary" id="v84RebuyLater">Позже</button></div></div></div>
+<div class="v84Rebuy" id="v84Rebuy"><div class="v84RebuyCard"><span class="v69Kicker">JRVX • REBUY</span><h3>Вернуться за стол</h3><p>Раздача уже завершена. Пополните стек из баланса и продолжайте играть за тем же лимитом.</p><div class="v84RebuyStats"><div class="v84RebuyStat"><span>Баланс</span><strong id="v84RebuyBalance">0 MG</strong></div><div class="v84RebuyStat"><span>Минимальный ребай</span><strong id="v84RebuyMinLabel">20 MG</strong></div></div><div class="v84RebuyActions"><button class="v82Btn primary" id="v84RebuyMin">Ребай</button><button class="v82Btn secondary" id="v84RebuyDouble">Удвоенный</button><button class="v82Btn secondary" id="v84RebuyLater">Позже</button></div></div></div>
 <div class="v84Insufficient" id="v84Insufficient"><strong>Недостаточно фишек</strong><span>Пополните баланс или выберите стол с меньшим входом.</span></div>
-<script id="v84-poker-runtime" src="modules/poker/legacy-runtime/11-v84-poker-runtime.js"></script>
+<script id="v84-poker-runtime" src="modules/poker/legacy-runtime/11-v84-poker-runtime-mg-v330.js"></script>
 <link data-jrvx-bundle="v304-10" href="assets/css-v304/group-10.css" rel="stylesheet"/>
 
 <script id="v86-performance-runtime" src="modules/core/legacy-runtime/12-v86-performance-runtime.js"></script>
@@ -464,7 +465,7 @@
 <script id="v92-performance-runtime" src="modules/core/legacy-runtime/14-v92-performance-runtime.js"></script>
 <link data-jrvx-bundle="v304-13" href="assets/css-v304/group-13.css" rel="stylesheet"/>
 
-<script id="v93-performance-runtime" src="modules/core/legacy-runtime/15-v93-performance-runtime.js"></script>
+<script id="v93-performance-runtime" src="modules/core/legacy-runtime/15-v93-performance-runtime-mg-v330.js"></script>
 <!-- v94 landscape-first mobile + cleanup -->
 <div aria-label="Поверните телефон в горизонтальное положение" aria-live="polite" id="v94RotateGate">
 <div class="v94RotateCard">
@@ -486,7 +487,7 @@
 
 <!-- JRVX CAS v1.0.1 reconstruction patch — rebuilt strictly from v98-owner + live screenshots -->
 
-<script id="jrvx-cas-v101-live-script" src="modules/legacy/legacy-runtime/19-jrvx-cas-v101-live-script.js"></script>
+<script id="jrvx-cas-v101-live-script" src="modules/legacy/legacy-runtime/19-jrvx-cas-v101-live-script-mg-v330.js"></script>
 <link href="modules/legacy/legacy-styles/46-jrvx-cas-v101-correction-style.css" id="jrvx-cas-v101-correction-style" rel="stylesheet"/>
 <script data-jrvx-bundle="v304-js-00" src="assets/js-v304/group-00.js"></script>
 
@@ -498,14 +499,14 @@
 <link href="modules/ui/legacy-styles/49-v102-polish-style.css" id="v102-polish-style" rel="stylesheet"/>
 <script id="v102-polish-script" src="modules/ui/legacy-runtime/24-v102-polish-script.js"></script>
 <link href="modules/ui/legacy-styles/50-v103-reference-lobby-style.css" id="v103-reference-lobby-style" rel="stylesheet"/>
-<script id="v103-reference-lobby-script" src="modules/ui/legacy-runtime/25-v103-reference-lobby-script.js"></script>
+<script id="v103-reference-lobby-script" src="modules/ui/legacy-runtime/25-v103-reference-lobby-script-mg-v330.js"></script>
 <link data-jrvx-bundle="v304-22" href="assets/css-v304/group-22.css" rel="stylesheet"/>
 
 
 <script id="v104-reference-art-script" src="modules/ui/legacy-runtime/26-v104-reference-art-script.js"></script>
 <link data-jrvx-bundle="v304-23" href="assets/css-v304/group-23.css" rel="stylesheet"/>
 
-<script id="v105-tablefix-script" src="modules/poker/legacy-runtime/27-v105-tablefix-script.js"></script>
+<script id="v105-tablefix-script" src="modules/poker/legacy-runtime/27-v105-tablefix-script-mg-v330.js"></script>
 <link data-jrvx-bundle="v304-24" href="assets/css-v304/group-24.css" rel="stylesheet"/>
 
 
@@ -517,7 +518,7 @@
 <script data-jrvx-bundle="v304-js-01" src="assets/js-v304/group-01.js"></script>
 
 <link href="modules/profile/legacy-styles/62-v109-game-profile-style.css" id="v109-game-profile-style" rel="stylesheet"/>
-<script id="v109-game-profile-runtime" src="modules/profile/runtime/profile-v328.js"></script>
+<script id="v109-game-profile-runtime" src="modules/profile/runtime/profile-v330.js"></script>
 <link href="modules/profile/legacy-styles/63-v110-jrvx-id-style.css" id="v110-jrvx-id-style" rel="stylesheet"/>
 <script id="v110-jrvx-id-migration" src="modules/profile/legacy-runtime/33-v110-jrvx-id-migration.js"></script>
 <link href="modules/core/legacy-styles/64-v111-legacy-page-purge-style.css" id="v111-legacy-page-purge-style" rel="stylesheet"/>
@@ -526,7 +527,7 @@
 <link href="modules/poker/legacy-styles/65-v113-poker-stability-style.css" id="v113-poker-stability-style" rel="stylesheet"/>
 <script id="v113-poker-stability-runtime" src="modules/poker/legacy-runtime/36-v113-poker-stability-runtime.js"></script>
 <link href="modules/casino/legacy-styles/66-v114-casino-fixes.css" id="v114-casino-fixes" rel="stylesheet"/>
-<script data-jrvx-bundle="v304-js-03" src="assets/js-v304/group-03.js"></script>
+<script data-jrvx-bundle="v304-js-03" src="assets/js-v304/group-03-mg-v330.js"></script>
 
 
 <link href="modules/poker/legacy-styles/67-v115-unified-poker-layout.css" id="v115-unified-poker-layout" rel="stylesheet"/>
@@ -535,7 +536,7 @@
 
 <script id="v120-global-update-runtime" src="modules/core/legacy-runtime/41-v120-global-update-runtime.js"></script>
 <link href="modules/poker/legacy-styles/70-v122-poker-completion-style.css" id="v122-poker-completion-style" rel="stylesheet"/>
-<script id="v122-poker-completion-runtime" src="modules/poker/legacy-runtime/42-v122-poker-completion-runtime.js"></script>
+<script id="v122-poker-completion-runtime" src="modules/poker/legacy-runtime/42-v122-poker-completion-runtime-mg-v330.js"></script>
 <!-- JRVX CAS v1.2.3 stability pass -->
 <link href="modules/core/legacy-styles/71-v124-stability-style.css" id="v124-stability-style" rel="stylesheet"/>
 <script id="v124-stability-runtime" src="modules/core/legacy-runtime/43-v124-stability-runtime.js"></script>
@@ -553,53 +554,53 @@
 <link href="modules/core/legacy-styles/78-v130-performance-style.css" id="v130-performance-style" rel="stylesheet"/>
 <script id="v130-performance-runtime" src="modules/core/legacy-runtime/48-v130-performance-runtime.js"></script>
 <link href="modules/legacy/legacy-styles/79-v131-requested-fixes-style.css" id="v131-requested-fixes-style" rel="stylesheet"/>
-<script id="v131-requested-fixes-runtime" src="modules/legacy/legacy-runtime/49-v131-requested-fixes-runtime.js"></script>
+<script id="v131-requested-fixes-runtime" src="modules/legacy/legacy-runtime/49-v131-requested-fixes-runtime-mg-v330.js"></script>
 <link href="modules/ui/legacy-styles/80-v132-interface-polish.css" id="v132-interface-polish" rel="stylesheet"/>
 <script id="v132-interface-runtime" src="modules/ui/legacy-runtime/50-v132-interface-runtime.js"></script>
 <link href="modules/ui/legacy-styles/81-v133-polish-style.css" id="v133-polish-style" rel="stylesheet"/>
-<script id="v133-polish-runtime" src="modules/ui/legacy-runtime/51-v133-polish-runtime.js"></script>
+<script id="v133-polish-runtime" src="modules/ui/legacy-runtime/51-v133-polish-runtime-mg-v330.js"></script>
 <link data-jrvx-bundle="v304-44" href="assets/css-v304/group-44.css" rel="stylesheet"/>
 
 <script id="v135-profile-logout" src="modules/profile/legacy-runtime/52-v135-profile-logout.js"></script>
 <link href="modules/core/legacy-styles/84-v137-maintenance-style.css" id="v137-maintenance-style" rel="stylesheet"/>
-<script id="v137-maintenance-runtime" src="modules/core/legacy-runtime/53-v137-maintenance-runtime.js"></script>
+<script id="v137-maintenance-runtime" src="modules/core/legacy-runtime/53-v137-maintenance-runtime-mg-v330.js"></script>
 <link href="modules/core/legacy-styles/85-v138-stability-performance-style.css" id="v138-stability-performance-style" rel="stylesheet"/>
 <script id="v138-stability-performance-runtime" src="modules/core/legacy-runtime/54-v138-stability-performance-runtime.js"></script>
 <link data-jrvx-module="v139-runtime-consolidation-style" href="modules/ui/styles/compat-v139.css" rel="stylesheet"/>
-<script data-jrvx-bundle="v304-js-04" src="assets/js-v304/group-04.js"></script>
+<script data-jrvx-bundle="v304-js-04" src="assets/js-v304/group-04-mg-v330.js"></script>
 
 <link data-jrvx-module="v210-stability-poker-style" href="modules/poker/styles/poker-stability.css" rel="stylesheet"/>
-<script data-jrvx-module="v210-stability-poker-runtime" src="modules/poker/runtime/poker-stability-v325.js"></script>
+<script data-jrvx-module="v210-stability-poker-runtime" src="modules/poker/runtime/poker-stability-v325-mg-v330.js"></script>
 <link data-jrvx-module="v220-casino-overhaul-style" href="modules/casino/styles/casino.css" rel="stylesheet"/>
-<script data-jrvx-bundle="v304-js-05" src="assets/js-v328/casino.js"></script>
+<script data-jrvx-bundle="v304-js-05" src="assets/js-v330/casino.js"></script>
 <link data-jrvx-module="v230-poker-pro-style" href="modules/poker/styles/poker-pro.css" rel="stylesheet"/>
-<script data-jrvx-module="v230-poker-pro-runtime" src="modules/poker/runtime/poker-pro-v328.js"></script>
+<script data-jrvx-module="v230-poker-pro-runtime" src="modules/poker/runtime/poker-pro-v330.js"></script>
 <link data-jrvx-module="v241-architecture-completion-style" href="modules/core/styles/lifecycle.css" rel="stylesheet"/>
 <script data-jrvx-module="v241-architecture-completion-runtime" src="modules/core/runtime/lifecycle-v328.js"></script>
 <link data-jrvx-module="v300-identity-style" href="modules/network/styles/identity-v300.css" rel="stylesheet"/>
-<script data-jrvx-bundle="v304-js-06" src="assets/js-v327/identity-account.js"></script>
+<script data-jrvx-bundle="v304-js-06" src="assets/js-v330/identity-account.js"></script>
 
 <link data-jrvx-module="v250-online-style" href="modules/network/styles/online-v250.css" rel="stylesheet"/>
-<script data-jrvx-module="v250-online-runtime" src="modules/network/runtime/online-v327.js"></script>
+<script data-jrvx-module="v250-online-runtime" src="modules/network/runtime/online-v330.js"></script>
 <link data-jrvx-module="v260-progression-style" href="modules/profile/styles/progression-v260.css" rel="stylesheet"/>
-<script data-jrvx-module="v260-progression-runtime" src="modules/profile/runtime/progression-v322.js"></script>
+<script data-jrvx-module="v260-progression-runtime" src="modules/profile/runtime/progression-v330.js"></script>
 <link data-jrvx-module="v300-history-style" href="modules/profile/styles/history-v328.css" rel="stylesheet"/>
-<script data-jrvx-module="v300-history-runtime" src="modules/profile/runtime/history-v328.js"></script>
+<script data-jrvx-module="v300-history-runtime" src="modules/profile/runtime/history-v330.js"></script>
 <link data-jrvx-module="v270-admin-style" href="modules/profile/styles/admin-v270.css" rel="stylesheet"/>
-<script data-jrvx-module="v270-admin-runtime" src="modules/profile/runtime/admin-v328.js"></script>
+<script data-jrvx-module="v270-admin-runtime" src="modules/profile/runtime/admin-v330.js"></script>
 <link data-jrvx-module="v280-experience-style" href="modules/ui/styles/experience-v280.css" rel="stylesheet"/>
 <script data-jrvx-module="v280-experience-runtime" src="modules/ui/runtime/experience-v328.js"></script>
 <link data-jrvx-module="v290-mobile-pwa-style" href="modules/ui/styles/pwa-v290.css" rel="stylesheet"/><script data-jrvx-module="v290-mobile-pwa-runtime" src="modules/ui/runtime/pwa-v328.js"></script>
-<link data-jrvx-module="v300-release-style" href="modules/core/styles/release-v300.css" rel="stylesheet"/><script data-jrvx-module="v300-release-runtime" src="modules/core/runtime/release-v300.js"></script><link data-jrvx-module="v303-visual-style" href="modules/ui/styles/visual-v303.css" rel="stylesheet"/><link data-jrvx-module="v317-premium-lobby-style" href="modules/ui/styles/lobby-premium-v317.css" rel="stylesheet"/><link data-jrvx-module="v319-blackjack-reference-style" href="modules/blackjack/styles/game-table-v318.css" rel="stylesheet"/>
-<script data-jrvx-module="v303-visual-runtime" src="modules/ui/runtime/visual-v303.js"></script><script data-jrvx-module="v319-blackjack-reference-runtime" src="modules/blackjack/runtime/game-table-v318.js"></script>
+<link data-jrvx-module="v300-release-style" href="modules/core/styles/release-v300.css" rel="stylesheet"/><script data-jrvx-module="v300-release-runtime" src="modules/core/runtime/release-v300-mg-v330.js"></script><link data-jrvx-module="v303-visual-style" href="modules/ui/styles/visual-v303.css" rel="stylesheet"/><link data-jrvx-module="v317-premium-lobby-style" href="modules/ui/styles/lobby-premium-v317.css" rel="stylesheet"/><link data-jrvx-module="v319-blackjack-reference-style" href="modules/blackjack/styles/game-table-v318.css" rel="stylesheet"/>
+<script data-jrvx-module="v303-visual-runtime" src="modules/ui/runtime/visual-v303-mg-v330.js"></script><script data-jrvx-module="v319-blackjack-reference-runtime" src="modules/blackjack/runtime/game-table-v318-mg-v330.js"></script>
 <link rel="stylesheet" href="modules/ui/styles/gameplay-v327.css">
 <link rel="stylesheet" href="modules/ui/styles/blackjack-photo-v323.css">
 <link rel="stylesheet" href="modules/ui/styles/lobby-v325.css">
 <link rel="stylesheet" href="modules/ui/styles/roulette-picker-v323.css">
 <script src="modules/ui/runtime/ecosystem-v323.js?v=20261022" defer></script>
 <script src="modules/ui/runtime/roulette-photo-v326.js" defer></script>
-<script src="modules/ui/runtime/gameplay-v323.js" defer></script>
-<script src="modules/ui/runtime/roulette-picker-v324.js" defer></script>
+<script src="modules/ui/runtime/gameplay-v330.js" defer></script>
+<script src="modules/ui/runtime/roulette-picker-v330.js" defer></script>
 <script src="modules/ui/runtime/account-v327.js" defer></script>
 <script src="modules/ui/runtime/lobby-v325.js" defer></script>
 <link rel="stylesheet" href="modules/ui/styles/panels-v329.css">
@@ -607,6 +608,7 @@
 <link rel="stylesheet" href="modules/ui/styles/game-guide-v329.css">
 <script src="modules/ui/runtime/panels-v329.js" defer></script>
 <script src="modules/ui/runtime/connection-v329.js" defer></script>
-<script src="modules/ui/runtime/game-guide-v329.js" defer></script>
+<script src="modules/ui/runtime/game-guide-v330.js" defer></script>
+<link rel="stylesheet" href="modules/ui/styles/economy-v330.css">
 </body>
 </html>

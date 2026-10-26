@@ -13,7 +13,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -29,3 +29,13 @@ jobs:
         run: |
           python3 cas/package-reg.py
           python3 cas/verify-release.py
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: "11.25.0"
+      - name: Install locked CAS server test dependencies
+        run: pnpm --dir cas/server install --frozen-lockfile
+      - name: Check the actual MG ledger, migration and Worker runtime
+        run: |
+          find cas/server -path '*/node_modules' -prune -o -path '*/build' -prune -o -type f -name '*.mjs' -print0 | xargs -0 -n 1 node --check
+          pnpm --dir cas/server test
+          pnpm --dir cas/server build

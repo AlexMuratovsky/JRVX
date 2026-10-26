@@ -1,0 +1,14 @@
+{
+  "name": "jrvx-cas-economy",
+  "version": "0.0.0-v330",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "miniflare": "5.20261012.1-beta"
+  }
+}
