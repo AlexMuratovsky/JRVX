@@ -1,0 +1,138 @@
+{
+  "version": "v330",
+  "preserveModeCarousel": "modules/ui/legacy-runtime/29-v108-mode-carousel.js unchanged",
+  "entries": [
+    {
+      "oldPath": "modules/poker/legacy-runtime/02-v59-poker-runtime.js",
+      "newPath": "modules/poker/legacy-runtime/02-v59-poker-runtime-mg-v330.js",
+      "sourceSha256": "4fcc746b858c0fb862d8d043f9fa46663f88c6f17d9cd667bc423d3400477f1a",
+      "sha256": "63c268c1c4fabd2bb30ecd0239fb1e21cdba02c6e4ebbfb99e9a171aac21b44b"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/05-v70-jarvis-cas-polish-script.js",
+      "newPath": "modules/ui/legacy-runtime/05-v70-jarvis-cas-polish-script-mg-v330.js",
+      "sourceSha256": "35c18535bfed76799dfab77031cd4010162a747603435a30547d7d9032425bbd",
+      "sha256": "1c89094d471eb412efc3d05ee9db992d3922e748febcf594eae81e1724785c20"
+    },
+    {
+      "oldPath": "modules/legacy/legacy-runtime/06-v71-final-overhaul-script.js",
+      "newPath": "modules/legacy/legacy-runtime/06-v71-final-overhaul-script-mg-v330.js",
+      "sourceSha256": "c885b28b6c8e07dce235d13d7a5029fcfa1fd19fe883f3b226f7d357fb7aeb68",
+      "sha256": "694343f5e11e34a7547e8b5a0ade3ea59548a687d9e7cdd1fea4e933fb8a2c82"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/07-v72-premium-polish-script.js",
+      "newPath": "modules/ui/legacy-runtime/07-v72-premium-polish-script-mg-v330.js",
+      "sourceSha256": "c8b9284cd6d35229120f73a4bd4d7c726b76f3a516fa6c5091877cce635118db",
+      "sha256": "bc53b5b2549f6730cfcfeefea343ab3b4ee1327bf82193f290e69e41f13e1813"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/08-v74-royal-wow-runtime.js",
+      "newPath": "modules/ui/legacy-runtime/08-v74-royal-wow-runtime-mg-v330.js",
+      "sourceSha256": "e7e1b62e5113291baae95bdfdc0011c72c17f84268f049b7ba99488df2967ba4",
+      "sha256": "36034e0b57decd4708ccf7b31264506059623f3967c205afa7eac54c6a53d5bc"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/09-v76-royal-experience-runtime.js",
+      "newPath": "modules/ui/legacy-runtime/09-v76-royal-experience-runtime-mg-v330.js",
+      "sourceSha256": "2bffdd216d071a2da92bd7f426f681cbdd1a7685f20e9140c237275567186088",
+      "sha256": "50f43b418c5b8c75069ad7b15565c56e0bb2008877750d042dfc8d5a20d1a955"
+    },
+    {
+      "oldPath": "modules/legacy/legacy-runtime/10-v83PatchScript.js",
+      "newPath": "modules/legacy/legacy-runtime/10-v83PatchScript-mg-v330.js",
+      "sourceSha256": "3ba0e897e5a8a1ac328d6771a89498e0a0406a33a2f10a11dc7e40b8068b0bc7",
+      "sha256": "c3b785a2c91e4f4b8cbf07ac6a71ce2d9e79a95d3a5c413a7b80e0e021197617"
+    },
+    {
+      "oldPath": "modules/poker/legacy-runtime/11-v84-poker-runtime.js",
+      "newPath": "modules/poker/legacy-runtime/11-v84-poker-runtime-mg-v330.js",
+      "sourceSha256": "3b337c68dac7428217164ad7ca763aa9d0e669ef8467be756e60c0ff234daf40",
+      "sha256": "a95d90d5764e15b046fad027f03a3bbf43f71cf2ac98994a9a34833b72d7a240"
+    },
+    {
+      "oldPath": "modules/core/legacy-runtime/15-v93-performance-runtime.js",
+      "newPath": "modules/core/legacy-runtime/15-v93-performance-runtime-mg-v330.js",
+      "sourceSha256": "752a68e2606fdc4493d7326799f7f9c5946f0d5a7b2d1c8ac1eae1b29e801d37",
+      "sha256": "a55687b5b36feff69d3e7ea3ac9a440b5936741545fa0662ca399da3e8b11e6d"
+    },
+    {
+      "oldPath": "modules/legacy/legacy-runtime/19-jrvx-cas-v101-live-script.js",
+      "newPath": "modules/legacy/legacy-runtime/19-jrvx-cas-v101-live-script-mg-v330.js",
+      "sourceSha256": "31e5aa96a552ec37e3cd2c86b7c8b47d62695eb8675ea00fbd512fe11f861c92",
+      "sha256": "0007b6d30ab29d8becd5643aa97a905e64581351e61029f7a90a1b0d6da92061"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/25-v103-reference-lobby-script.js",
+      "newPath": "modules/ui/legacy-runtime/25-v103-reference-lobby-script-mg-v330.js",
+      "sourceSha256": "689f9228bf034682dfc37e38ca5073c54d873290ad1dd869245cbadb6505b453",
+      "sha256": "f7f65967a3a11ef01fcb49f1d2ecaf051a316cab147e2b3f6ffbbc0343885749"
+    },
+    {
+      "oldPath": "modules/poker/legacy-runtime/27-v105-tablefix-script.js",
+      "newPath": "modules/poker/legacy-runtime/27-v105-tablefix-script-mg-v330.js",
+      "sourceSha256": "8a08c2f3aa971c78296c94b7c71ddcbb6e5fd3e9ea02c23e95f678eb3a9e7059",
+      "sha256": "fdb7f922d02dc37adf71281f840b8cf9db355138f96da69cca75112383d56fa9"
+    },
+    {
+      "oldPath": "modules/poker/legacy-runtime/42-v122-poker-completion-runtime.js",
+      "newPath": "modules/poker/legacy-runtime/42-v122-poker-completion-runtime-mg-v330.js",
+      "sourceSha256": "12bffcc3a05f01334a5ead678eda1bd1e0653e7843c1d33b18d8471db266b3ed",
+      "sha256": "63e8a458c03d11c93832a6e5ee71b4d730eac8c2b5acdad362c630eb70c782ab"
+    },
+    {
+      "oldPath": "modules/legacy/legacy-runtime/49-v131-requested-fixes-runtime.js",
+      "newPath": "modules/legacy/legacy-runtime/49-v131-requested-fixes-runtime-mg-v330.js",
+      "sourceSha256": "a277979f16601e1650da72606a899d235e5f279aefee6f8102131e1583f5b126",
+      "sha256": "a630dc04642cd208d5e5e662d84846724565ea1f7f124a930c5d18f3a21d2259"
+    },
+    {
+      "oldPath": "modules/ui/legacy-runtime/51-v133-polish-runtime.js",
+      "newPath": "modules/ui/legacy-runtime/51-v133-polish-runtime-mg-v330.js",
+      "sourceSha256": "ceddd53a4e7801459a5a0c8cf1fb3e86e869fe3d208b2d5b1e6f23b2c6929d8c",
+      "sha256": "462ee500ce93aa7af0a57e27c8a8ab7ab50e834220272b2e02370d9f827cef0f"
+    },
+    {
+      "oldPath": "modules/core/legacy-runtime/53-v137-maintenance-runtime.js",
+      "newPath": "modules/core/legacy-runtime/53-v137-maintenance-runtime-mg-v330.js",
+      "sourceSha256": "4f41b89b9b1dad9ada6e51b7f4078471b7873cb0076e6b08ada397ff978d3b0c",
+      "sha256": "270db015eaa2363c9e62d1463553424d309d7851f79701710859e132aff6214b"
+    },
+    {
+      "oldPath": "modules/core/runtime/release-v300.js",
+      "newPath": "modules/core/runtime/release-v300-mg-v330.js",
+      "sourceSha256": "0ab7f76722fc9de29c84cf76c193dc5c987c0d43f29e5f84c0fb20757de05953",
+      "sha256": "e500fb7f2875493087bb59462541f9a58d58efcf72026d7650d722d17c768bde"
+    },
+    {
+      "oldPath": "modules/ui/runtime/visual-v303.js",
+      "newPath": "modules/ui/runtime/visual-v303-mg-v330.js",
+      "sourceSha256": "1defaf10d79b5b3f88e8f3581abf3d6a3b6b1533ec46783908c3b5f913f899ba",
+      "sha256": "8c6e8aa12370f233ce61c87ea606686f06611760c16fcf45c22df3b5af3f0078"
+    },
+    {
+      "oldPath": "modules/blackjack/runtime/game-table-v318.js",
+      "newPath": "modules/blackjack/runtime/game-table-v318-mg-v330.js",
+      "sourceSha256": "bba04b3f2f99e9d2df7df1cd608334a1ac436170c6040fab88a43502119e007b",
+      "sha256": "77ec5800321ac0276b32c1f939ee0bacaf919960965be3bfa1bd0504bc2595a2"
+    },
+    {
+      "oldPath": "assets/js-v304/group-03.js",
+      "newPath": "assets/js-v304/group-03-mg-v330.js",
+      "sourceSha256": "297d18b5aec1871d5534e03e19b1d79a36998c1a0b6208722c298fece8f557a4",
+      "sha256": "736f90bbba6f45f0842d2a8c30cb42a7944f13da16fcda33f4af3ec2e3b0d4d5"
+    },
+    {
+      "oldPath": "assets/js-v304/group-04.js",
+      "newPath": "assets/js-v304/group-04-mg-v330.js",
+      "sourceSha256": "0c8b50e7344792c0950a3df063dd9c70361d2d80d996887425ddf94f1cc72f41",
+      "sha256": "332b0515217873d2bbc3e171e21771b22a1613f13f36f87c22811629f9f15923"
+    },
+    {
+      "oldPath": "modules/poker/runtime/poker-stability-v325.js",
+      "newPath": "modules/poker/runtime/poker-stability-v325-mg-v330.js",
+      "sourceSha256": "eeb76eaa959ecfb1812a7a780b62c9dfc2d1bc59aa692cce942f2e4c808c9f7f",
+      "sha256": "17412d2d2a4bd0ffb146efae303579ff65809facf5cc2a5504e45d6b86e5fbfc"
+    }
+  ]
+}

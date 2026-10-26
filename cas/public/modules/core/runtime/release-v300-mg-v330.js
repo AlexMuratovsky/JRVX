@@ -1,0 +1,19 @@
+(()=>{
+'use strict';
+const VERSION='v3.0.17',$=id=>document.getElementById(id);
+const VISIBLE_REPLACEMENTS=[[/\bJVRX\b/g,'JRVX'],[/\bJarvis\b/gi,'JRVX'],[/\bJarvix\b/gi,'JRVX'],[/Mura Tokens/gi,'Mura Gold'],[/\bMT\b/g,'MG']];
+function version(){document.title='JRVX CAS '+VERSION;document.documentElement.dataset.jrvxVersion=VERSION;window.JRVX_CAS_VERSION=VERSION;document.querySelectorAll('.v69Mini,.v101UpdateCard').forEach(card=>{if(!/Последнее обновление/i.test(card.textContent||''))return;const em=card.querySelector('em'),b=card.querySelector('b'),p=card.querySelector('p');if(em)em.textContent=`Последнее обновление • ${VERSION}`;if(b)b.textContent=`JRVX CAS ${VERSION}`;if(p)p.textContent='Global Release: Online Multiplayer, серверная экономика, Progression, Admin, PWA, UX и production identity gate.'});const news=document.querySelector('.v69Mini[data-v69-action="news"]');if(news){const em=news.querySelector('em'),p=news.querySelector('p');if(em)em.textContent=VERSION;if(p)p.textContent='Единая валюта MG, усиленная изоляция аккаунтов и дополнительные runtime-проверки.'}}
+function cleanLegacyUI(){
+ const arcadeWallet=$('profileWalletMrc')?.closest('.profileWalletBox');if(arcadeWallet)arcadeWallet.hidden=true;
+ ['adminBalanceInput','adminPokerTokensInput','adminLuckMode','adminActivateUser'].forEach(id=>{const e=$(id);if(e){const row=e.closest('.adminEditorField');if(row)row.hidden=true;else e.hidden=true}});
+ const gate=$('ageGateOverlay');if(gate){const p=gate.querySelector('p');if(p)p.textContent='В JRVX CAS используются только виртуальные MG. Реальные денежные ставки и вывод средств отсутствуют.'}
+ document.querySelectorAll('[data-game="pong"],[data-game="hangman"],[data-game="snake"],[data-game="ttt"],[data-game="breakout"],[data-game="race"],#pong,#hangman,#snake,#ttt,#breakout,#race').forEach(e=>{if(e&&!e.closest('#poker'))e.remove()});
+}
+function normalizeVisible(root=document.body){if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p||['SCRIPT','STYLE','TEXTAREA','INPUT','OPTION'].includes(p.tagName))return NodeFilter.FILTER_REJECT;return /JVRX|Jarvi|Mura Tokens|\bMT\b/.test(n.nodeValue||'')?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const n of nodes){let x=n.nodeValue;for(const [re,to] of VISIBLE_REPLACEMENTS)x=x.replace(re,to);if(x!==n.nodeValue)n.nodeValue=x}}
+function purgeLegacyAccountCaches(){const auth=window.JRVXCASIdentityV300?.state?.();if(auth?.mode!=='production')return;for(const key of ['jrvxCasMGDevelopmentV330','jarvisFriendsV51','jarvisRouletteHistoryV1','jarvisMuraTokensV1'])try{localStorage.removeItem(key)}catch{};if(window.arcadeNetState)window.arcadeNetState.friends=[];try{window.renderFriends?.()}catch{}}
+function health(){fetch('/health',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(h=>{if(!h)return;window.JRVXCASHealthV300=h;document.documentElement.dataset.jrvxServer=h.ok?'ready':'error';document.documentElement.dataset.jrvxAuth=h.auth?.mode||'unknown'}).catch(()=>{document.documentElement.dataset.jrvxServer='offline'})}
+function boot(){version();cleanLegacyUI();normalizeVisible();purgeLegacyAccountCaches();health();document.addEventListener('click',e=>{if(e.target.closest?.('[data-v103-route],[data-main-menu],.v103BottomNav,#v69ProfileBtn,#p59Leave,#p59Change'))setTimeout(()=>{version();cleanLegacyUI();normalizeVisible()},0)},{passive:true});[250,900,2200,5200].forEach(ms=>setTimeout(()=>{version();cleanLegacyUI();normalizeVisible();if(ms===2200)health()},ms))}
+document.addEventListener('jrvx-cas-identity',purgeLegacyAccountCaches);
+window.JRVXCASV300={version:VERSION,clean:cleanLegacyUI,normalize:normalizeVisible,health,purgeLegacyAccountCaches};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();

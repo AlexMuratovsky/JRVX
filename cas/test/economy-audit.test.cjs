@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v327/casino.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../public/assets/js-v328/casino.js'), 'utf8');
 const A = 'JRVX-ABCD12345678', B = 'JRVX-EFGH87654321';
 const drain = () => new Promise(resolve => setImmediate(resolve));
 const idle = () => ({ hands: [], dealer: [], active: false, hand: 0, hideDealer: true, currency: 'MS' });

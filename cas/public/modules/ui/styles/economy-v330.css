@@ -1,0 +1,23 @@
+/* MG-only wallet/store: original mode carousel and game layout are retained. */
+.v69WalletUnit strong,.v69CurrencyBalance,[data-v330-exact]{font-variant-numeric:tabular-nums;white-space:nowrap}
+.v69WalletPill{grid-template-columns:minmax(0,1fr)}
+.v69CurrencyChoice{grid-template-columns:minmax(0,1fr)}
+.v69ShopGrid{grid-template-columns:repeat(auto-fit,minmax(min(165px,100%),1fr))}
+.v69Pack strong,.v69Pack .v69Price{white-space:nowrap;font-variant-numeric:tabular-nums}
+#v330WalletHistory{padding:0;list-style:none;display:grid;gap:8px}
+#v330WalletHistory li{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px;border:1px solid #ffffff16;border-radius:12px}
+#v330WalletHistory li small{flex-basis:100%;color:#98a6ba}
+#v330WalletHistory li b{margin-left:auto;color:#e4c47d}
+@media(max-width:480px){.v69ShopGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.v69Pack{min-width:0;padding:12px}.v69Pack strong{font-size:20px}}
+@media(max-width:480px){
+ #v69Shop .v69ShopGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ #v69Shop .v69Pack{padding:12px 8px!important;min-width:0}
+ #v69Shop .v69PackCoin{width:44px!important;height:44px!important;margin:0 auto 10px!important;font-size:13px!important}
+ #v69Shop .v69Pack strong{font-size:17px!important;line-height:1.3}
+ #v69Shop .v69Pack .v69Price{font-size:16px!important;margin:12px 0!important}
+ #v69Shop .v69Pack .v69Btn{font-size:10px!important;white-space:normal!important;padding:8px 4px!important;min-height:38px}
+}
+@media(max-width:700px){
+ #v69Home#v69Home #jrvxCasAccountButton[data-mg-balance]::before{content:attr(data-mg-balance)!important;color:#e4c47d}
+ #v69Home#v69Home #jrvxCasAccountButton[data-mg-exact]:focus-visible::after{content:attr(data-mg-exact);position:fixed;top:62px;right:12px;padding:7px 10px;border:1px solid #e4c47d55;border-radius:8px;background:#101827;color:#edf2f8;font:12px/1.4 system-ui;z-index:20000}
+}

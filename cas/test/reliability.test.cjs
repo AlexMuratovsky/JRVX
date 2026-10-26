@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
-const casino=fs.readFileSync(path.join(root,'public/assets/js-v327/casino.js'),'utf8');
+const casino=fs.readFileSync(path.join(root,'public/assets/js-v328/casino.js'),'utf8');
 const progress=fs.readFileSync(path.join(root,'public/modules/profile/runtime/progression-v322.js'),'utf8');
 const drain=()=>new Promise(resolve=>setImmediate(resolve));
 function fixture({storageFails=false,fetchMode='ok'}={}){

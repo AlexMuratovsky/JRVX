@@ -1,0 +1,15 @@
+.v300HistoryHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+#v300HistoryStatus{color:#a4b8c6;font-size:12px;margin-bottom:10px;min-height:2.5em}
+#v300HistoryList{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:45dvh;overflow:auto;overscroll-behavior:contain}
+#v300HistoryList li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;border:1px solid #ffffff16;border-radius:10px;padding:9px 11px;background:#ffffff05}
+#v300HistoryList li div{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;min-width:0}
+#v300HistoryList strong{font-size:12px;color:#e9f3fb}
+#v300HistoryList span,#v300HistoryList time{font-size:11px;color:#a4b8c6}
+#v300HistoryList time{grid-column:1/-1}
+#v300HistoryList b{font-size:12px;white-space:nowrap;color:#a4b8c6}
+#v300HistoryList .win{color:#59dda1}#v300HistoryList .loss{color:#ff8a8a}
+.v328HistoryFilters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.v328HistoryFilters label{display:grid;gap:5px;flex:1 1 140px;color:#a4b8c6;font-size:12px;min-width:0}
+.v328HistoryFilters select{font:inherit;color:#e9f3fb;background:#101b29;border:1px solid #ffffff30;border-radius:9px;padding:9px;width:100%;min-width:0;min-height:40px;color-scheme:dark}
+.v328HistoryFilters select:focus-visible{outline:2px solid #e4c47d;outline-offset:2px}
+@media (orientation:landscape) and (max-height:600px){#v300HistoryList{max-height:32dvh}#v300HistoryList li{padding:5px 8px}#v300HistoryStatus{font-size:10px}.v328HistoryFilters{margin-bottom:6px}.v328HistoryFilters select{padding:5px;min-height:32px}}

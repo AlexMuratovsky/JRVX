@@ -15,11 +15,25 @@ for name in ('blackjack-reference','profile','leaderboard','updates','tutorial',
     files['assets/art/'+name+'-v323.webp'] = root/'public/assets/art'/(name+'-v323.webp')
 files['modules/legacy/runtime/wallet-v327.js'] = root/'public/modules/legacy/runtime/wallet-v327.js'
 files['modules/poker/runtime/poker-core-v326.js'] = root/'public/modules/poker/runtime/poker-core-v326.js'
-files['modules/poker/runtime/poker-pro-v326.js'] = root/'public/modules/poker/runtime/poker-pro-v326.js'
-for name in ('assets/js-v326/cas-bootstrap.js', 'assets/js-v327/casino.js', 'assets/js-v327/identity-account.js', 'modules/profile/runtime/progression-v322.js', 'modules/ui/runtime/experience-v322.js', 'modules/ui/runtime/pwa-v322.js'):
+files['modules/poker/runtime/poker-pro-v328.js'] = root/'public/modules/poker/runtime/poker-pro-v328.js'
+files['modules/profile/runtime/profile-v328.js'] = root/'public/modules/profile/runtime/profile-v328.js'
+files['modules/profile/runtime/admin-v328.js'] = root/'public/modules/profile/runtime/admin-v328.js'
+files['modules/profile/runtime/history-v328.js'] = root/'public/modules/profile/runtime/history-v328.js'
+files['modules/profile/styles/history-v328.css'] = root/'public/modules/profile/styles/history-v328.css'
+for name in ('assets/js-v326/cas-bootstrap.js', 'assets/js-v328/casino.js', 'assets/js-v327/identity-account.js', 'modules/profile/runtime/progression-v322.js', 'modules/ui/runtime/experience-v328.js', 'modules/ui/runtime/pwa-v328.js'):
     files[name] = root/'public'/name
-for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runtime/lifecycle-v325.js', 'modules/network/runtime/online-v327.js'):
+for name in ('modules/poker/runtime/poker-stability-v325.js', 'modules/core/runtime/lifecycle-v328.js', 'modules/network/runtime/online-v327.js'):
     files[name] = root/'public'/name
+for name in ('modules/ui/styles/panels-v329.css', 'modules/ui/styles/connection-v329.css', 'modules/ui/styles/game-guide-v329.css', 'modules/ui/runtime/panels-v329.js', 'modules/ui/runtime/connection-v329.js', 'modules/ui/runtime/game-guide-v329.js'):
+    files[name] = root/'public'/name
+# Apply the reviewed MG-only active paths, including formerly external legacy bundles.
+import json
+mg_paths=json.loads((root/'mg-v330-active-paths.json').read_text(encoding='utf-8'))
+for old,new in mg_paths['paths'].items():
+    files.pop(old,None)
+    files[new]=root/'public'/new
+for name in mg_paths['additional']:
+    files[name]=root/'public'/name
 (root/'deploy').mkdir(exist_ok=True)
 with ZipFile(root/'deploy/cas-ecosystem.zip','w',compression=ZIP_DEFLATED) as out:
     dirs = {str(parent).replace('\\','/')+'/' for name in files for parent in Path(name).parents if str(parent) != '.'}

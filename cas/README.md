@@ -1,18 +1,43 @@
-# JRVX CAS interface and game reliability
+# JRVX CAS — MG economy v330
 
-The current repository package is the **published v327 release**,
-deployed on 24 October 2026 after explicit owner approval. It contains 33 public files and fixes blackjack
-acknowledgement recovery, account/logout races, poker join/leave intent lifecycle,
-currency labels and a clipped desktop poker bet button. Validation: 280 client
-tests, 31 identity/gateway tests, 46 backend-rule tests, 19 full CAS runtime groups,
-5 actual CAS/ID Worker OIDC groups, 13 additional room fault/restart groups, actual
-Service Worker upgrade/failure/rollback and 24 browser layout configurations. See
-`FULL_AUDIT_20261024.md` for exact boundaries, evidence, package hash and rollback.
-Production runs v327. All 33 package files match live HTTP; all 161 precache
-resources are available, and the previous active assets remain intact for rollback.
-The backend and live game data were not changed by this publication.
-The sections below also describe earlier published releases and their checks.
+The current repository contains an **unpublished MG-only v330 candidate**, including
+an actual CAS Worker, D1 migrations, the client overlay and automated tests.
+**Production still runs v327. No live wallet migration or v330 deployment has occurred.**
+The original mode carousel, card order and existing dark design are preserved.
 
+The candidate replaces active MS with MG, preserves every existing MG balance and
+credits remaining MS once at the verified rate `ceil(MS / 300)`. Atomic migration
+creates private CAS archives before rebuilding active tables. It requires a complete
+game drain; it does not touch JRVX ID or another project's database. Old mixed monetary
+statistics are archived, while XP, achievements, game counters and accounts remain.
+
+The five server catalog packages contain 100K / 500K / 1M / 2M / 3M MG at the original
+119 / 499 / 899 / 1,699 / 2,499 RUB prices. **Real payment is intentionally disabled at
+the owner's request.** There is no client purchase simulation or local production
+credit. The daily award is exactly 10,000 MG, once per server UTC calendar day.
+A single BigInt-aware formatter truncates K/M values and supplies exact money labels.
+
+Final validation and artifact metrics are **VALIDATION_PENDING** after the last
+capacity review. See [the v330 implementation and migration report](MG_UPDATE_V330_20261025.md)
+for files, tests, evidence, restrictions and the cutover runbook. The active path map
+is `mg-v330-active-paths.json`; legacy source/output hashes are in
+`mg-legacy-v330-manifest.json`. Client packaging is `python package-reg.py` followed
+by `python verify-release.py`; the separate server uses `server/build.mjs` and pinned
+dependencies in `server/package.json` / `server/pnpm-lock.yaml`.
+
+Publication remains a separate owner-approved step. The last read-only CAS snapshot
+still contains two active blackjack rounds. They must finish under the old rules,
+followed by a full CAS namespace audit and CAS-only backup before atomic migration.
+**After MG financial cutover, restoring an old MS database/Worker is not a safe automatic
+rollback.** Preserve new MG transactions and use the report's recovery procedure.
+
+## Historical client release notes
+
+The following notes describe earlier client releases and their historical checks;
+references to MS, currency selection, exchange and static-shell rollback below do
+not describe the current MG candidate or its financial migration procedure. v327
+publication evidence is in `FULL_AUDIT_20261024.md`, and the earlier unpublished
+v329 changes are recorded in `GLOBAL_UPDATE_V329_20261024.md`.
 This release updates the existing CAS 3.0.17 installation at
 https://cas.jrvx.ru/. The retained HTML shell still loads the installed CAS
 modules. This directory contains the modified public bundles and UI modules;
@@ -73,7 +98,7 @@ Identity, saved profiles, currency and age acceptance retain their existing
 contracts.
 
 Build `deploy/cas-ecosystem.zip` with `python package-reg.py`. It contains only
-33 public files: `index.html`, its service worker, the versioned UI assets and
+43 public files: `index.html`, its service worker, the versioned UI assets and
 the modified client bundles. The worker
 precaches those assets under a new shell cache name; it does not cache API calls.
 Extract over the existing CAS
