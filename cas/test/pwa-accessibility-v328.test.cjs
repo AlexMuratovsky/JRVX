@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/modules/ui/runtime/pwa-v328.js'), 'utf8');
+const source = fs.readFileSync(process.env.JRVX_PWA_SOURCE || path.join(__dirname, '../public/modules/ui/runtime/pwa-v328.js'), 'utf8');
 
 function fixture({ coarse = false } = {}) {
   const documentEvents = new Map(), windowEvents = new Map();

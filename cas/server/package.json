@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "build:recovery": "node build-v332.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

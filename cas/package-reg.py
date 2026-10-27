@@ -28,7 +28,7 @@ for name in ('modules/ui/styles/panels-v329.css', 'modules/ui/styles/connection-
     files[name] = root/'public'/name
 # Apply the reviewed MG-only active paths, including formerly external legacy bundles.
 import json
-mg_paths=json.loads((root/'mg-v330-active-paths.json').read_text(encoding='utf-8'))
+mg_paths=json.loads((root/'recovery-v332-active-paths.json').read_text(encoding='utf-8'))
 for old,new in mg_paths['paths'].items():
     files.pop(old,None)
     files[new]=root/'public'/new

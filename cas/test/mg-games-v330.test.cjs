@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const source = fs.readFileSync(path.join(__dirname, '../public/modules/network/runtime/online-v330.js'), 'utf8');
+const source = fs.readFileSync(process.env.JRVX_MG_ONLINE_SOURCE || path.join(__dirname, '../public/modules/network/runtime/online-v330.js'), 'utf8');
 const join = () => ({ type: 'poker_join', mode: 'online', tableId: '2-4', buyIn: 40 });
 const tableState = (revision = 5, roomId = 'room-current') => ({
   authoritative: true, roomId, tableId: '1-2', currency: 'MG', mode: 'online', handNo: 3, revision,
@@ -179,7 +179,7 @@ test('changing owner closes old spectator and invite UI without sending an old-o
 
 const Money = require('../public/modules/core/runtime/money-v330.js');
 const Core = require('../public/modules/poker/runtime/poker-core-v330.js');
-const casinoSource = fs.readFileSync(path.join(__dirname, '../public/assets/js-v330/casino.js'), 'utf8');
+const casinoSource = fs.readFileSync(process.env.JRVX_MG_CASINO_SOURCE || path.join(__dirname, '../public/assets/js-v330/casino.js'), 'utf8');
 const OWNER = 'JRVX-ABCD12345678';
 const idleMG = () => ({ hands: [], dealer: [], active: false, hand: 0, hideDealer: true, currency: 'MG' });
 const cardMG = r => ({ r, s: '♠' });

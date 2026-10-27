@@ -41,7 +41,7 @@ test('service worker installs all versioned assets before replacing the active s
   assert.deepEqual(f.events, []);
   assert.ok(f.precache.length > 150);
   const names = f.precache.map(key);
-  for (const asset of ['/assets/js-v330/casino.js', '/assets/js-v330/identity-account.js', '/modules/network/runtime/online-v330.js', '/modules/legacy/runtime/wallet-v330.js', '/modules/ui/styles/gameplay-v327.css']) assert.ok(names.includes(asset));
+  for (const asset of ['/assets/js-v332/casino.js', '/assets/js-v330/identity-account.js', '/modules/network/runtime/online-v331.js', '/modules/legacy/runtime/wallet-v330.js', '/modules/ui/styles/gameplay-v327.css']) assert.ok(names.includes(asset));
   assert.ok(f.precache.every(req => req.cache === 'reload'));
   gate.resolve(); await installation;
   assert.deepEqual(f.events, ['skip']); assert.equal(f.timers.size, 0);
@@ -105,8 +105,8 @@ test('navigation deadline aborts a stalled fetch and restores the cached shell',
 });
 
 test('static shell files use cached content and do not store rejected or opaque responses', async () => {
-  const f = fixture(); f.stores.set(cacheName, new Map([['/assets/js-v330/casino.js', new Response('cached')]]));
-  assert.equal(await (await f.request('/assets/js-v330/casino.js?cachebust=1')).text(), 'cached');
+  const f = fixture(); f.stores.set(cacheName, new Map([['/assets/js-v332/casino.js', new Response('cached')]]));
+  assert.equal(await (await f.request('/assets/js-v332/casino.js?cachebust=1')).text(), 'cached');
   assert.equal(f.network.length, 0);
   f.context.reply = async () => ({ ok: true, type: 'opaque' }); await f.request('/offline.html');
   f.context.reply = async () => new Response('404', { status: 404 }); await f.request('/offline.html');
@@ -135,7 +135,7 @@ test('a cache quota failure cannot replace a successful online navigation with t
 test('a cache write failure cannot turn a downloaded static asset into a network error', async () => {
   const f = fixture(); f.context.caches.open = async () => ({ put: async () => { throw Error('disk full'); } });
   f.context.reply = async () => ({ ok: true, type: 'basic', status: 200, text: async () => 'fresh asset', clone: () => new Response('fresh asset') });
-  const result = await f.request('/assets/js-v330/casino.js');
+  const result = await f.request('/assets/js-v332/casino.js');
   assert.equal(result.status, 200); assert.equal(await result.text(), 'fresh asset');
   await Promise.all(f.background);
 });

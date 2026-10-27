@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../public/modules/core/runtime/lifecycle-v328.js'), 'utf8');
+const source = fs.readFileSync(process.env.JRVX_LIFECYCLE_SOURCE || path.join(__dirname, '../public/modules/core/runtime/lifecycle-v328.js'), 'utf8');
 const A = 'JRVX-ABCD12345678', B = 'JRVX-EFGH87654321';
 const start = source.indexOf('function syncNetwork('), end = source.indexOf('\nfunction syncAll(', start);
 assert(start >= 0 && end > start);

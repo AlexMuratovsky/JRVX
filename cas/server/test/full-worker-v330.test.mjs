@@ -14,7 +14,9 @@ const legacyRequire=createRequire(new URL('../../../identity/package.json',impor
 const require=name=>{let target;try{target=localRequire.resolve(name)}catch(error){if(error.code!=='MODULE_NOT_FOUND')throw error;target=legacyRequire.resolve(name)}return localRequire(target)};
 const { Miniflare, convertV4MiniflareOptions } = require('miniflare');
 const miniflareVersion = require('miniflare/package.json').version;
-const workerPath = path.resolve(here, '../worker-v330.mjs');
+// Preserve the historical v330 default; versioned compatibility runners can
+// exercise these same actual Worker/D1/DO scenarios against a newer local source.
+const workerPath = path.resolve(process.env.CAS_FULL_WORKER_SOURCE || path.resolve(here, '../worker-v330.mjs'));
 const workerBytes = await readFile(workerPath);
 const sha = value => createHash('sha256').update(value).digest('hex');
 const runPath = await mkdtemp(path.join(tmpdir(), 'cas-v330-full-runtime-'));
@@ -45,7 +47,8 @@ const discovery = {
   code_challenge_methods_supported: ['S256']
 };
 const mf = new Miniflare(convertV4MiniflareOptions({
-  modules: [{ type: 'ESModule', path: workerPath },{type:'ESModule',path:path.resolve(here,'../economy-v330.mjs')}],
+  modules: [{ type: 'ESModule', path: workerPath },{type:'ESModule',path:path.resolve(here,'../economy-v330.mjs')},
+    ...(process.env.CAS_FULL_WORKER_RECOVERY === 'v332' ? [{type:'ESModule',path:path.resolve(here,'../recovery-v332.mjs')}] : [])],
   modulesRoot:path.resolve(here,'..'),
   compatibilityDate: '2026-09-30', compatibilityFlags: ['nodejs_compat'],
   resourcePersistencePath: runPath,
@@ -633,7 +636,7 @@ try {
       'D1 uses the real MG migration and daily/purchase schema plus local mutation instrumentation; no production data is used.',
       'Blackjack draw order is seeded only in local synthetic state; game actions, accounting and history use the actual v330 candidate Worker.']
   };
-  const resultPath = path.join(process.env.CAS_EVIDENCE_DIR||tmpdir(),'full-worker-v330-result.json');
+  const resultPath = path.join(process.env.CAS_EVIDENCE_DIR||tmpdir(),process.env.CAS_FULL_WORKER_RESULT_NAME||'full-worker-v330-result.json');
   await writeFile(resultPath, JSON.stringify(result, null, 2) + '\n');
   console.log(JSON.stringify({ resultPath, passed: result.passed, failed: result.failed, outboundAttempts: outboundAttempts.length, candidateSHA256: result.candidate.sha256 }));
 }
