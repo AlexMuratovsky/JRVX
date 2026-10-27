@@ -1,6 +1,7 @@
 import {STORAGE_KEY,TOOLS,COUNTRIES,seed,safeLoad,save,uid,esc,subjectInitials,extractPlannerSubjects,buildPrompt,isValidSubject,isValidDeadline} from './core.js';
 const $=q=>document.querySelector(q);
-let data=safeLoad(localStorage);
+const storage=(()=>{try{const s=window.localStorage;s.getItem(STORAGE_KEY);return s;}catch{const memory=new Map();return {getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,String(v))};}})();
+let data=safeLoad(storage);
 let route={page:'home',subjectId:null,toolId:null};
 let preparedPrompt='',previewSubjects=[];
 const iconPaths={
@@ -31,7 +32,7 @@ const iconPaths={
 };
 const ic=(name)=>`<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${iconPaths[name]||iconPaths.info}</svg>`;
 const getSubject=()=>data.subjects.find(s=>s.id===route.subjectId);
-const saveData=()=>save(localStorage,data);
+const saveData=()=>save(storage,data);
 function navigate(page,subjectId=null,toolId=null){route={page,subjectId,toolId};preparedPrompt='';render();window.scrollTo({top:0,behavior:'instant'});}
 function toast(message){const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
 function navButton(page,name,icon){return `<button class="${route.page===page?'active':''}" data-nav="${page}"><span class="nav-icon">${ic(icon)}</span><span class="nav-title">${name}</span></button>`;}
