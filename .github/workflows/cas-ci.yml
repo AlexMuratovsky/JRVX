@@ -39,3 +39,4 @@ jobs:
           find cas/server -path '*/node_modules' -prune -o -path '*/build' -prune -o -type f -name '*.mjs' -print0 | xargs -0 -n 1 node --check
           pnpm --dir cas/server test
           pnpm --dir cas/server build
+          pnpm --dir cas/server build:recovery

@@ -1,8 +1,12 @@
-# JRVX CAS — MG economy v330
+# JRVX CAS — MG economy v330, local recovery improvements v331–v332
 
-The current repository contains an **unpublished MG-only v330 candidate**, including
+The repository contains the validated MG-only v330 implementation and a **local v331
+follow-up** for rejected game requests and roulette keyboard controls, plus a local
+**v332** exact receipt lookup and mobile lifecycle follow-up. It includes
 an actual CAS Worker, D1 migrations, the client overlay and automated tests.
-**Production still runs v327. No live wallet migration or v330 deployment has occurred.**
+**Publication is postponed at the owner's request. Production uses the original
+server and v327 shell; wallet migration has not occurred.** The temporary drain was
+cancelled before migration, so new games are available again.
 The original mode carousel, card order and existing dark design are preserved.
 
 The candidate replaces active MS with MG, preserves every existing MG balance and
@@ -17,17 +21,37 @@ the owner's request.** There is no client purchase simulation or local productio
 credit. The daily award is exactly 10,000 MG, once per server UTC calendar day.
 A single BigInt-aware formatter truncates K/M values and supplies exact money labels.
 
-Final validation and artifact metrics are **VALIDATION_PENDING** after the last
-capacity review. See [the v330 implementation and migration report](MG_UPDATE_V330_20261025.md)
-for files, tests, evidence, restrictions and the cutover runbook. The active path map
-is `mg-v330-active-paths.json`; legacy source/output hashes are in
+v330 passed 551 client tests and 50 server Node tests, including 31 actual Worker/D1/DO
+scenario groups; six actual local CAS + ID OIDC scenarios were checked separately.
+Its CI passed and PR15 was merged. See [the v330 report](MG_UPDATE_V330_20261025.md)
+for that candidate's files, evidence and cutover runbook, and
+[the current development plan](DEVELOPMENT_PLAN_20261026.md) for v331 work and status.
+The active local path map is `recovery-v332-active-paths.json`; the historical v330/v331
+map is retained. Legacy source/output hashes are in
 `mg-legacy-v330-manifest.json`. Client packaging is `python package-reg.py` followed
 by `python verify-release.py`; the separate server uses `server/build.mjs` and pinned
 dependencies in `server/package.json` / `server/pnpm-lock.yaml`.
 
-Publication remains a separate owner-approved step. The last read-only CAS snapshot
-still contains two active blackjack rounds. They must finish under the old rules,
-followed by a full CAS namespace audit and CAS-only backup before atomic migration.
+v332 adds a separate read-only game check in the existing connection dialog for
+blackjack and roulette. Only a matching owner, intent ID and original request can
+clear an uncertain action. Missing receipts, timeouts and identity changes preserve
+it. Recovery never submits a wager, and a historical receipt cannot overwrite the
+current wallet. New Worker GET routes require `server/worker-v332.mjs`, built with
+`node server/build-v332.mjs` (or `pnpm --dir cas/server build:recovery`). The default
+v330 build and its immutable source remain available. No financial migration SQL,
+game rules, probabilities or carousel were changed in this follow-up.
+
+Validation: 789 client tests, 64 server tests, 99 JS/MJS syntax checks, a 66-file
+overlay, and local full-app browser checks at 320×568, 844×390 and 1280×720. A real
+local service worker installed and controlled the page; physical devices and a
+native installed-PWA upgrade remain unverified. See
+[the v332 report](RECOVERY_UPDATE_V332_20261027.md). All v331/v332 work is local,
+with no push or publication.
+
+Publication requires a renewed owner instruction. The last read-only CAS snapshot
+contains two active blackjack rounds. Before any future cutover, repeat the live
+game check, full CAS namespace audit and CAS-only backup; existing hands finish under
+their original rules.
 **After MG financial cutover, restoring an old MS database/Worker is not a safe automatic
 rollback.** Preserve new MG transactions and use the report's recovery procedure.
 

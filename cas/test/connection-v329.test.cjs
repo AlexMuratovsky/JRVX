@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
-const source=fs.readFileSync(path.join(__dirname,'../public/modules/ui/runtime/connection-v329.js'),'utf8');
+const source=fs.readFileSync(process.env.JRVX_CONNECTION_SOURCE||path.join(__dirname,'../public/modules/ui/runtime/connection-v329.js'),'utf8');
 const tick=async()=>{for(let i=0;i<8;i++)await Promise.resolve()};
 const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no});return{promise,resolve,reject}};
 function fixture({loading=false,seated=false}={}){
@@ -128,3 +128,4 @@ test('destroy is idempotent, removes owned UI, listeners and timers, and prevent
 test('destroy before DOMContentLoaded cannot initialize buttons or polling later',()=>{
  const f=fixture({loading:true});f.api.destroy();f.fireDocument('DOMContentLoaded');assert.equal(f.lobby.children.length,0);assert.equal(f.timers.size,0);
 });
+module.exports={fixture,tick,deferred};
