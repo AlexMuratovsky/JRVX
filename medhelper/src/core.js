@@ -1,0 +1,27 @@
+export const STORAGE_KEY = 'jrvx-medhelper-demo-v1';
+export const TOOLS = [
+ {id:'practice',name:'Отработка',description:'Подготовка ответа по теме',icon:'file-text',options:['1 страница','2 страницы','3 страницы','5 страниц'],default:'2 страницы'},
+ {id:'essay',name:'Реферат',description:'Структурированный учебный текст',icon:'files',options:['Краткий','Средний','Подробный'],default:'Средний'},
+ {id:'video',name:'Видеоуроки',description:'План поиска проверенных лекций',icon:'play',options:['Введение в тему','Углублённый разбор'],default:'Введение в тему'},
+ {id:'quiz',name:'Тестирование',description:'Контроль знаний с пояснениями',icon:'list-check',options:['Лёгкий','Средний','Сложный'],default:'Средний'},
+ {id:'slides',name:'Презентация',description:'План академических слайдов',icon:'presentation',options:['5 слайдов','7 слайдов','10 слайдов','15 слайдов','20 слайдов'],default:'10 слайдов'}
+];
+export const COUNTRIES=['Россия','Беларусь','Казахстан','США','Великобритания','Германия','Франция','Япония','Международные','Другая страна'];
+export const seed=()=>({version:1,selected:null,country:'Россия',subjects:[
+ {id:'demo-1',name:'Патофизиология',color:'sage',initials:'ПФ',country:'',createdAt:new Date().toISOString(),deadlines:[],topics:[{id:'t-1',title:'Воспаление: этиология и патогенез'}],files:[]},
+ {id:'demo-2',name:'Анатомия человека',color:'lilac',initials:'АН',country:'',createdAt:new Date().toISOString(),deadlines:[],topics:[{id:'t-2',title:'Сердечно-сосудистая система'}],files:[]},
+ {id:'demo-3',name:'Терапевтическая стоматология',color:'sand',initials:'ТС',country:'',createdAt:new Date().toISOString(),deadlines:[],topics:[],files:[]}
+ ],history:[],welcomeDismissed:false});
+export function safeLoad(storage){try{const value=JSON.parse(storage.getItem(STORAGE_KEY));if(value&&value.version===1&&Array.isArray(value.subjects)&&Array.isArray(value.history))return value;}catch{}return seed();}
+export function save(storage,state){storage.setItem(STORAGE_KEY,JSON.stringify(state));}
+export const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`;
+export const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+export function subjectInitials(name){return String(name||'МД').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();}
+export function extractPlannerSubjects(data){const candidates=[];const seen=new Set();function scan(node,depth=0){if(depth>8||!node||typeof node!=='object')return;if(Array.isArray(node)){node.slice(0,1000).forEach(x=>scan(x,depth+1));return;}const keys=['subject','subjectName','subject_name','discipline','disciplineName','course','courseName','предмет','дисциплина'];const hasScheduleContext=keys.some(k=>typeof node[k]==='string');if(hasScheduleContext){for(const k of keys)if(typeof node[k]==='string')candidates.push(node[k]);}for(const [key,v] of Object.entries(node))if(['schedule','lessons','subjects','timetable','events','items','courses','plans','entries','weeks','days','data'].includes(key.toLowerCase()))scan(v,depth+1);}
+scan(data);for(const x of candidates){let n=x.replace(/\s+/g,' ').trim();if(n.length>=2&&n.length<=100)seen.add(n);}return [...seen].sort((a,b)=>a.localeCompare(b,'ru'));}
+export function sourceInstruction(country,files=[]){const where=country==='Международные'?'актуальные международные профессиональные медицинские источники':`преимущественно медицинские учебники, официальные рекомендации и научные публикации страны «${country}»`;const user=files.length?`Сначала учитывай указанные пользователем источники: ${files.map(x=>x.name).join('; ')}. Если содержимое источника недоступно, не утверждай, что ознакомился с ним. `:'';return user+`Используй ${where}. Указывай проверяемые выходные данные и ссылки, не придумывай библиографию. Если источников недостаточно, явно сообщи об этом и обозначь происхождение дополнительных источников. Учитывай, что клинические рекомендации разных стран могут расходиться. Не выдавай учебный материал за персональный медицинский совет.`;}
+export function buildPrompt({subject,tool,topic,option,country,files=[],extra=''}){const head=`Учебная дисциплина: ${subject}.\nТема: ${topic}.\nТип задания: ${tool.name}.\nВыбранный параметр (один вариант): ${option}.`;
+const tasks={practice:'Подготовь последовательную отработку с определениями, основными механизмами, клиническим значением и кратким выводом.',essay:'Напиши академический реферат со введением, основными разделами, заключением и списком литературы.',video:'Подбери реальный список доступных видеолекций и дай проверяемые названия, авторов и ссылки; если поиск недоступен, составь план поиска, не выдумывая видео.',quiz:'Составь тест из 10 вопросов с 4 вариантами ответа, единственным правильным ответом и объяснением после каждого вопроса.',slides:'Составь план слайдов, тезисы для каждого слайда, текст доклада и рекомендации к медицинским иллюстрациям с указанием первоисточника.'};
+return `${head}\n${extra?`Дополнительные требования: ${extra}.\n`:''}\nЗАДАЧА\n${tasks[tool.id]}\n\nИСТОЧНИКИ И ДОСТОВЕРНОСТЬ\n${sourceInstruction(country,files)}\n\nУровень: медицинский вуз. Язык: русский.`;}
+export function isValidSubject(name,others=[]){const n=String(name||'').trim();return n.length>=2&&n.length<=80&&!others.some(x=>x.name.toLowerCase()===n.toLowerCase());}
+export function isValidDeadline(s){return Boolean(s&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!Number.isNaN(new Date(s+'T00:00:00').getTime()));}
