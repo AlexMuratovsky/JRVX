@@ -21,7 +21,7 @@ existing Sites source repository.
 The homepage introduces JRVX and groups six verified projects/directions into
 apps, games and laboratory work. Each has a detail page. Only the public ID,
 Planner and CAS services have external launch links; Arcade opens Planner.
-AI and RIFT carry development/prototype statuses. MineCore and CORE are absent.
+AI remains an experimental direction. The public catalogue lists supported applications.
 
 The Sites implementation also preserves the previous planner at `/workspace`,
 redirects known old `/?view=` links, updates legacy return links and the ChatGPT

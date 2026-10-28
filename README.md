@@ -9,9 +9,7 @@ point is [jrvx.ru](https://jrvx.ru/), rebuilt as an ecosystem overview on
 - [JRVX ID](https://id.jrvx.ru/): account and connected services.
 - [JRVX Planner](https://planner.jrvx.ru/): tasks and the embedded Arcade module.
 - [JRVX CAS](https://cas.jrvx.ru/): virtual-unit table games, 18+.
-- JRVX AI and RIFT are experimental directions, not separate public launches.
-
-MineCore and CORE have been retired. See [the retirement record](docs/retirement-2026-10-20.md).
+- JRVX AI remains experimental, not a separate public launch.
 
 ## Source and deployment
 
