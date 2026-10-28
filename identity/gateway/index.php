@@ -82,7 +82,7 @@ function bridgeMethods(string $host, string $path): array {
     if (preg_match('~^/api/v2/admin/users/[a-f0-9-]{36}$~iD', $path)) $methods = ['GET', 'PATCH'];
     if (preg_match('~^/api/v2/admin/users/[a-f0-9-]{36}/sessions/revoke$~iD', $path)) $methods = ['POST'];
     if (preg_match('~^/api/v2/admin/apps/[a-z][a-z0-9_-]{1,31}$~D', $path)) $methods = ['POST', 'PATCH'];
-    if (preg_match('~^/(?:assets/(?:cas|planner|minecore|rift)\.svg|runtime/id-icon-(?:cas|planner|minecore|rift))$~D', $path)) $methods = ['GET'];
+    if (preg_match('~^/(?:assets/(?:cas|planner)\.svg|runtime/id-icon-(?:cas|planner))$~D', $path)) $methods = ['GET'];
     if ($methods && (str_starts_with($path, '/api/') || str_starts_with($path, '/oidc/') || str_starts_with($path, '/oauth/'))) $methods[] = 'OPTIONS';
     return $methods;
 }
