@@ -376,7 +376,7 @@ function portal() {
       const card = el("article", void 0, "app-card"), head = el("div", void 0, "app-heading"), title = el("div");
       title.append(el("h3", app.name || app.app_key || app.key), tag(statusLabel(app.status || "development"), app.status === "available"));
       const icon = el("div", (app.app_key || app.key || app.name || "J").slice(0, 1).toUpperCase(), "app-icon");
-      if (/^\/runtime\/id-icon-(cas|planner|minecore|rift)$/.test(app.icon || "")) {
+      if (/^\/runtime\/id-icon-(cas|planner)$/.test(app.icon || "")) {
         const img = document.createElement("img");
         img.src = app.icon;
         img.alt = "";

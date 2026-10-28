@@ -13,13 +13,9 @@ The complete Planner application is now in [`../planner/source/`](../planner/sou
 - `planner.jrvx.ru`: tasks, schedule, plans, notes and JRVX Arcade.
 - `cas.jrvx.ru`: virtual-unit games, 18+.
 
-MineCore and CORE are absent. The former-planner FAQ and footer link have been
-removed from every marketing page. `.htaccess` redirects legacy application
-routes to `planner.jrvx.ru` rather than a Sites URL. Marketing cleanup and RIFT
-removal are complete: the public homepage and sitemap omit RIFT, and the former
-`/projects/rift/` page returns HTTP 410. The separate `jrvx-rift-next` Worker and
-`jrvx-rift-next-test` database were deleted after backup; private recovery files
-remain outside Git.
+The former-planner FAQ and footer link have been removed from every marketing
+page. `.htaccess` redirects legacy application routes to `planner.jrvx.ru` rather
+than a Sites URL. The catalogue and sitemap list supported applications only.
 
 Planner and Arcade use the same paper, green and lime visual palette as this
 website. JRVX ID receives its matching presentation through
@@ -71,4 +67,4 @@ stylesheet and script responses. Planner and ID styling are published. CAS searc
 and ecosystem links are also published; gameplay was not tested. Arcade retains
 local saves, and its existing cloud synchronization is unavailable. The combined
 REG.RU release is deployed and the Planner health endpoint returns 200. Public
-checks confirm the completed marketing cleanup and RIFT removal described above.
+checks confirm the completed marketing cleanup described above.

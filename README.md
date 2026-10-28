@@ -11,8 +11,6 @@ ecosystem and a catalogue of projects. Applications run on their own subdomains.
 - [JRVX CAS](https://cas.jrvx.ru/): virtual-unit table games, 18+.
 - JRVX AI remains an experimental direction, not a separate public launch.
 
-MineCore and CORE have been retired. See [the retirement record](docs/retirement-2026-10-20.md).
-
 ## Source and deployment
 
 - `ecosystem/static/`: the complete buildless marketing website for REG.RU.
@@ -45,11 +43,8 @@ owner's request; external Sites/ChatGPT MCP authentication and Arcade cloud
 synchronization are not part of this migration.
 
 The CAS interface update is published, including search and ecosystem links;
-gameplay has not been tested in this release. Marketing cleanup and RIFT removal
-are complete: the public catalogue and sitemap omit RIFT, its former project
-page returns 410, and its separate Worker and test database have been removed.
-Recovery backups remain outside Git. See [marketing deployment notes](ecosystem/README.md) and
-[Planner deployment and data notes](planner/README.md).
+gameplay has not been tested in this release. See [marketing deployment notes](ecosystem/README.md)
+and [Planner deployment and data notes](planner/README.md).
 
 ## Branding and secrets
 
