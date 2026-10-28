@@ -44,8 +44,6 @@ jobs:
         run: pnpm test
       - name: Check TypeScript
         run: pnpm exec tsc --noEmit
-      - name: Lint Planner sources
-        run: pnpm lint
       - name: Build standalone Planner application
         run: |
           pnpm build
@@ -56,3 +54,5 @@ jobs:
         run: pnpm exec wrangler deploy --config wrangler.jsonc --dry-run
       - name: Check REG.RU PHP gateway syntax
         run: php -l ../gateway/index.php
+      - name: Lint Planner sources
+        run: pnpm lint
